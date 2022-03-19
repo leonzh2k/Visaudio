@@ -13,7 +13,7 @@ function boxes(vizMetadata, proxyUrl) {
 
             console.log("load");
             sketch.soundFormats('mp3');
-            font = sketch.loadFont("../assets/VPSCOURT.TTF");
+            font = sketch.loadFont("./assets/VPSCOURT.TTF");
 
             console.log("preload done")
         }
