@@ -13,7 +13,8 @@ function boxes(vizMetadata, proxyUrl) {
 
             console.log("load");
             sketch.soundFormats('mp3');
-            font = sketch.loadFont("./assets/VPSCOURT.TTF");
+            let filepath = "./assets/VPSCOURT.TTF";
+            font = sketch.loadFont(filepath);
 
             console.log("preload done")
         }
@@ -99,7 +100,7 @@ function boxes(vizMetadata, proxyUrl) {
 
         function toggleAudio() {
             // console.log("canvas pressed");
-            console.log(song)
+            // console.log(song)
             if (song != undefined) {
 
                 if (song.isPlaying()) {
