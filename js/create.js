@@ -1,5 +1,7 @@
 (() => {
     console.log("ready")
+    // MVC?
 
+    
 
 })();
