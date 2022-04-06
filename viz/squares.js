@@ -1,16 +1,17 @@
+import { bindBoilerplateFunctions } from "./viz.js";
 function squares(vizMetadata, proxyUrl) {
     const s = ( sketch ) => {
         let rotate = 0;
         let windowHeight = window.innerHeight;
-        // for local dev, use the demo server, for production, use my own server
-        // https://mighty-stream-75885.herokuapp.com
-        // https://cors-anywhere.herokuapp.com
-        // let proxyUrl = "https://cors-anywhere.herokuapp.com";
+ 
         let songName = `${proxyUrl}/${vizMetadata.get("vizParams").songUrl}`;
         let song;
         let fft;
         let audioLoading = true;
         let p;
+
+        bindBoilerplateFunctions(sketch, song);
+
         sketch.preload = () => {
 
             console.log("load");
@@ -101,14 +102,14 @@ function squares(vizMetadata, proxyUrl) {
 
         // Force stop audio, since audio occasionally keeps on playing even when the sketch is removed.
         // Is called in removeViz() in main script.
-        sketch.stopAudio = () => {
-            if (song != undefined) {
-                song.pause();
-            } else {
-                console.log("song removed before assigned")
-            }
+        // sketch.stopAudio = () => {
+        //     if (song != undefined) {
+        //         song.pause();
+        //     } else {
+        //         console.log("song removed before assigned")
+        //     }
             
-        }
+        // }
 
         function toggleAudio() {
             // console.log("canvas pressed");

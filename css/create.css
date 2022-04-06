@@ -1,0 +1,18 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    border: 2px red solid;
+}
+
+
+#container {
+    display: grid;
+    width: 100%;
+    /* max-width: 1366px;
+    min-width: 900px; */
+    margin: 1em auto;
+
+    /* grid-template-columns: */
+}

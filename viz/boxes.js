@@ -1,14 +1,18 @@
+import { bindBoilerplateFunctions } from "./viz.js";
 function boxes(vizMetadata, proxyUrl) {
     const s = ( sketch ) => {
         // let rotate = 0;
         let windowHeight = window.innerHeight;
   
         let songName = `${proxyUrl}/${vizMetadata.get("vizParams").songUrl}`;
-        let song;
+        sketch.song = null;
         let fft;
         let audioLoading = true;
         let p;
         let font;
+
+        bindBoilerplateFunctions(sketch);
+
         sketch.preload = () => {
 
             console.log("load");
@@ -37,7 +41,7 @@ function boxes(vizMetadata, proxyUrl) {
             // I put "XMLHttpRequest" here, but you can use anything you want.
             request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
             request.onload = function() {
-                song = sketch.loadSound(request.response);
+                sketch.song = sketch.loadSound(request.response);
                 audioLoading = false;
                 console.log("song ready")
             };
@@ -89,26 +93,23 @@ function boxes(vizMetadata, proxyUrl) {
 
         // Force stop audio, since audio occasionally keeps on playing even when the sketch is removed.
         // Is called in removeViz() in main script.
-        sketch.stopAudio = () => {
-            if (song != undefined) {
-                song.pause();
-            } else {
-                console.log("song removed before assigned")
-            }
+        // sketch.stopAudio = () => {
+        //     if (song != undefined) {
+        //         song.pause();
+        //     } else {
+        //         console.log("song removed before assigned")
+        //     }
             
-        }
+        // }
 
         function toggleAudio() {
-            // console.log("canvas pressed");
-            // console.log(song)
-            if (song != undefined) {
-
-                if (song.isPlaying()) {
-                    song.pause();
+            if (sketch.song != null) {
+                if (sketch.song.isPlaying()) {
+                    sketch.song.pause();
                     p.html('play');
                     // sketch.noLoop();
                 } else {
-                    song.play();
+                    sketch.song.play();
                     p.html('pause');
                     // sketch.loop();
                 }
@@ -119,7 +120,6 @@ function boxes(vizMetadata, proxyUrl) {
                        // let fs = sketch.fullscreen();
             // sketch.fullscreen(!fs);
         };
-        console.log("squres ready");
     };
     return s;
 }

@@ -1,5 +1,5 @@
-import vizMapping from "./modules/vizMapping.js";
-import {asyncFetchTrackData} from "./modules/apiCalls.js";
+import vizMapping from "../modules/vizMapping.js";
+import {asyncFetchTrackData} from "../modules/apiCalls.js";
 // import squaresExperimental from "./viz/squaresExperimental.js";
 (() => {
 

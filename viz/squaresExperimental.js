@@ -103,8 +103,6 @@ function squaresExperimental(vizMetadata) {
                 console.log("song not ready")
             }
             
-                       // let fs = sketch.fullscreen();
-            // sketch.fullscreen(!fs);
         };
         console.log("squres ready");
     };
