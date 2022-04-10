@@ -17,6 +17,8 @@ import Draggable from "./draggable.js";
 function canvas(proxyUrl, canvasWidth, canvasHeight) {
     const canvas = ( sketch ) => {
         sketch.canvasDOMElement = document.getElementById("canvas");
+
+        sketch.selectedObject = null;
         sketch.objects = [
             // new Draggable(sketch, 100, 100, 50, 50),
             // new Draggable(sketch, 200, 200, 50, 50),
@@ -42,7 +44,8 @@ function canvas(proxyUrl, canvasWidth, canvasHeight) {
         
     
         sketch.setup = () => {
-            sketch.createCanvas(canvasWidth, canvasHeight);
+            let cnv = sketch.createCanvas(canvasWidth, canvasHeight);
+            cnv.mousePressed(canvasPressed); // mouse events will only apply to canvas area
         };
 
         sketch.draw = () => {
@@ -55,44 +58,39 @@ function canvas(proxyUrl, canvasWidth, canvasHeight) {
                 obj.show();
             })
         };
-        
 
         sketch.respond = () => {
             console.log("draw mode");
         }
-        console.log("p5 ready");
 
-        // sketch.mouseDragged = () => {
-        //     console.log("mouse dragged");
-        //     sketch.objects.forEach(obj => {
-                
-        //         obj.pressed();
-        //     })
-        // }
-
-        sketch.mousePressed = () => {
-            // sketch.objects[0].pressed();
+        function canvasPressed() {
+            // console.log("mouse pressed");
             let hoveredObjects = [];
             sketch.objects.forEach(obj => {
                 if (obj.rollover) {
                     hoveredObjects.push(obj);
                 }
-            })
+            });
 
             /*
-                If mouse is over multiple objects, only drag the foremost object.
-                The foremost object is defined is the most recently created object
+                If mouse is over multiple objects, select only the foremost object to
+                be draggable. The foremost object is defined is the most recently created object
                 (i.e. the last object in the sketch.objects array).
 
                 This handles hovered over one or more objects.
             */
             if (hoveredObjects.length > 0) {
-                hoveredObjects[hoveredObjects.length - 1].pressed();
+                sketch.selectedObject = hoveredObjects[hoveredObjects.length - 1];
+                // console.log("selected object: ", sketch.selectedObject);
+                sketch.selectedObject.pressed();
+            } else { // Means we selected no object (click on the background)
+                sketch.selectedObject = null;
+                // console.log("selected object: ", sketch.selectedObject);
             }
         }
 
         sketch.mouseReleased = () => {
-            console.log("mouse released");
+            // console.log("mouse released");
             sketch.objects.forEach(obj => {
                 obj.released();
             })
