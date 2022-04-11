@@ -1,4 +1,4 @@
-import Draggable from "./draggable.js";
+import Rectangle from "./Rectangle.js";
 /*
 
     p5 instance mode, all p5 methods are bound to "sketch"
@@ -83,8 +83,12 @@ function canvas(proxyUrl, canvasWidth, canvasHeight) {
                 sketch.selectedObject = hoveredObjects[hoveredObjects.length - 1];
                 // console.log("selected object: ", sketch.selectedObject);
                 sketch.selectedObject.pressed();
+
+                // Change context menu to object properties
+                document.querySelector("#object-settings div").textContent = "die";
             } else { // Means we selected no object (click on the background)
                 sketch.selectedObject = null;
+                document.querySelector("#object-settings div").textContent = "No shape selected";
                 // console.log("selected object: ", sketch.selectedObject);
             }
         }
@@ -98,7 +102,7 @@ function canvas(proxyUrl, canvasWidth, canvasHeight) {
 
 
         sketch.createObject = () => {
-            sketch.objects.push(new Draggable(sketch, sketch.canvasDOMElement.clientWidth / 2, sketch.canvasDOMElement.clientHeight / 2, 50, 50));
+            sketch.objects.push(new Rectangle(sketch, sketch.canvasDOMElement.clientWidth / 2, sketch.canvasDOMElement.clientHeight / 2, 50, 50));
         }
 
 

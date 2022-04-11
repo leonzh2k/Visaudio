@@ -2,7 +2,7 @@
 // Daniel Shiffman <http://www.shiffman.net>
 // https://editor.p5js.org/codingtrain/sketches/U0R5B6Z88
 
-class Draggable {
+class Rectangle {
     constructor(sketch, x, y, w, h) {
         this.dragging = false; // Is the object being dragged?
         this.rollover = false; // Is the mouse over the ellipse?
@@ -78,4 +78,4 @@ class Draggable {
     }
 }
 
-export default Draggable;
+export default Rectangle;
