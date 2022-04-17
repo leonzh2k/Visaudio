@@ -91,9 +91,6 @@ import canvas from "../viz/canvas.js";
                 this.darkenButton(this.audioButtonDOMElem);
                 // render canvas background settings
                 
-                // this.projectSettingsDOMElem.innerHTML = "";
-
-                console.log(controller.getCanvasBackgroundColor());
                 this.projectSettingsDOMElem.innerHTML = `
                     <h2>PROJECT</h2>
                     <div id="project-color-settings">
@@ -114,7 +111,6 @@ import canvas from "../viz/canvas.js";
                 const selectedCanvasObject = controller.getSelectedCanvasObject();
                 
                 if (selectedCanvasObject != null) {
-                    console.log(selectedCanvasObject.fill);
                     this.objectSettingsDOMElem.innerHTML = `
                         <h2>SHAPES</h2>
                         <div id="size-and-position-settings">
@@ -156,6 +152,35 @@ import canvas from "../viz/canvas.js";
                             </div>
                         </div>
                     `
+
+                    // event listeners on input fields
+                    document.querySelector("#x-coord").addEventListener("input", (e) => {
+                        // must be casted to a Number as this property is a number
+                        controller.setSelectedCanvasObjectProperty("x", Number(e.currentTarget.value));
+                    });
+
+                    document.querySelector("#y-coord").addEventListener("input", (e) => {
+                        // must be casted to a Number as this property is a number
+                        controller.setSelectedCanvasObjectProperty("y", Number(e.currentTarget.value));
+                    });
+                        
+                    document.querySelector("#width").addEventListener("input", (e) => {
+                        // must be casted to a Number as this property is a number
+                        controller.setSelectedCanvasObjectProperty("w", Number(e.currentTarget.value));
+                    });
+                        
+                    document.querySelector("#height").addEventListener("input", (e) => {
+                        // must be casted to a Number as this property is a number
+                        controller.setSelectedCanvasObjectProperty("h", Number(e.currentTarget.value));
+                    });
+
+                    document.querySelector("#object-fill-color").addEventListener("input", (e) => {
+                        controller.setSelectedCanvasObjectProperty("fill", e.currentTarget.value);
+                    });
+
+                    document.querySelector("#object-stroke-color").addEventListener("input", (e) => {
+                        controller.setSelectedCanvasObjectProperty("stroke", e.currentTarget.value);
+                    });
                 } else {
                     this.objectSettingsDOMElem.innerHTML = `
                         <h2>SHAPES</h2>
@@ -237,6 +262,10 @@ import canvas from "../viz/canvas.js";
             return model.selectedCanvasObject;
         },
 
+        setSelectedCanvasObjectProperty(property, value) {
+            model.selectedCanvasObject[property] = value;
+        },
+
         setSelectedCanvasObject(newSelection) {
             model.selectedCanvasObject = newSelection;
         },
@@ -256,12 +285,12 @@ import canvas from "../viz/canvas.js";
 
         pushObject(object) {
             model.canvasObjects.push(object);
-            console.log(model.canvasObjects);
+            // console.log(model.canvasObjects);
         },
 
         updateSelectedCanvasObject(newSelection) {
             this.setSelectedCanvasObject(newSelection);
-            console.log(newSelection);
+            // console.log(newSelection);
             contextMenuView.render();
         },
 

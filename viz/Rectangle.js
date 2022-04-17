@@ -55,16 +55,17 @@ class Rectangle {
     show() {
         // saves previous drawing settings (such as fill, stroke, etc.)
         this.sketch.push();
-        this.sketch.stroke(this.stroke);
+        // this.sketch.stroke(this.stroke);
         // Different fill based on state
         if (this.dragging) {
             this.sketch.fill(this.fill);
         } else if (this.rollover) {
             this.sketch.stroke("#2596FF");
             this.sketch.strokeWeight(5);
-            this.sketch.fill(200);
+            this.sketch.fill(this.fill);
         } else {
-            this.sketch.fill(200);
+            this.sketch.stroke(this.stroke);
+            this.sketch.fill(this.fill);
         }
         this.sketch.rect(this.x, this.y, this.w, this.h);
         this.sketch.pop();
