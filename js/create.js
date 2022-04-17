@@ -111,8 +111,10 @@ import canvas from "../viz/canvas.js";
                     controller.updateCanvasBackgroundColor(e.currentTarget.value);
                 })
 
-
-                if (controller.getSelectedCanvasObject() != null) {
+                const selectedCanvasObject = controller.getSelectedCanvasObject();
+                
+                if (selectedCanvasObject != null) {
+                    console.log(selectedCanvasObject.fill);
                     this.objectSettingsDOMElem.innerHTML = `
                         <h2>SHAPES</h2>
                         <div id="size-and-position-settings">
@@ -121,21 +123,21 @@ import canvas from "../viz/canvas.js";
                                 <div id="position">
                                     <div>
                                         <label for="x-coord">X</label>
-                                        <input id="x-coord" type="number">
+                                        <input id="x-coord" type="number" value="${selectedCanvasObject.x}">
                                     </div>
                                     <div>
                                         <label for="y-coord">Y</label>
-                                        <input id="y-coord" type="number">
+                                        <input id="y-coord" type="number" value="${selectedCanvasObject.y}">
                                     </div>
                                 </div>
                                 <div id="size">
                                     <div>
                                         <label for="width">W</label>
-                                        <input id="width" type="number">
+                                        <input id="width" type="number" value="${selectedCanvasObject.w}">
                                     </div>
                                     <div>
                                         <label for="height">H</label>
-                                        <input id="height" type="number">
+                                        <input id="height" type="number" value="${selectedCanvasObject.h}">
                                     </div>
                                 </div>
                             </div>
@@ -145,11 +147,11 @@ import canvas from "../viz/canvas.js";
                             <div id="object-color-input">
                                 <div>
                                     <label for="object-fill-color">Fill</label>
-                                    <input id="object-fill-color" type="color">
+                                    <input id="object-fill-color" type="color" value="${selectedCanvasObject.fill}">
                                 </div>
                                 <div>
                                     <label for="object-stroke-color">Stroke</label>
-                                    <input id="object-stroke-color" type="color">
+                                    <input id="object-stroke-color" type="color" value="${selectedCanvasObject.stroke}">
                                 </div>
                             </div>
                         </div>

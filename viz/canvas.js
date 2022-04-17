@@ -17,6 +17,8 @@ import Rectangle from "./Rectangle.js";
 // We need to pass in a reference to the controller because we need to update other views when interacting with the canvas
 function canvas(proxyUrl, canvasWidth, canvasHeight, canvasBackgroundColor, controller) {
     const canvas = ( sketch ) => {
+        // variables bound to the sketch are accessible whereever the object is in scope
+        // ex. we can modify them in the main JS file
         sketch.canvasDOMElement = document.getElementById("canvas");
 
         sketch.selectedObject = null;
