@@ -20,7 +20,7 @@ import canvas from "../viz/canvas.js";
 
         ],
 
-        canvasObjectSelected: true,
+        selectedCanvasObject: null,
 
         audio: {
 
@@ -101,8 +101,8 @@ import canvas from "../viz/canvas.js";
                     </div>
                 `;
                 // attach event listeners on color picker
-
-                if (controller.getCanvasObjectSelected()) {
+                console.log(controller.getSelectedCanvasObject())
+                if (controller.getSelectedCanvasObject() != null) {
                     this.objectSettingsDOMElem.innerHTML = `
                         <h2>SHAPES</h2>
                         <div id="size-and-position-settings">
@@ -165,7 +165,7 @@ import canvas from "../viz/canvas.js";
                     </div>
                 `;
 
-                if (controller.getCanvasObjectSelected()) {
+                if (controller.getSelectedCanvasObject() != null) {
                     this.objectSettingsDOMElem.innerHTML = `
                         <h2>SHAPES</h2>
                         <div id="object-frequency-settings">
@@ -221,12 +221,12 @@ import canvas from "../viz/canvas.js";
             model.contextMenu.currentMode = mode;
         },
 
-        getCanvasObjectSelected() {
-            return model.canvasObjectSelected;
+        getSelectedCanvasObject() {
+            return model.selectedCanvasObject;
         },
 
-        setCanvasObjectSelected() {
-            model.canvasObjectSelected();
+        setSelectedCanvasObject(newSelection) {
+            model.selectedCanvasObject = newSelection;
         },
 
         pushObject(object) {
@@ -234,14 +234,10 @@ import canvas from "../viz/canvas.js";
             console.log(model.canvasObjects);
         },
 
-        updateCanvasObjectSelected(newSelection) {
-            if (this.getCanvasObjectSelected() !== newSelection) {
-                this.setCanvasObjectSelected();
-                contextMenuView.render();
-            } else {
-                console.log("already ")
-            }
-              
+        updateSelectedCanvasObject(newSelection) {
+            this.setSelectedCanvasObject(newSelection);
+            console.log(newSelection);
+            contextMenuView.render();
         },
 
         updateContextMenuMode(newMode) {

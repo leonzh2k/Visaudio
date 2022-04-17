@@ -61,17 +61,17 @@ function canvas(proxyUrl, canvasWidth, canvasHeight, controller) {
             */
             if (hoveredObjects.length > 0) {
                 sketch.selectedObject = hoveredObjects[hoveredObjects.length - 1];
-                // console.log("selected object: ", sketch.selectedObject);
+                console.log("selected object: ", sketch.selectedObject);
                 sketch.selectedObject.pressed();
 
                 // Change context menu to object properties
                 // document.querySelector("#object-settings div").textContent = "shape settings";
-                controller.updateCanvasObjectSelected(false); 
+                controller.updateSelectedCanvasObject(sketch.selectedObject); 
             } else { // Means we selected no object (click on the background)
                 sketch.selectedObject = null;
                 // document.querySelector("#object-settings div").textContent = "No shape selected";
                 // console.log("selected object: ", sketch.selectedObject);
-                controller.updateCanvasObjectSelected(true);
+                controller.updateSelectedCanvasObject(sketch.selectedObject);
             }
         }
 
