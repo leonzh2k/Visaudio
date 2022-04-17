@@ -7,14 +7,15 @@
 
 */
 class Rectangle {
-    constructor(sketch, x, y, w, h) {
+    constructor(sketch, x, y, w, h, controller) {
         this.dragging = false; // Is the object being dragged?
         this.rollover = false; // Is the mouse over the ellipse?
 
         // we are using p5 instance mode, so all p5 functions are called as methods
         // and so we need to keep a reference to the instance object
         this.sketch = sketch;
-
+        // we need to use the controller when position changes to re-render context menu
+        this.controller = controller;
         // initial color settings on creation
         // all colors must be in hex as value attribute of html color pickers requires this
         this.fill = "#C4C4C4";
@@ -47,7 +48,13 @@ class Rectangle {
             // console.log(this.sketch.mouseX, this.sketch.mouseY);
             this.x = this.sketch.mouseX + this.offsetX;
             this.y = this.sketch.mouseY + this.offsetY;
-            // console.log("after: ", this.x, this.y);
+            /*
+                Turns out re-rendering the input fields constantly makes it impossible to change
+                them. So I have to figure out a way to re-render only when needed.
+                This way we only re-render if the object changed, better performance and doesn't\
+                break input fields
+            */
+            this.controller.updateSelectedCanvasObject(this.sketch.selectedObject);
         }
 
     }

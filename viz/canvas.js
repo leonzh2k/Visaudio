@@ -31,6 +31,7 @@ function canvas(proxyUrl, canvasWidth, canvasHeight, canvasBackgroundColor, cont
             cnv.mousePressed(canvasPressed); // mouse events will only apply to canvas area
         };
 
+        // p5 will constantly call this draw function, so re-rendering of canvas is automatically handled.
         sketch.draw = () => {
             sketch.background(sketch.backgroundColor);
             sketch.fill(255);
@@ -40,6 +41,10 @@ function canvas(proxyUrl, canvasWidth, canvasHeight, canvasBackgroundColor, cont
                 obj.over();   // checks if mouse is over object
                 obj.show();   // draws object on the canvas
             })
+            
+            // if (sketch.selectedObject != null) {
+            //     controller.updateSelectedCanvasObject(sketch.selectedObject);
+            // }
         };
 
         sketch.respond = () => {
@@ -47,7 +52,7 @@ function canvas(proxyUrl, canvasWidth, canvasHeight, canvasBackgroundColor, cont
         }
 
         function canvasPressed() {
-            // console.log("mouse pressed");
+            console.log("mouse pressed");
             let hoveredObjects = [];
             // keep track of all objects that the cursor is over
             sketch.objects.forEach(obj => {
@@ -84,7 +89,7 @@ function canvas(proxyUrl, canvasWidth, canvasHeight, canvasBackgroundColor, cont
 
         // creates and returns a new object (so model can keep track of all objects)
         sketch.createObject = () => {
-            let newObject = new Rectangle(sketch, sketch.canvasDOMElement.clientWidth / 2, sketch.canvasDOMElement.clientHeight / 2, 50, 50);
+            let newObject = new Rectangle(sketch, sketch.canvasDOMElement.clientWidth / 2, sketch.canvasDOMElement.clientHeight / 2, 50, 50, controller);
             sketch.objects.push(newObject);
 
             return newObject;
