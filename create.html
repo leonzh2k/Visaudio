@@ -22,40 +22,92 @@
                 </ul>
             </nav>
         </header>
-        <main id="main">
+        <main>
             <section id="shape-toolbar">
                 <button id="square">square</button>
-                <button id="square">ellipse</button>
-                <button id="square">triangle</button>
+                <button id="ellipse">ellipse</button>
+                <button id="triangle">triangle</button>
             </section>
             <section id="canvas">
                 <!-- canvas created by p5 at runtime -->
             </section>
             <section id="context-menu">
+                <!-- subsections should be div instead? -->
                 <section id="design-or-audio">
                     <button>Design</button>
                     <button>Audio</button>
                 </section>
                 <section id="project-settings">
                     <h2>PROJECT</h2>
-                    <section id="song-settings">
+                    <!-- <div id="project-song-settings">
                         <h3>Song</h3>
-                        <button>Change Song</button>
-                    </section>
-                    <!-- <section id="color-settings">
+                        <button>Change Viz Song</button>
+                    </div> -->
+                    <div id="project-color-settings">
                         <h3>Color</h3>
-                    </section> -->
+                        <div>
+                            <label for="canvas-color">Background Color</label>
+                            <input id="canvas-color" type="color">
+                        </div>
+                    </div>
                 </section>
                 <section id="object-settings">
                     <h2>SHAPES</h2>
-                    <div>
+                    <!-- <div id="no-shape-selected">
                         No shape selected
+                    </div> -->
+                    <!-- <div id="size-and-position-settings">
+                        <h3>Size & Position</h3>
+                        <div id="size-and-position-input">
+                            <div id="position">
+                                <div>
+                                    <label for="x-coord">X</label>
+                                    <input id="x-coord" type="number">
+                                </div>
+                                <div>
+                                    <label for="y-coord">Y</label>
+                                    <input id="y-coord" type="number">
+                                </div>
+                            </div>
+                            <div id="size">
+                                <div>
+                                    <label for="width">W</label>
+                                    <input id="width" type="number">
+                                </div>
+                                <div>
+                                    <label for="height">H</label>
+                                    <input id="height" type="number">
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    
-                    <!-- <section id="song-settings">
-                        <h3>Song</h3>
-                        <button>Change Song</button>
-                    </section> -->
+                    <div id="object-color-settings">
+                        <h3>Color</h3>
+                        <div id="object-color-input">
+                            <div>
+                                <label for="object-fill-color">Fill</label>
+                                <input id="object-fill-color" type="color">
+                            </div>
+                            <div>
+                                <label for="object-stroke-color">Stroke</label>
+                                <input id="object-stroke-color" type="color">
+                            </div>
+                        </div>
+                    </div> -->
+
+                    <div id="object-frequency-settings">
+                        <h3>Frequency</h3>
+                        <select name="frequencies" id="frequencies">
+                            <option value="bass">bass</option>
+                            <option value="treble">treble</option>
+                            <option value="custom">custom</option>
+                        </select>
+                    </div>
+
+                    <div id="object-sensitivity-settings">
+                        <h3>Audio Sensitivity</h3>
+                        <input type="range">
+                    </div>
                 </section>
             </section>
             <section id="audio-player">

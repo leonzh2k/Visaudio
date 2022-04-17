@@ -14,33 +14,12 @@ import Rectangle from "./Rectangle.js";
         - Click on shape to select it
 
 */
-function canvas(proxyUrl, canvasWidth, canvasHeight) {
+function canvas(proxyUrl, canvasWidth, canvasHeight, controller) {
     const canvas = ( sketch ) => {
         sketch.canvasDOMElement = document.getElementById("canvas");
 
         sketch.selectedObject = null;
-        sketch.objects = [
-            // new Draggable(sketch, 100, 100, 50, 50),
-            // new Draggable(sketch, 200, 200, 50, 50),
-            // new Draggable(sketch, 300, 300, 50, 50)
-            // {
-            //     type: "rect",
-            //     xPos: 100,
-            //     yPos: 100,
-            //     width: 100,
-            //     height: 100,
-            //     draw: sketch.rect
-            // },
-
-            // {
-            //     type: "rect",
-            //     xPos: 200,
-            //     yPos: 200,
-            //     width: 100,
-            //     height: 100,
-            //     draw: sketch.rect
-            // }
-        ];
+        sketch.objects = [];
         
     
         sketch.setup = () => {
@@ -53,9 +32,9 @@ function canvas(proxyUrl, canvasWidth, canvasHeight) {
             sketch.fill(255);
             // draw each object
             sketch.objects.forEach(obj => {
-                obj.update();
-                obj.over();
-                obj.show();
+                obj.update(); // update positions of objects
+                obj.over();   // checks if mouse is over object
+                obj.show();   // draws object on the canvas
             })
         };
 
@@ -66,6 +45,7 @@ function canvas(proxyUrl, canvasWidth, canvasHeight) {
         function canvasPressed() {
             // console.log("mouse pressed");
             let hoveredObjects = [];
+            // keep track of all objects that the cursor is over
             sketch.objects.forEach(obj => {
                 if (obj.rollover) {
                     hoveredObjects.push(obj);
@@ -85,11 +65,13 @@ function canvas(proxyUrl, canvasWidth, canvasHeight) {
                 sketch.selectedObject.pressed();
 
                 // Change context menu to object properties
-                document.querySelector("#object-settings div").textContent = "die";
+                // document.querySelector("#object-settings div").textContent = "shape settings";
+                controller.updateCanvasObjectSelected(false); 
             } else { // Means we selected no object (click on the background)
                 sketch.selectedObject = null;
-                document.querySelector("#object-settings div").textContent = "No shape selected";
+                // document.querySelector("#object-settings div").textContent = "No shape selected";
                 // console.log("selected object: ", sketch.selectedObject);
+                controller.updateCanvasObjectSelected(true);
             }
         }
 
@@ -97,12 +79,15 @@ function canvas(proxyUrl, canvasWidth, canvasHeight) {
             // console.log("mouse released");
             sketch.objects.forEach(obj => {
                 obj.released();
-            })
+            });
         }
 
-
+        // creates and returns a new object (so model can keep track of all objects)
         sketch.createObject = () => {
-            sketch.objects.push(new Rectangle(sketch, sketch.canvasDOMElement.clientWidth / 2, sketch.canvasDOMElement.clientHeight / 2, 50, 50));
+            let newObject = new Rectangle(sketch, sketch.canvasDOMElement.clientWidth / 2, sketch.canvasDOMElement.clientHeight / 2, 50, 50);
+            sketch.objects.push(newObject);
+
+            return newObject;
         }
 
 
