@@ -20,6 +20,8 @@ import canvas from "../viz/canvas.js";
 
         ],
 
+        canvasBackgroundColor: "#E5E5E5",
+
         selectedCanvasObject: null,
 
         audio: {
@@ -51,7 +53,8 @@ import canvas from "../viz/canvas.js";
         init() {
             let parentWidth = document.getElementById("canvas").clientWidth;
             let parentHeight = document.getElementById("canvas").clientHeight;
-            this.sketch = new p5(canvas("https://cors-anywhere.herokuapp.com", parentWidth, parentHeight, controller), "canvas");
+            // the sketch constantly draws itself, thus, changing any member will automatically be rendered
+            this.sketch = new p5(canvas("https://cors-anywhere.herokuapp.com", parentWidth, parentHeight, controller.getCanvasBackgroundColor(), controller), "canvas");
         }
     }
 
@@ -90,18 +93,25 @@ import canvas from "../viz/canvas.js";
                 
                 // this.projectSettingsDOMElem.innerHTML = "";
 
+                console.log(controller.getCanvasBackgroundColor());
                 this.projectSettingsDOMElem.innerHTML = `
                     <h2>PROJECT</h2>
                     <div id="project-color-settings">
                         <h3>Color</h3>
                         <div>
-                            <label for="canvas-color">Background Color</label>
-                            <input id="canvas-color" type="color">
+                            <label for="canvas-color-input">Background Color</label>
+                            <input id="canvas-color-input" type="color" value=${controller.getCanvasBackgroundColor()}>
                         </div>
                     </div>
                 `;
                 // attach event listeners on color picker
-                console.log(controller.getSelectedCanvasObject())
+                // should there be an interface between this and the canvas?
+                document.querySelector("#canvas-color-input").addEventListener("input", (e) => {
+                    // canvasView.sketch.backgroundColor = e.currentTarget.value;
+                    controller.updateCanvasBackgroundColor(e.currentTarget.value);
+                })
+
+
                 if (controller.getSelectedCanvasObject() != null) {
                     this.objectSettingsDOMElem.innerHTML = `
                         <h2>SHAPES</h2>
@@ -227,6 +237,19 @@ import canvas from "../viz/canvas.js";
 
         setSelectedCanvasObject(newSelection) {
             model.selectedCanvasObject = newSelection;
+        },
+
+        setCanvasBackgroundColor(newColor) {
+            model.canvasBackgroundColor = newColor;
+        },
+
+        getCanvasBackgroundColor() {
+            return model.canvasBackgroundColor;
+        },
+
+        updateCanvasBackgroundColor(newColor) {
+            canvasView.sketch.backgroundColor = newColor; // update color shown on canvas
+            this.setCanvasBackgroundColor(newColor);
         },
 
         pushObject(object) {

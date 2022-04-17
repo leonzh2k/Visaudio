@@ -14,13 +14,15 @@ import Rectangle from "./Rectangle.js";
         - Click on shape to select it
 
 */
-function canvas(proxyUrl, canvasWidth, canvasHeight, controller) {
+// We need to pass in a reference to the controller because we need to update other views when interacting with the canvas
+function canvas(proxyUrl, canvasWidth, canvasHeight, canvasBackgroundColor, controller) {
     const canvas = ( sketch ) => {
         sketch.canvasDOMElement = document.getElementById("canvas");
 
         sketch.selectedObject = null;
         sketch.objects = [];
         
+        sketch.backgroundColor = canvasBackgroundColor;
     
         sketch.setup = () => {
             let cnv = sketch.createCanvas(canvasWidth, canvasHeight);
@@ -28,7 +30,7 @@ function canvas(proxyUrl, canvasWidth, canvasHeight, controller) {
         };
 
         sketch.draw = () => {
-            sketch.background("#E5E5E5");
+            sketch.background(sketch.backgroundColor);
             sketch.fill(255);
             // draw each object
             sketch.objects.forEach(obj => {
