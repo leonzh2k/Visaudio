@@ -143,11 +143,11 @@ import canvas from "../viz/canvas.js";
                             <div id="object-color-input">
                                 <div>
                                     <label for="object-fill-color">Fill</label>
-                                    <input id="object-fill-color" type="color" value="${selectedCanvasObject.fill}">
+                                    <input id="object-fill-color" type="color" value=${selectedCanvasObject.fill}>
                                 </div>
                                 <div>
                                     <label for="object-stroke-color">Stroke</label>
-                                    <input id="object-stroke-color" type="color" value="${selectedCanvasObject.stroke}">
+                                    <input id="object-stroke-color" type="color" value=${selectedCanvasObject.stroke}>
                                 </div>
                             </div>
                         </div>
@@ -201,23 +201,32 @@ import canvas from "../viz/canvas.js";
                         <button>Change Viz Song</button>
                     </div>
                 `;
-
-                if (controller.getSelectedCanvasObject() != null) {
+                const selectedCanvasObject = controller.getSelectedCanvasObject();
+                if (selectedCanvasObject != null) {
+                    // add custom later
                     this.objectSettingsDOMElem.innerHTML = `
                         <h2>SHAPES</h2>
                         <div id="object-frequency-settings">
                             <h3>Frequency</h3>
                             <select name="frequencies" id="frequencies">
-                                <option value="bass">bass</option>
-                                <option value="treble">treble</option>
-                                <option value="custom">custom</option>
+                                <option value="bass" ${selectedCanvasObject.frequency === "bass" ? "selected" : ""}>bass</option>
+                                <option value="treble" ${selectedCanvasObject.frequency === "treble" ? "selected" : ""}>treble</option>
                             </select>
                         </div>
                         <div id="object-sensitivity-settings">
                             <h3>Audio Sensitivity</h3>
-                            <input type="range">
+                            <input id="sensitivity" type="range" min="0" max="10" value="${selectedCanvasObject.audioSensitivity}">
                         </div>
                     `
+
+                    // add event listeners for inputs
+                    document.querySelector("#frequencies").addEventListener("change", (e) => {
+                        controller.setSelectedCanvasObjectProperty("frequency", e.currentTarget.value);
+                    });
+
+                    document.querySelector("#sensitivity").addEventListener("change", (e) => {
+                        controller.setSelectedCanvasObjectProperty("audioSensitivity", e.currentTarget.value);
+                    });
                 } else {
                     this.objectSettingsDOMElem.innerHTML = `
                         <h2>SHAPES</h2>
@@ -263,6 +272,7 @@ import canvas from "../viz/canvas.js";
         },
 
         setSelectedCanvasObjectProperty(property, value) {
+            console.log(value);
             model.selectedCanvasObject[property] = value;
         },
 

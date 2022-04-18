@@ -21,6 +21,9 @@ class Rectangle {
         this.fill = "#C4C4C4";
         this.stroke = "#000000";
 
+        this.frequency = "bass";
+        this.audioSensitivity = 5;
+        
         this.x = x;
         this.y = y;
         // Dimensions
