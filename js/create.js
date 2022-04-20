@@ -1,4 +1,5 @@
 import canvas from "../viz/canvas.js";
+import { asyncFetchTrackData } from "../modules/apiCalls.js";
 (() => {
     console.log("ready");
     // MVC?
@@ -16,6 +17,8 @@ import canvas from "../viz/canvas.js";
 
             ?????
         */
+        
+        napsterAPIKey: "ZDIxMDM1NTEtYjk3OS00YTI1LWIyYjItYjBjOWVmMWYyN2I3",
         canvasObjects: [
 
         ],
@@ -262,15 +265,39 @@ import canvas from "../viz/canvas.js";
     const chooseSongOverlayView = {
         init() {
             this.overlayDOMElem = document.querySelector("#choose-song-overlay");
+            this.closeModalButtonDOMElem = document.querySelector("#close-modal-button");
+            this.searchSongInputDOMElem = document.querySelector("#choose-song-modal input")
 
-            this.overlayDOMElem.addEventListener("click", () => {
+            this.overlayDOMElem.addEventListener("click", (e) => {
+                // prevents overlay from disappearing when the modal is clicked
+                if(this.overlayDOMElem === e.target) {
+                    // put your code here
+                    controller.setChooseSongOverlayActive(false);
+                }
+            });
+
+            this.closeModalButtonDOMElem.addEventListener("click", () => {
                 controller.setChooseSongOverlayActive(false);
+            });
+
+            this.searchSongInputDOMElem.addEventListener("keypress", async (e) => {
+                if (e.key === "Enter") {
+                    const songToSearch = e.currentTarget.value;
+                    if (songToSearch !== "") {
+                        console.log("SUBMIT");
+                        // move api key into model?
+                        asyncFetchTrackData(controller.getNapsterAPIKey(), songToSearch).then(searchResults => {
+                            console.log(searchResults);
+                            // figure out which tracks are playable and which aren't 
+                        });
+                    }
+                }
             });
         },
 
         render() {
             if (controller.getChooseSongOverlayActive()) {
-                this.overlayDOMElem.style.display = "block";
+                this.overlayDOMElem.style.display = "flex";
             } else {
                 this.overlayDOMElem.style.display = "none";
             }
@@ -293,6 +320,10 @@ import canvas from "../viz/canvas.js";
         // should I combine this with update ContextMenumode?
         setContextMenuMode(mode) {
             model.contextMenu.currentMode = mode;
+        },
+
+        getNapsterAPIKey() {
+            return model.napsterAPIKey;
         },
 
         getSelectedCanvasObject() {

@@ -254,9 +254,13 @@ main section:nth-child(4) {
     margin-left: 20px;
 }
 
+/* CHOOSE SONG OVERLAY AND MODAL */
+
 #choose-song-overlay {
     position: static;
     display: none;
+    justify-content: center;
+    align-items: center;
     background-color: rgba(0,0,0,0.5); /* Black background with opacity */
     z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
     cursor: pointer; /* Add a pointer on hover */
@@ -266,16 +270,32 @@ main section:nth-child(4) {
     grid-row-end: 3;
 } 
 
+#choose-song-modal {
+    position: relative;
+    background-color: white;
+    height: 600px;
+    width: 900px;
+    cursor: default;
+    z-index: 3;
+    padding-left: 35px;
+    border-radius: 10px;
+    font-size: 24px;
+}
 
-/* #choose-song-overlay p {
-    width: 500px;
-    height: 500px;
-    background-color: blue;
+#close-modal-button {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    font-size: 50px;
-    color: blue;
-    transform: translate(-50%,-50%);
-    -ms-transform: translate(-50%,-50%);;
-} 
+    right: 25px; 
+    top: 25px;
+    cursor: pointer;
+}
+
+#choose-song-modal h2 {
+    font-size: 32px;
+}
+
+
+#choose-song-modal input {
+    font-size: 24px;
+    padding: 5px;
+    width: 800px;
+}
