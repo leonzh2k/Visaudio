@@ -37,7 +37,16 @@ function canvas(proxyUrl, canvasWidth, canvasHeight, canvasBackgroundColor, cont
             sketch.fill(255);
             // draw each object
             sketch.objects.forEach(obj => {
-                obj.update(); // update positions of objects
+                // update positions of objects if needed
+                /*
+                    Turns out re-rendering the input fields constantly makes it impossible to change
+                    them. This way we only re-render if the object's position changed, better 
+                    performance and doesn't break input fields
+                */
+                if (obj.update()) {
+                    controller.updateSelectedCanvasObject(sketch.selectedObject);
+
+                } 
                 obj.over();   // checks if mouse is over object
                 obj.show();   // draws object on the canvas
             })

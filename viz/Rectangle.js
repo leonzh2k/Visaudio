@@ -51,13 +51,8 @@ class Rectangle {
             // console.log(this.sketch.mouseX, this.sketch.mouseY);
             this.x = this.sketch.mouseX + this.offsetX;
             this.y = this.sketch.mouseY + this.offsetY;
-            /*
-                Turns out re-rendering the input fields constantly makes it impossible to change
-                them. So I have to figure out a way to re-render only when needed.
-                This way we only re-render if the object changed, better performance and doesn't\
-                break input fields
-            */
-            this.controller.updateSelectedCanvasObject(this.sketch.selectedObject);
+            
+            return true;
         }
 
     }

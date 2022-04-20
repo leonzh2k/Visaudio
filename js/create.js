@@ -28,13 +28,15 @@ import canvas from "../viz/canvas.js";
 
         },
 
+        chooseSongOverlayActive: false,
+
         // object that will be sent to database upon submission containing all info needed to display the viz
         databaseObject: {
 
         },
 
         contextMenu: {
-            currentMode: "design"
+            currentMode: "audio"
             // need anything else?
         }
     };
@@ -61,8 +63,8 @@ import canvas from "../viz/canvas.js";
     const contextMenuView = {
         init() {
             // save reused DOM objects
-            this.designButtonDOMElem = document.querySelector("#context-menu section:nth-child(1) button:nth-child(1)");
-            this.audioButtonDOMElem = document.querySelector("#context-menu section:nth-child(1) button:nth-child(2)");
+            this.designButtonDOMElem = document.querySelector("#context-menu section:nth-child(1) button:nth-child(2)");
+            this.audioButtonDOMElem = document.querySelector("#context-menu section:nth-child(1) button:nth-child(1)");
 
             this.projectSettingsDOMElem = document.querySelector("#project-settings");
             this.objectSettingsDOMElem = document.querySelector("#object-settings");
@@ -201,6 +203,13 @@ import canvas from "../viz/canvas.js";
                         <button>Change Viz Song</button>
                     </div>
                 `;
+
+                document.querySelector("#project-song-settings button").addEventListener("click", () => {
+                    controller.setChooseSongOverlayActive(true);
+                });
+
+                
+
                 const selectedCanvasObject = controller.getSelectedCanvasObject();
                 if (selectedCanvasObject != null) {
                     // add custom later
@@ -250,12 +259,31 @@ import canvas from "../viz/canvas.js";
         }
     };
 
+    const chooseSongOverlayView = {
+        init() {
+            this.overlayDOMElem = document.querySelector("#choose-song-overlay");
+
+            this.overlayDOMElem.addEventListener("click", () => {
+                controller.setChooseSongOverlayActive(false);
+            });
+        },
+
+        render() {
+            if (controller.getChooseSongOverlayActive()) {
+                this.overlayDOMElem.style.display = "block";
+            } else {
+                this.overlayDOMElem.style.display = "none";
+            }
+        }
+    }
+
     // should controller decide what should be rendered, or the view?
     const controller = {
         init() {
             objectToolbarView.init();
             canvasView.init();
             contextMenuView.init();
+            chooseSongOverlayView.init();
         },
 
         getContextMenuMode() {
@@ -316,8 +344,17 @@ import canvas from "../viz/canvas.js";
             } else {
                 console.log("clicked on mode currently on");
             }
+        },
+
+        setChooseSongOverlayActive(active) {
+            model.chooseSongOverlayActive = active;
+            chooseSongOverlayView.render();
+        }, 
+
+        getChooseSongOverlayActive() {
+            return model.chooseSongOverlayActive;
         }
-    };
+    }
 
     
 
