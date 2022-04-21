@@ -272,14 +272,15 @@ main section:nth-child(4) {
 
 #choose-song-modal {
     position: relative;
+    margin-bottom: 25px;
     background-color: white;
-    height: 600px;
+    height: 650px;
     width: 900px;
     cursor: default;
     z-index: 3;
     padding-left: 35px;
     border-radius: 10px;
-    font-size: 24px;
+    font-size: 17px;
 }
 
 #close-modal-button {
@@ -293,9 +294,36 @@ main section:nth-child(4) {
     font-size: 32px;
 }
 
+#current-song span {
+    font-weight: bold;
+}
+
 
 #choose-song-modal input {
-    font-size: 24px;
+    /* font-size: 16px; */
     padding: 5px;
+    width: 825px;
+}
+
+#search-results {
+    overflow-y: auto;
+    /* border: 2px red solid; */
+    width: 825px;
+    height: 70%;
+}
+
+#search-results div {
+    margin-bottom: 7px;
+    margin-top: 7px;
     width: 800px;
+    /* border: 1px red solid; */
+    cursor: pointer;
+}
+
+#search-results div:hover {
+    background-color: rgb(121, 231, 255);
+}
+
+#search-results div:first-child {
+    margin-top: 10px;
 }

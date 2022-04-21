@@ -23,7 +23,11 @@ function canvas(proxyUrl, canvasWidth, canvasHeight, canvasBackgroundColor, cont
 
         sketch.selectedObject = null;
         sketch.objects = [];
+
+        sketch.song = null;
         
+        let fft = new p5.FFT();
+
         sketch.backgroundColor = canvasBackgroundColor;
     
         sketch.setup = () => {
@@ -33,6 +37,8 @@ function canvas(proxyUrl, canvasWidth, canvasHeight, canvasBackgroundColor, cont
 
         // p5 will constantly call this draw function, so re-rendering of canvas is automatically handled.
         sketch.draw = () => {
+            fft.analyze();
+            // console.log(fft.getEnergy("bass"));
             sketch.background(sketch.backgroundColor);
             sketch.fill(255);
             // draw each object
@@ -48,7 +54,7 @@ function canvas(proxyUrl, canvasWidth, canvasHeight, canvasBackgroundColor, cont
 
                 } 
                 obj.over();   // checks if mouse is over object
-                obj.show();   // draws object on the canvas
+                obj.show(fft);   // draws object on the canvas
             })
             
             // if (sketch.selectedObject != null) {
@@ -102,6 +108,17 @@ function canvas(proxyUrl, canvasWidth, canvasHeight, canvasBackgroundColor, cont
             sketch.objects.push(newObject);
 
             return newObject;
+        }
+
+        sketch.loadAudio = (audio) => {
+            console.log("loading audio...")
+            sketch.song = sketch.loadSound(audio, () => {
+                console.log("success")
+                sketch.song.play();
+            });
+            // setTimeout(() => {
+            //     sketch.song.play();
+            // }, 10000);
         }
 
 

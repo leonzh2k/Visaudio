@@ -57,7 +57,7 @@ class Rectangle {
 
     }
 
-    show() {
+    show(fft) {
         // saves previous drawing settings (such as fill, stroke, etc.)
         this.sketch.push();
         // this.sketch.stroke(this.stroke);
@@ -72,6 +72,7 @@ class Rectangle {
             this.sketch.stroke(this.stroke);
             this.sketch.fill(this.fill);
         }
+        // (fft.getEnergy(this.frequency) * this.audioSensitivity)
         this.sketch.rect(this.x, this.y, this.w, this.h);
         this.sketch.pop();
     }

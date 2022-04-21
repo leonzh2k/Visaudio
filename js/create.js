@@ -19,9 +19,14 @@ import { asyncFetchTrackData } from "../modules/apiCalls.js";
         */
         
         napsterAPIKey: "ZDIxMDM1NTEtYjk3OS00YTI1LWIyYjItYjBjOWVmMWYyN2I3",
+
+        proxyURL: "https://cors-anywhere.herokuapp.com/",
+
         canvasObjects: [
 
         ],
+
+        selectedSongURL: null,
 
         canvasBackgroundColor: "#E5E5E5",
 
@@ -266,9 +271,10 @@ import { asyncFetchTrackData } from "../modules/apiCalls.js";
         init() {
             this.overlayDOMElem = document.querySelector("#choose-song-overlay");
             this.closeModalButtonDOMElem = document.querySelector("#close-modal-button");
-            this.searchSongInputDOMElem = document.querySelector("#choose-song-modal input")
-
-            this.overlayDOMElem.addEventListener("click", (e) => {
+            this.chooseSongModalDOMElem = document.querySelector("#choose-song-modal");
+            this.searchSongInputDOMElem = document.querySelector("#choose-song-modal input");
+            this.searchResultsDOMElem = document.querySelector("#search-results");
+            this.overlayDOMElem.addEventListener("mousedown", (e) => {
                 // prevents overlay from disappearing when the modal is clicked
                 if(this.overlayDOMElem === e.target) {
                     // put your code here
@@ -280,16 +286,48 @@ import { asyncFetchTrackData } from "../modules/apiCalls.js";
                 controller.setChooseSongOverlayActive(false);
             });
 
+            
+
             this.searchSongInputDOMElem.addEventListener("keypress", async (e) => {
                 if (e.key === "Enter") {
                     const songToSearch = e.currentTarget.value;
                     if (songToSearch !== "") {
                         console.log("SUBMIT");
-                        // move api key into model?
+                        this.searchResultsDOMElem.style.display = "none";
+                        // clear previous results
+                        this.searchResultsDOMElem.innerHTML = "";
+                        
                         asyncFetchTrackData(controller.getNapsterAPIKey(), songToSearch).then(searchResults => {
                             console.log(searchResults);
                             // figure out which tracks are playable and which aren't 
+                            searchResults.search.data.tracks.forEach(track => {
+                                let song = document.createElement("div");
+                                song.innerHTML = `${track.artistName} - ${track.name}`;
+                                this.searchResultsDOMElem.appendChild(song);
+
+                                let audioObj = new Audio(track.previewURL);
+                                audioObj.addEventListener("error", () => {
+                                    song.remove();
+                                });
+
+                                song.addEventListener("click", () => {
+                                    document.querySelector("#current-song span").innerHTML = `${track.artistName} - ${track.name}`;
+                                    // update model current selected song
+                                    controller.setSelectedSongURL(track.previewURL);
+                                });
+                                
+                                
+                            });
                         });
+                        /*
+                            Show results after all the unplayable songs are filtered out.
+                            What's the maximum time that we can wait before showing the results
+                            without sacrificing user experience?
+                        */
+                        setTimeout(() => {
+                            this.searchResultsDOMElem.style.display = "block";
+                        }, 1000);
+                        console.log("done");
                     }
                 }
             });
@@ -324,6 +362,15 @@ import { asyncFetchTrackData } from "../modules/apiCalls.js";
 
         getNapsterAPIKey() {
             return model.napsterAPIKey;
+        },
+
+        getProxyURL() {
+            return model.proxyURL;
+        },
+
+        setSelectedSongURL(songURL) {
+            model.selectedSongURL = songURL;
+            canvasView.sketch.loadAudio(controller.getProxyURL() + songURL);
         },
 
         getSelectedCanvasObject() {
