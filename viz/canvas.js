@@ -110,12 +110,30 @@ function canvas(proxyUrl, canvasWidth, canvasHeight, canvasBackgroundColor, cont
             return newObject;
         }
 
-        sketch.loadAudio = (audio) => {
+        sketch.loadAudio = (audioURL) => {
             console.log("loading audio...")
-            sketch.song = sketch.loadSound(audio, () => {
-                console.log("success")
-                sketch.song.play();
-            });
+            if (sketch.song != null) {
+                console.log("audio object already created, changing url")
+                if (sketch.song.isPlaying()) {
+                    sketch.song.stop();
+                }
+                sketch.song.setPath(audioURL, () => {
+                    console.log("success")
+                    // sketch.song.play();
+                    // tell audio player view that it's ready to play 
+                })
+            } else {
+                console.log("first audio to be loaded")
+                // on first song load
+                sketch.song = sketch.loadSound(audioURL, () => {
+                    console.log("success")
+                    // sketch.song.play();
+                    // tell audio player view that it's ready to play 
+                });
+            }
+            
+
+            
             // setTimeout(() => {
             //     sketch.song.play();
             // }, 10000);
