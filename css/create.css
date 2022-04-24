@@ -57,7 +57,7 @@ header nav ul li {
 main {
     display: grid;
     grid-template-columns: 4% 80% 16%;
-    grid-template-rows: 94% 6%;
+    grid-template-rows: 93% 7%;
     height: 93vh;
 }
 
@@ -256,6 +256,26 @@ main section:nth-child(4) {
 
 #context-menu section:nth-child(3) #object-sensitivity-settings input {
     margin-left: 20px;
+}
+
+/* AUDIO PLAYER */
+
+#audio-player {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+/*
+    https://stackoverflow.com/questions/5770341/i-do-not-want-to-inherit-the-child-opacity-from-the-parent-in-css
+*/
+#audio-player div {
+    position: absolute;
+    background-color: rgb(0, 0, 0, 0.5);
+    color: white;
+    padding: 10px;
+    /* opacity: 60%; */
+    border-radius: 10px;
 }
 
 /* CHOOSE SONG OVERLAY AND MODAL */

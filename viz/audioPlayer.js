@@ -3,9 +3,12 @@ function audioPlayer(controller) {
     const audioPlayer = ( sketch ) => {
         // variables bound to the sketch are accessible whereever the object is in scope
         // ex. we can modify them in the main JS file
-            
         sketch.setup = () => {
             sketch.audioObject = new p5.SoundFile();
+            sketch.audioObject.onended(() => {
+                console.log("ended");
+                document.querySelector("#audio-player img").src = "../assets/img/play_button.svg";
+            });
             sketch.audioPlayerStatus = "not ready";
             sketch.noLoop();
         };
@@ -21,6 +24,9 @@ function audioPlayer(controller) {
         */
         sketch.loadAudio = (audioURL) => {
             console.log("loading audio...")
+            document.querySelector("#no-song-notice").classList.remove("hidden");
+            document.querySelector("#no-song-notice span").innerHTML = "loading audio...";
+            // console.log(document.querySelector("#audio-player div").classList);
             if (sketch.audioObject.isPlaying()) {
                 sketch.audioObject.pause();
             }
@@ -29,6 +35,7 @@ function audioPlayer(controller) {
             sketch.audioObject.setPath(audioURL, () => {
                 console.log("success")
                 sketch.audioPlayerStatus = "ready";
+                document.querySelector("#no-song-notice").classList.add("hidden");
                 // tell audio player view that it's ready to play 
                 // controller.setAudioPlayerStatus("ready");
             });
@@ -38,11 +45,14 @@ function audioPlayer(controller) {
             if (sketch.audioPlayerStatus == "ready") {
                 if (!sketch.audioObject.isPlaying()) {
                     sketch.audioObject.play();
+                    return "playing";
                 } else {
                     sketch.audioObject.pause();
+                    return "paused";
                 }
             } else {
                 console.log("audio not ready");
+                return "not ready"
             }
             
         }
