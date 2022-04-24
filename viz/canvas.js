@@ -15,7 +15,8 @@ import Rectangle from "./Rectangle.js";
 
 */
 // We need to pass in a reference to the controller because we need to update other views when interacting with the canvas
-function canvas(proxyUrl, canvasWidth, canvasHeight, canvasBackgroundColor, controller) {
+function canvas(proxyUrl, canvasWidth, canvasHeight, initialCanvasBackgroundColor, audioObject, controller) {
+    // console.log(canvasHeight);
     const canvas = ( sketch ) => {
         // variables bound to the sketch are accessible whereever the object is in scope
         // ex. we can modify them in the main JS file
@@ -26,9 +27,9 @@ function canvas(proxyUrl, canvasWidth, canvasHeight, canvasBackgroundColor, cont
 
         sketch.song = null;
         
-        let fft = new p5.FFT();
+        let fft = new p5.FFT(audioObject);
 
-        sketch.backgroundColor = canvasBackgroundColor;
+        sketch.backgroundColor = initialCanvasBackgroundColor;
     
         sketch.setup = () => {
             let cnv = sketch.createCanvas(canvasWidth, canvasHeight);
@@ -110,34 +111,44 @@ function canvas(proxyUrl, canvasWidth, canvasHeight, canvasBackgroundColor, cont
             return newObject;
         }
 
-        sketch.loadAudio = (audioURL) => {
-            console.log("loading audio...")
-            if (sketch.song != null) {
-                console.log("audio object already created, changing url")
-                if (sketch.song.isPlaying()) {
-                    sketch.song.stop();
-                }
-                sketch.song.setPath(audioURL, () => {
-                    console.log("success")
-                    // sketch.song.play();
-                    // tell audio player view that it's ready to play 
-                })
-            } else {
-                console.log("first audio to be loaded")
-                // on first song load
-                sketch.song = sketch.loadSound(audioURL, () => {
-                    console.log("success")
-                    // sketch.song.play();
-                    // tell audio player view that it's ready to play 
-                });
-            }
-            
+        // should the canvas be responsible for managing audio, or the audio player?
+        /*
+            separation of concerns... maybe have all the playback and audio loading be handled
+            only by audio player view, then canvasview only takes in an audio object to analyze
+            the audio data?
 
-            
-            // setTimeout(() => {
-            //     sketch.song.play();
-            // }, 10000);
-        }
+            https://p5js.org/reference/#/p5.FFT/setInput
+
+        */
+        // sketch.loadAudio = (audioURL) => {
+        //     console.log("loading audio...")
+        //     // prevents multiple audio objects from being created (singleton)
+        //     if (sketch.song != null) { // when audio object already exists
+        //         console.log("audio object already created, changing url")
+        //         if (sketch.song.isPlaying()) {
+        //             sketch.song.stop();
+        //         }
+        //         sketch.song.setPath(audioURL, () => {
+        //             console.log("success")
+        //             // sketch.song.play();
+        //             // tell audio player view that it's ready to play 
+        //             controller.setAudioPlayerStatus("ready");
+        //         });
+        //     } else {
+        //         console.log("first audio to be loaded")
+        //         // on first song load
+        //         sketch.song = sketch.loadSound(audioURL, () => {
+        //             console.log("success")
+        //             // sketch.song.play();
+        //             // tell audio player view that it's ready to play 
+        //             controller.setAudioPlayerStatus("ready");
+        //         });
+        //     }
+        // }
+
+        // sketch.playAudio = () => {
+        //     sketch.song.play();
+        // }
 
 
         sketch.windowResized = () => {

@@ -13,6 +13,10 @@ body {
     font-family: Roboto;
 }
 
+.hidden {
+    display: none;
+}
+
 
 #container {
     display: flex;

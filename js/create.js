@@ -1,5 +1,7 @@
 import canvas from "../viz/canvas.js";
+import audioPlayer from "../viz/audioPlayer.js";
 import { asyncFetchTrackData } from "../modules/apiCalls.js";
+
 (() => {
     console.log("ready");
     // MVC?
@@ -9,13 +11,10 @@ import { asyncFetchTrackData } from "../modules/apiCalls.js";
     // https://editor.p5js.org/codingtrain/sketches/U0R5B6Z88
     // 
     const model = {
-        // info about state
         /*
-            knows about all objects (their positions on canvas, color, etc.)
-            knows about current song (playback position)
-            knows about wht context menu is on
-
-            ?????
+            Holds info that must be passed between views,
+            as well as general info that doesn't belong
+            to any view
         */
         
         napsterAPIKey: "ZDIxMDM1NTEtYjk3OS00YTI1LWIyYjItYjBjOWVmMWYyN2I3",
@@ -27,6 +26,16 @@ import { asyncFetchTrackData } from "../modules/apiCalls.js";
         ],
 
         selectedSongURL: null,
+
+        // think more about the possible states this could be in 
+        /*
+            loading audio
+            playing audio
+            stopped
+            paused, etc.
+
+        */
+        // audioPlayerStatus: "not ready",
 
         canvasBackgroundColor: "#E5E5E5",
 
@@ -57,16 +66,31 @@ import { asyncFetchTrackData } from "../modules/apiCalls.js";
         
         }
         
-    }
+    };
 
     const canvasView = {
-        init() {
+        init(audioObject) {
             let parentWidth = document.getElementById("canvas").clientWidth;
             let parentHeight = document.getElementById("canvas").clientHeight;
             // the sketch constantly draws itself, thus, changing any member will automatically be rendered
-            this.sketch = new p5(canvas("https://cors-anywhere.herokuapp.com", parentWidth, parentHeight, controller.getCanvasBackgroundColor(), controller), "canvas");
+            this.sketch = new p5(canvas("https://cors-anywhere.herokuapp.com", parentWidth, parentHeight, controller.getCanvasBackgroundColor(), audioObject, controller), "canvas");
         }
-    }
+    };
+
+    const audioPlayerView = {
+        init() {
+            this.audioPlayer = new p5(audioPlayer(controller), "audio-player-canvas-wrapper");
+            this.playAudioButtonDomElem = document.querySelector("#audio-player button");
+            this.playAudioButtonDomElem.addEventListener("click", () => {
+                this.audioPlayer.playAudio();
+            });
+
+        },
+
+        render() {
+            // if (audioStatus == "ready")
+        }
+    };
 
     const contextMenuView = {
         init() {
@@ -267,6 +291,7 @@ import { asyncFetchTrackData } from "../modules/apiCalls.js";
         }
     };
 
+
     const chooseSongOverlayView = {
         init() {
             this.overlayDOMElem = document.querySelector("#choose-song-overlay");
@@ -340,15 +365,18 @@ import { asyncFetchTrackData } from "../modules/apiCalls.js";
                 this.overlayDOMElem.style.display = "none";
             }
         }
-    }
+    };
 
     // should controller decide what should be rendered, or the view?
     const controller = {
         init() {
             objectToolbarView.init();
-            canvasView.init();
+            // Audio Player must be initialized before canvasView as canvasView requires its audio object
+            audioPlayerView.init();
+            canvasView.init(audioPlayerView.audioPlayer.audioObject);
             contextMenuView.init();
             chooseSongOverlayView.init();
+            
         },
 
         getContextMenuMode() {
@@ -370,15 +398,23 @@ import { asyncFetchTrackData } from "../modules/apiCalls.js";
 
         setSelectedSongURL(songURL) {
             model.selectedSongURL = songURL;
-            canvasView.sketch.loadAudio(controller.getProxyURL() + songURL);
+            audioPlayerView.audioPlayer.loadAudio(this.getProxyURL() + songURL);
         },
+
+        // getAudioPlayerStatus() {
+        //     return model.audioPlayerStatus;
+        // },
+
+        // setAudioPlayerStatus(status) {
+        //     model.audioPlayerStatus = status;
+        // },
 
         getSelectedCanvasObject() {
             return model.selectedCanvasObject;
         },
 
         setSelectedCanvasObjectProperty(property, value) {
-            console.log(value);
+            // console.log(value);
             model.selectedCanvasObject[property] = value;
         },
 

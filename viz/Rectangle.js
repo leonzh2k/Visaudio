@@ -73,7 +73,8 @@ class Rectangle {
             this.sketch.fill(this.fill);
         }
         // (fft.getEnergy(this.frequency) * this.audioSensitivity)
-        this.sketch.rect(this.x, this.y, this.w, this.h);
+        // this.sketch.rect(this.x, this.y, this.w, this.h);
+        this.sketch.rect(this.x, this.y, this.w + fft.getEnergy(this.frequency), this.h + fft.getEnergy(this.frequency));
         this.sketch.pop();
     }
 
