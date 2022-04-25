@@ -53,7 +53,7 @@ import { asyncFetchTrackData } from "../modules/apiCalls.js";
         },
 
         contextMenu: {
-            currentMode: "design"
+            currentMode: "audio"
             // need anything else?
         }
     };
@@ -61,9 +61,11 @@ import { asyncFetchTrackData } from "../modules/apiCalls.js";
     const objectToolbarView = {
         init() {
             document.getElementById("rectangle").addEventListener("click", () => {
-                controller.pushObject(canvasView.sketch.createObject());
+                controller.pushObject(canvasView.sketch.createObject("rectangle"));
             });
-            
+            document.getElementById("ellipse").addEventListener("click", () => {
+                controller.pushObject(canvasView.sketch.createObject("ellipse"));
+            });
         }
         
     };

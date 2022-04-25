@@ -7,11 +7,11 @@
 
     Only highlight the shape that would be selected if you clicked
 
-    Note: hit detection algorithm depends on what rectMode is used.
-    The shape is drawn differently b/c different rectModes interpret
+    Note: hit detection algorithm depends on what ellipseMode is used.
+    The shape is drawn differently b/c different ellipseModes interpret
     the parameters given differently.
 */
-class Rectangle {
+class Ellipse {
     constructor(sketch, x, y, w, h, controller) {
         this.dragging = false; // Is the object being dragged?
         this.rollover = false; // Is the mouse over the ellipse?
@@ -40,16 +40,18 @@ class Rectangle {
         this.h = h;
     }
 
-    cornerRectModeHitDetection() {
-        if (this.sketch.mouseX > this.x && this.sketch.mouseX < this.x + this.w && this.sketch.mouseY > this.y && this.sketch.mouseY < this.y + this.h) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+    // cornerRectModeHitDetection() {
+    //     if (this.sketch.mouseX > this.x && this.sketch.mouseX < this.x + this.w && this.sketch.mouseY > this.y && this.sketch.mouseY < this.y + this.h) {
+    //         return true;
+    //     } else {
+    //         return false;
+    //     }
+    // }
 
-    centerRectModeHitDetection() {
-        if (this.sketch.mouseX > this.x - (this.w / 2) && this.sketch.mouseX < this.x + (this.w / 2) && this.sketch.mouseY > this.y - (this.h / 2) && this.sketch.mouseY < this.y + (this.h / 2)) {
+    // https://www.geeksforgeeks.org/check-if-a-point-is-inside-outside-or-on-the-ellipse/
+    centerEllipseModeHitDetection() {
+        let p = (this.sketch.pow((this.sketch.mouseX - this.x), 2) / this.sketch.pow(this.w / 2, 2)) + (this.sketch.pow((this.sketch.mouseY - this.y), 2) / this.sketch.pow(this.h / 2, 2));
+        if (p < 1) {
             return true;
         } else {
             return false;
@@ -59,7 +61,7 @@ class Rectangle {
     over() {
         // Is mouse over object
         
-        if (this.centerRectModeHitDetection()) {
+        if (this.centerEllipseModeHitDetection()) {
             this.rollover = true;
         } else {
             this.rollover = false;
@@ -117,13 +119,13 @@ class Rectangle {
         }
         // (fft.getEnergy(this.frequency) * this.audioSensitivity)
         // this.sketch.rect(this.x, this.y, this.w, this.h);
-        this.sketch.rect(this.x, this.y, this.w + fft.getEnergy(this.frequency) * this.audioSensitivity, this.h + fft.getEnergy(this.frequency) * this.audioSensitivity);
+        this.sketch.ellipse(this.x, this.y, this.w + fft.getEnergy(this.frequency) * this.audioSensitivity, this.h + fft.getEnergy(this.frequency) * this.audioSensitivity);
         this.sketch.pop();
     }
 
     pressed() {
         // Did I click on the rectangle?
-        if (this.centerRectModeHitDetection()) {
+        if (this.centerEllipseModeHitDetection()) {
             this.dragging = true;
             // If so, keep track of relative location of click to corner of rectangle
             this.offsetX = this.x - this.sketch.mouseX;
@@ -137,4 +139,4 @@ class Rectangle {
     }
 }
 
-export default Rectangle;
+export default Ellipse;

@@ -1,4 +1,5 @@
 import Rectangle from "./Rectangle.js";
+import Ellipse from "./Ellipse.js";
 /*
 
     p5 instance mode, all p5 methods are bound to "sketch"
@@ -102,8 +103,16 @@ function canvas(proxyUrl, canvasWidth, canvasHeight, initialCanvasBackgroundColo
         }
 
         // creates and returns a new object (so model can keep track of all objects)
-        sketch.createObject = () => {
-            let newObject = new Rectangle(sketch, sketch.canvasDOMElement.clientWidth / 2, sketch.canvasDOMElement.clientHeight / 2, 50, 50, controller);
+        sketch.createObject = (shapeType) => {
+            let newObject;
+            switch(shapeType) {
+                case("rectangle"):
+                    newObject = new Rectangle(sketch, sketch.canvasDOMElement.clientWidth / 2, sketch.canvasDOMElement.clientHeight / 2, 50, 50, controller);
+                    break;
+                case("ellipse"):
+                    newObject = new Ellipse(sketch, sketch.canvasDOMElement.clientWidth / 2, sketch.canvasDOMElement.clientHeight / 2, 50, 50, controller);
+                    break;
+            }
             sketch.objects.push(newObject);
             // new object is set as selected
             controller.updateSelectedCanvasObject(newObject);
