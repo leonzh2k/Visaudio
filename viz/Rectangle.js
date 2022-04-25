@@ -1,10 +1,13 @@
-// Click and Drag an object
-// Daniel Shiffman <http://www.shiffman.net>
+
+// Inspired by Daniel Shiffman <http://www.shiffman.net>
 // https://editor.p5js.org/codingtrain/sketches/U0R5B6Z88
 
 /*
     TODO: rework visual cues on hover
 
+    Note: hit detection algorithm depends on what rectMode is used.
+    The shape is drawn differently b/c different rectModes interpret
+    the parameters given differently.
 */
 class Rectangle {
     constructor(sketch, x, y, w, h, controller) {
@@ -35,9 +38,26 @@ class Rectangle {
         this.h = h;
     }
 
+    cornerRectModeHitDetection() {
+        if (this.sketch.mouseX > this.x && this.sketch.mouseX < this.x + this.w && this.sketch.mouseY > this.y && this.sketch.mouseY < this.y + this.h) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    centerRectModeHitDetection() {
+        if (this.sketch.mouseX > this.x - (this.w / 2) && this.sketch.mouseX < this.x + (this.w / 2) && this.sketch.mouseY > this.y - (this.h / 2) && this.sketch.mouseY < this.y + (this.h / 2)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     over() {
         // Is mouse over object
-        if (this.sketch.mouseX > this.x && this.sketch.mouseX < this.x + this.w && this.sketch.mouseY > this.y && this.sketch.mouseY < this.y + this.h) {
+        
+        if (this.centerRectModeHitDetection()) {
             this.rollover = true;
         } else {
             this.rollover = false;
@@ -95,13 +115,13 @@ class Rectangle {
         }
         // (fft.getEnergy(this.frequency) * this.audioSensitivity)
         // this.sketch.rect(this.x, this.y, this.w, this.h);
-        this.sketch.rect(this.x, this.y, this.w + fft.getEnergy(this.frequency), this.h + fft.getEnergy(this.frequency));
+        this.sketch.rect(this.x, this.y, this.w + fft.getEnergy(this.frequency) * this.audioSensitivity, this.h + fft.getEnergy(this.frequency) * this.audioSensitivity);
         this.sketch.pop();
     }
 
     pressed() {
         // Did I click on the rectangle?
-        if (this.sketch.mouseX > this.x && this.sketch.mouseX < this.x + this.w && this.sketch.mouseY > this.y && this.sketch.mouseY < this.y + this.h) {
+        if (this.centerRectModeHitDetection()) {
             this.dragging = true;
             // If so, keep track of relative location of click to corner of rectangle
             this.offsetX = this.x - this.sketch.mouseX;

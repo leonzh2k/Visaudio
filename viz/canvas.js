@@ -33,7 +33,7 @@ function canvas(proxyUrl, canvasWidth, canvasHeight, initialCanvasBackgroundColo
         
         sketch.setup = () => {
             let cnv = sketch.createCanvas(canvasWidth, canvasHeight);
-            // sketch.rectMode(sketch.CENTER);
+            sketch.rectMode(sketch.CENTER);
             cnv.mousePressed(canvasPressed); // mouse events will only apply to canvas area
         };
 
