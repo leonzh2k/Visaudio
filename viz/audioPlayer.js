@@ -1,4 +1,9 @@
-// We need to pass in a reference to the controller because we need to update other views when interacting with the canvas
+// may need to pass in a reference to the controller if we need to update other views when interacting with the audio player
+/*
+
+    Known bugs: sometimes audio doesn't start playing from the beginning of the file.
+
+*/
 function audioPlayer(controller) {
     const audioPlayer = ( sketch ) => {
         // variables bound to the sketch are accessible whereever the object is in scope

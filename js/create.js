@@ -53,7 +53,7 @@ import { asyncFetchTrackData } from "../modules/apiCalls.js";
         },
 
         contextMenu: {
-            currentMode: "audio"
+            currentMode: "design"
             // need anything else?
         }
     };
@@ -63,7 +63,7 @@ import { asyncFetchTrackData } from "../modules/apiCalls.js";
             document.getElementById("square").addEventListener("click", () => {
                 controller.pushObject(canvasView.sketch.createObject());
             });
-        
+            
         }
         
     };
@@ -74,6 +74,8 @@ import { asyncFetchTrackData } from "../modules/apiCalls.js";
             let parentHeight = document.getElementById("canvas").clientHeight;
             // the sketch constantly draws itself, thus, changing any member will automatically be rendered
             this.sketch = new p5(canvas("https://cors-anywhere.herokuapp.com", parentWidth, parentHeight, controller.getCanvasBackgroundColor(), audioObject, controller), "canvas");
+            // debug
+            // canvasView.sketch.createObject()
         }
     };
 
@@ -147,8 +149,8 @@ import { asyncFetchTrackData } from "../modules/apiCalls.js";
                         </div>
                     </div>
                 `;
+
                 // attach event listeners on color picker
-                // should there be an interface between this and the canvas?
                 document.querySelector("#canvas-color-input").addEventListener("input", (e) => {
                     // canvasView.sketch.backgroundColor = e.currentTarget.value;
                     controller.updateCanvasBackgroundColor(e.currentTarget.value);
@@ -184,18 +186,36 @@ import { asyncFetchTrackData } from "../modules/apiCalls.js";
                                 </div>
                             </div>
                         </div>
-                        <div id="object-color-settings">
-                            <h3>Color</h3>
-                            <div id="object-color-input">
+                        <div id="object-fill-settings">
+                            <h3>Fill</h3>
+                            <div id="object-fill-input">
                                 <div>
-                                    <label for="object-fill-color">Fill</label>
+                                    <label for="object-fill-color">Color</label>
                                     <input id="object-fill-color" type="color" value=${selectedCanvasObject.fill}>
                                 </div>
+                            </div>
+                            <div id="object-transparent-input">
                                 <div>
-                                    <label for="object-stroke-color">Stroke</label>
+                                    <label for="object-transparent">Transparent</label>
+                                    <input id="object-transparent" type="checkbox" ${selectedCanvasObject.transparent ? "checked" : ""}>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="object-stroke-settings">
+                            <h3>Outline</h3>
+                            <div id="object-stroke-input">
+                                <div>
+                                    <label for="object-stroke-color">Color</label>
                                     <input id="object-stroke-color" type="color" value=${selectedCanvasObject.stroke}>
                                 </div>
                             </div>
+                            <div id="object-stroke-weight-input">
+                                <div>
+                                    <label for="object-stroke-weight">Thickness</label>
+                                    <input id="object-stroke-weight" type="number" value=${selectedCanvasObject.strokeWeight}>
+                                </div>
+                            </div>
+                            
                         </div>
                     `
 
@@ -224,8 +244,17 @@ import { asyncFetchTrackData } from "../modules/apiCalls.js";
                         controller.setSelectedCanvasObjectProperty("fill", e.currentTarget.value);
                     });
 
+                    document.querySelector("#object-transparent").addEventListener("change", (e) => {
+                        console.log(e.currentTarget.checked);
+                        controller.setSelectedCanvasObjectProperty("transparent", e.currentTarget.checked);
+                    });
+
                     document.querySelector("#object-stroke-color").addEventListener("input", (e) => {
                         controller.setSelectedCanvasObjectProperty("stroke", e.currentTarget.value);
+                    });
+
+                    document.querySelector("#object-stroke-weight").addEventListener("input", (e) => {
+                        controller.setSelectedCanvasObjectProperty("strokeWeight", Number(e.currentTarget.value));
                     });
                 } else {
                     this.objectSettingsDOMElem.innerHTML = `

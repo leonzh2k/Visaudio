@@ -21,8 +21,12 @@ class Rectangle {
         this.fill = "#C4C4C4";
         this.stroke = "#000000";
 
+        this.strokeWeight = 1;
+
         this.frequency = "bass";
         this.audioSensitivity = 5;
+        
+        this.transparent = false;
         
         this.x = x;
         this.y = y;
@@ -61,16 +65,33 @@ class Rectangle {
         // saves previous drawing settings (such as fill, stroke, etc.)
         this.sketch.push();
         // this.sketch.stroke(this.stroke);
+        
         // Different fill based on state
         if (this.dragging) {
-            this.sketch.fill(this.fill);
+            if (this.transparent) {
+                this.sketch.noFill();
+            } else {
+                this.sketch.fill(this.fill);
+            }
+            this.sketch.stroke(this.stroke);
+            this.sketch.strokeWeight(this.strokeWeight);
         } else if (this.rollover) {
             this.sketch.stroke("#2596FF");
-            this.sketch.strokeWeight(5);
-            this.sketch.fill(this.fill);
+            this.sketch.strokeWeight(this.strokeWeight+1);
+            if (this.transparent) {
+                this.sketch.noFill();
+            } else {
+                this.sketch.fill(this.fill);
+            }
         } else {
             this.sketch.stroke(this.stroke);
-            this.sketch.fill(this.fill);
+            this.sketch.strokeWeight(this.strokeWeight);
+            if (this.transparent) {
+                this.sketch.noFill();
+            } else {
+                this.sketch.fill(this.fill);
+
+            }
         }
         // (fft.getEnergy(this.frequency) * this.audioSensitivity)
         // this.sketch.rect(this.x, this.y, this.w, this.h);

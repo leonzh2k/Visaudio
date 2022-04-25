@@ -121,6 +121,10 @@ main section:nth-child(4) {
     padding-left: 20px;
 }
 
+#context-menu label {
+    margin-right: 5px;
+}
+
 #context-menu input[type="color"] {
     width: 30px;
 }
@@ -241,13 +245,22 @@ main section:nth-child(4) {
     justify-content: space-between;
 }
 
-#context-menu section:nth-child(3) #object-color-settings #object-color-input {
+#object-fill-input, #object-stroke-input, #object-stroke-weight-input, #object-transparent-input {
     /* border: 2px red solid; */
     margin-left: 20px;
     display: flex;
     flex-direction: row;
+    align-items: center;
     justify-content: space-between;
     width: 180px;
+}
+
+#object-stroke-weight-input, #object-transparent-input {
+    margin-top: 15px;
+}
+
+#object-stroke-weight {
+    width: 50px;
 }
 
 #context-menu section:nth-child(3) #object-frequency-settings select {

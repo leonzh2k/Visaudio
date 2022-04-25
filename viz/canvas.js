@@ -30,9 +30,10 @@ function canvas(proxyUrl, canvasWidth, canvasHeight, initialCanvasBackgroundColo
         let fft = new p5.FFT(audioObject);
 
         sketch.backgroundColor = initialCanvasBackgroundColor;
-    
+        
         sketch.setup = () => {
             let cnv = sketch.createCanvas(canvasWidth, canvasHeight);
+            // sketch.rectMode(sketch.CENTER);
             cnv.mousePressed(canvasPressed); // mouse events will only apply to canvas area
         };
 
@@ -107,7 +108,8 @@ function canvas(proxyUrl, canvasWidth, canvasHeight, initialCanvasBackgroundColo
         sketch.createObject = () => {
             let newObject = new Rectangle(sketch, sketch.canvasDOMElement.clientWidth / 2, sketch.canvasDOMElement.clientHeight / 2, 50, 50, controller);
             sketch.objects.push(newObject);
-
+            // new object is set as selected
+            controller.updateSelectedCanvasObject(newObject);
             return newObject;
         }
 
