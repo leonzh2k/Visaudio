@@ -59,9 +59,6 @@ function canvas(proxyUrl, canvasWidth, canvasHeight, initialCanvasBackgroundColo
                 obj.show(fft);   // draws object on the canvas
             })
             
-            // if (sketch.selectedObject != null) {
-            //     controller.updateSelectedCanvasObject(sketch.selectedObject);
-            // }
         };
 
         sketch.respond = () => {
@@ -112,46 +109,6 @@ function canvas(proxyUrl, canvasWidth, canvasHeight, initialCanvasBackgroundColo
             controller.updateSelectedCanvasObject(newObject);
             return newObject;
         }
-
-        // should the canvas be responsible for managing audio, or the audio player?
-        /*
-            separation of concerns... maybe have all the playback and audio loading be handled
-            only by audio player view, then canvasview only takes in an audio object to analyze
-            the audio data?
-
-            https://p5js.org/reference/#/p5.FFT/setInput
-
-        */
-        // sketch.loadAudio = (audioURL) => {
-        //     console.log("loading audio...")
-        //     // prevents multiple audio objects from being created (singleton)
-        //     if (sketch.song != null) { // when audio object already exists
-        //         console.log("audio object already created, changing url")
-        //         if (sketch.song.isPlaying()) {
-        //             sketch.song.stop();
-        //         }
-        //         sketch.song.setPath(audioURL, () => {
-        //             console.log("success")
-        //             // sketch.song.play();
-        //             // tell audio player view that it's ready to play 
-        //             controller.setAudioPlayerStatus("ready");
-        //         });
-        //     } else {
-        //         console.log("first audio to be loaded")
-        //         // on first song load
-        //         sketch.song = sketch.loadSound(audioURL, () => {
-        //             console.log("success")
-        //             // sketch.song.play();
-        //             // tell audio player view that it's ready to play 
-        //             controller.setAudioPlayerStatus("ready");
-        //         });
-        //     }
-        // }
-
-        // sketch.playAudio = () => {
-        //     sketch.song.play();
-        // }
-
 
         sketch.windowResized = () => {
             sketch.resizeCanvas(sketch.canvasDOMElement.clientWidth,sketch.canvasDOMElement.clientHeight);

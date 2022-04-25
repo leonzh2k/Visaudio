@@ -5,6 +5,8 @@
 /*
     TODO: rework visual cues on hover
 
+    Only highlight the shape that would be selected if you clicked
+
     Note: hit detection algorithm depends on what rectMode is used.
     The shape is drawn differently b/c different rectModes interpret
     the parameters given differently.

@@ -62,13 +62,24 @@ main {
 }
 
 /* Object Toolbar */
-main section:nth-child(1) {
+#shape-toolbar {
     /* border: 2px blue solid; */
     grid-column-start: 1;
     grid-column-end: 1;
     grid-row-start: 1;
     grid-row-end: 1;
     border-right: 1px rgb(185, 185, 185) solid;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#shape-toolbar img {
+    height: 40px;
+    width: 40px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 /* Canvas */

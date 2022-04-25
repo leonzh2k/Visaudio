@@ -60,7 +60,7 @@ import { asyncFetchTrackData } from "../modules/apiCalls.js";
 
     const objectToolbarView = {
         init() {
-            document.getElementById("square").addEventListener("click", () => {
+            document.getElementById("rectangle").addEventListener("click", () => {
                 controller.pushObject(canvasView.sketch.createObject());
             });
             
@@ -302,11 +302,11 @@ import { asyncFetchTrackData } from "../modules/apiCalls.js";
                     `
 
                     // add event listeners for inputs
-                    document.querySelector("#frequencies").addEventListener("change", (e) => {
+                    document.querySelector("#frequencies").addEventListener("input", (e) => {
                         controller.setSelectedCanvasObjectProperty("frequency", e.currentTarget.value);
                     });
 
-                    document.querySelector("#sensitivity").addEventListener("change", (e) => {
+                    document.querySelector("#sensitivity").addEventListener("input", (e) => {
                         controller.setSelectedCanvasObjectProperty("audioSensitivity", e.currentTarget.value);
                     });
                 } else {
