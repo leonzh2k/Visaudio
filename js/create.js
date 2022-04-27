@@ -1,6 +1,6 @@
-import canvas from "../viz/canvas.js";
-import audioPlayer from "../viz/audioPlayer.js";
-import { asyncFetchTrackData } from "../modules/apiCalls.js";
+import canvas from "./viz/canvas.js";
+import audioPlayer from "./viz/audioPlayer.js";
+import { asyncFetchTrackData } from "./modules/apiCalls.js";
 
 (() => {
     console.log("ready");
