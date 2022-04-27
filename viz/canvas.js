@@ -41,9 +41,37 @@ function canvas(proxyUrl, canvasWidth, canvasHeight, initialCanvasBackgroundColo
         // p5 will constantly call this draw function, so re-rendering of canvas is automatically handled.
         sketch.draw = () => {
             fft.analyze();
-            // console.log(fft.getEnergy("bass"));
             sketch.background(sketch.backgroundColor);
             sketch.fill(255);
+            let hoveredObjects = [];
+            let objectsToOutline = [];
+            // figure out which object to highlight
+            /*
+                Rules to highlight an object
+                1. there is no selected object, then the topmost object hovered will be highlighted
+                2. an object is selected and not being dragged, it should be highlighted
+                    - the top most unselected object hovered will also be highlighted. 
+            */
+
+            sketch.objects.forEach(obj => {
+                if (obj.rollover) {
+                    hoveredObjects.push(obj);
+                }
+            });
+
+            if (hoveredObjects.length > 0) {
+                objectsToOutline.push(hoveredObjects[hoveredObjects.length - 1]);
+            }
+
+            if (sketch.selectedObject !== null && sketch.selectedObject.dragging) {
+                objectsToOutline = [];
+            }
+            
+            if (sketch.selectedObject !== null && !sketch.selectedObject.dragging) {
+                // console.log("not dragging");
+                objectsToOutline.push(sketch.selectedObject);
+            }
+            
             // draw each object
             sketch.objects.forEach(obj => {
                 // update positions of objects if needed
@@ -57,17 +85,22 @@ function canvas(proxyUrl, canvasWidth, canvasHeight, initialCanvasBackgroundColo
 
                 } 
                 obj.over();   // checks if mouse is over object
+                if (objectsToOutline.includes(obj)) {
+                    // console.log("highlight something")
+                    if (obj === sketch.selectedObject) {
+                        obj.highlight(fft, "selected");
+                    } else {
+                        obj.highlight(fft, "unselected");
+                    }
+                    
+                }
                 obj.show(fft);   // draws object on the canvas
             })
             
         };
 
-        sketch.respond = () => {
-            console.log("draw mode");
-        }
-
         function canvasPressed() {
-            console.log("mouse pressed");
+            // console.log("mouse pressed");
             let hoveredObjects = [];
             // keep track of all objects that the cursor is over
             sketch.objects.forEach(obj => {
@@ -114,6 +147,7 @@ function canvas(proxyUrl, canvasWidth, canvasHeight, initialCanvasBackgroundColo
                     break;
             }
             sketch.objects.push(newObject);
+            sketch.selectedObject = newObject;
             // new object is set as selected
             controller.updateSelectedCanvasObject(newObject);
             return newObject;

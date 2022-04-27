@@ -256,7 +256,7 @@ main section:nth-child(4) {
     justify-content: space-between;
 }
 
-#object-fill-input, #object-stroke-input, #object-stroke-weight-input, #object-transparent-input {
+#object-fill-input, #object-stroke-input, #object-stroke-weight-input, #object-no-fill-input {
     /* border: 2px red solid; */
     margin-left: 20px;
     display: flex;
@@ -266,7 +266,7 @@ main section:nth-child(4) {
     width: 180px;
 }
 
-#object-stroke-weight-input, #object-transparent-input {
+#object-stroke-weight-input, #object-no-fill-input {
     margin-top: 15px;
 }
 

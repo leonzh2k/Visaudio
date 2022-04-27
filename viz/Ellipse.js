@@ -29,10 +29,9 @@ class Ellipse {
         this.strokeWeight = 1;
 
         this.frequency = "bass";
-        this.audioSensitivity = 1;
+        this.audioSensitivity = 5;
         
-        this.transparent = false;
-        
+        this.noFill = false;
         this.x = x;
         this.y = y;
         // Dimensions
@@ -72,11 +71,6 @@ class Ellipse {
 
       // Adjust location if being dragged
         if (this.dragging) {
-            // console.log("object moved")
-            // console.log("update coords");
-            // console.log("before: ", this.x, this.y);
-            // console.log(this.offsetX, this.offsetY);
-            // console.log(this.sketch.mouseX, this.sketch.mouseY);
             this.x = this.sketch.mouseX + this.offsetX;
             this.y = this.sketch.mouseY + this.offsetY;
             
@@ -85,43 +79,42 @@ class Ellipse {
 
     }
 
-    show(fft) {
-        // saves previous drawing settings (such as fill, stroke, etc.)
+    // highlights shape
+    highlight(fft, selected) {
+        // draw outline highlighting shape indicating you're hovering over it
         this.sketch.push();
-        // this.sketch.stroke(this.stroke);
-        
-        // Different fill based on state
-        if (this.dragging) {
-            if (this.transparent) {
-                this.sketch.noFill();
-            } else {
-                this.sketch.fill(this.fill);
-            }
-            this.sketch.stroke(this.stroke);
-            this.sketch.strokeWeight(this.strokeWeight);
-        } else if (this.rollover) {
-            this.sketch.stroke("#2596FF");
-            this.sketch.strokeWeight(this.strokeWeight+1);
-            if (this.transparent) {
-                this.sketch.noFill();
-            } else {
-                this.sketch.fill(this.fill);
-            }
-        } else {
-            this.sketch.stroke(this.stroke);
-            this.sketch.strokeWeight(this.strokeWeight);
-            if (this.transparent) {
-                this.sketch.noFill();
-            } else {
-                this.sketch.fill(this.fill);
-
-            }
+        this.sketch.noFill();
+        // this.sketch.fill("#2596FF");
+        switch (selected) {
+            case ("selected"):
+                this.sketch.stroke("#2596FF");
+                break;
+            case ("unselected"):
+                this.sketch.stroke("#04FF00");
+                break;
         }
-        // (fft.getEnergy(this.frequency) * this.audioSensitivity)
-        // this.sketch.rect(this.x, this.y, this.w, this.h);
-        this.sketch.ellipse(this.x, this.y, this.w + fft.getEnergy(this.frequency) * this.audioSensitivity, this.h + fft.getEnergy(this.frequency) * this.audioSensitivity);
+        this.sketch.strokeWeight(this.strokeWeight+5);
+        let dimensionModifier = fft.getEnergy(this.frequency) * this.audioSensitivity;
+        this.sketch.ellipse(this.x, this.y, this.w + dimensionModifier, this.h + dimensionModifier);
         this.sketch.pop();
     }
+
+    show(fft) {
+        // push saves current drawing settings (such as fill, stroke, etc.)
+        this.sketch.push();
+        // this.sketch.stroke(this.stroke);
+        this.sketch.strokeWeight(this.strokeWeight);
+        this.sketch.stroke(this.stroke);
+        if (this.noFill) {
+            this.sketch.noFill();
+        } else {
+            this.sketch.fill(this.fill);
+        }
+        let dimensionModifier = fft.getEnergy(this.frequency) * this.audioSensitivity;
+        this.sketch.ellipse(this.x, this.y, this.w + dimensionModifier, this.h + dimensionModifier);
+        this.sketch.pop();
+    }
+
 
     pressed() {
         // Did I click on the rectangle?

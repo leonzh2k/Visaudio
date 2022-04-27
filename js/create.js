@@ -4,6 +4,8 @@ import { asyncFetchTrackData } from "../modules/apiCalls.js";
 
 (() => {
     console.log("ready");
+    Parse.initialize("01t8qb2FLCXC70NIrlplthJEfFpLVhvx6RCK2S2Z", "MfK5pEk5haJ95TcyTeIkYQdodIQJ2sk1Pn3jZCXX"); //PASTE HERE YOUR Back4App APPLICATION ID AND YOUR JavaScript KEY
+    Parse.serverURL = "https://parseapi.back4app.com/";
     // MVC?
     // https://www.freecodecamp.org/news/the-model-view-controller-pattern-mvc-architecture-and-frameworks-explained/
 
@@ -27,16 +29,6 @@ import { asyncFetchTrackData } from "../modules/apiCalls.js";
 
         selectedSongURL: null,
 
-        // think more about the possible states this could be in 
-        /*
-            loading audio
-            playing audio
-            stopped
-            paused, etc.
-
-        */
-        // audioPlayerStatus: "not ready",
-
         canvasBackgroundColor: "#E5E5E5",
 
         selectedCanvasObject: null,
@@ -49,7 +41,27 @@ import { asyncFetchTrackData } from "../modules/apiCalls.js";
 
         // object that will be sent to database upon submission containing all info needed to display the viz
         databaseObject: {
-
+            vizMetadata: {
+                songURL: "die",
+                canvasBackgroundColor: "#E5E5E5",
+                canvasObjects: [
+                    {
+                        x: 10,
+                        y: 10,
+                        w: 10,
+                        h: 10,
+                        fill: "#C4C4C4",
+                        stroke: "#000000",
+                        strokeWeight: 1,
+                        frequency: "bass",
+                        audioSensitivity: 1,
+                        transparent: false
+                    }
+                ]
+            }
+            
+            
+            
         },
 
         contextMenu: {
@@ -196,10 +208,10 @@ import { asyncFetchTrackData } from "../modules/apiCalls.js";
                                     <input id="object-fill-color" type="color" value=${selectedCanvasObject.fill}>
                                 </div>
                             </div>
-                            <div id="object-transparent-input">
+                            <div id="object-no-fill-input">
                                 <div>
-                                    <label for="object-transparent">Transparent</label>
-                                    <input id="object-transparent" type="checkbox" ${selectedCanvasObject.transparent ? "checked" : ""}>
+                                    <label for="object-no-fill">No Fill</label>
+                                    <input id="object-no-fill" type="checkbox" ${selectedCanvasObject.noFill ? "checked" : ""}>
                                 </div>
                             </div>
                         </div>
@@ -246,9 +258,9 @@ import { asyncFetchTrackData } from "../modules/apiCalls.js";
                         controller.setSelectedCanvasObjectProperty("fill", e.currentTarget.value);
                     });
 
-                    document.querySelector("#object-transparent").addEventListener("change", (e) => {
+                    document.querySelector("#object-no-fill").addEventListener("change", (e) => {
                         console.log(e.currentTarget.checked);
-                        controller.setSelectedCanvasObjectProperty("transparent", e.currentTarget.checked);
+                        controller.setSelectedCanvasObjectProperty("noFill", e.currentTarget.checked);
                     });
 
                     document.querySelector("#object-stroke-color").addEventListener("input", (e) => {
@@ -420,6 +432,10 @@ import { asyncFetchTrackData } from "../modules/apiCalls.js";
             contextMenuView.init();
             chooseSongOverlayView.init();
             
+            const vizMetadata = Parse.Object.extend("vizMetadata");
+            const VizMetadata = new vizMetadata();
+
+            VizMetadata.save(model.databaseObject);
         },
 
         getContextMenuMode() {
