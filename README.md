@@ -1,4 +1,4 @@
-Live website link: https://leonzh2k.github.io/Visaudio/
+Live website link: <a href="https://leonzh2k.github.io/Visaudio/" target="_blank">https://leonzh2k.github.io/Visaudio/</a>
 
 ### TODO
 - Improve hit detection 
