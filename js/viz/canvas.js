@@ -154,7 +154,7 @@ function canvas(proxyUrl, canvasWidth, canvasHeight, initialCanvasBackgroundColo
         }
 
         sketch.windowResized = () => {
-            sketch.resizeCanvas(sketch.canvasDOMElement.clientWidth,sketch.canvasDOMElement.clientHeight);
+            // sketch.resizeCanvas(sketch.canvasDOMElement.clientWidth,sketch.canvasDOMElement.clientHeight);
             console.log("resize");
         };
     };

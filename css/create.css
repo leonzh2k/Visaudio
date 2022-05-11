@@ -128,6 +128,11 @@ main section:nth-child(4) {
     color: black;
 }
 
+#context-menu {
+    position: relative;
+    font-size: 14.5px;
+}
+
 #context-menu h2, h3 {
     padding-left: 20px;
 }
@@ -280,6 +285,28 @@ main section:nth-child(4) {
 
 #context-menu section:nth-child(3) #object-sensitivity-settings input {
     margin-left: 20px;
+}
+
+/* absolutely positioned, change later */
+#submit-viz {
+    font-weight: bold;
+    position: absolute;
+    bottom: 20px;
+    left: 0; 
+    right: 0; 
+    margin-left: auto; 
+    margin-right: auto; 
+    height: 40px;
+    background-color: #ffffff;
+    width: 100px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    /* margin-left: 20px; */
+    /* margin-bottom: 0; */
+    border: 2px black solid;
+    border-radius: 10px;
+    color: black;
+    cursor: pointer;
 }
 
 /* AUDIO PLAYER */

@@ -27,6 +27,9 @@ import { asyncFetchTrackData } from "./modules/apiCalls.js";
 
         ],
 
+        // assigned to objects
+        // nextAvailableObjectID: 1,
+
         selectedSongURL: null,
 
         canvasBackgroundColor: "#E5E5E5",
@@ -44,19 +47,21 @@ import { asyncFetchTrackData } from "./modules/apiCalls.js";
             vizMetadata: {
                 songURL: "die",
                 canvasBackgroundColor: "#E5E5E5",
-                canvasObjects: [
-                    {
-                        x: 10,
-                        y: 10,
-                        w: 10,
-                        h: 10,
-                        fill: "#C4C4C4",
-                        stroke: "#000000",
-                        strokeWeight: 1,
-                        frequency: "bass",
-                        audioSensitivity: 1,
-                        transparent: false
-                    }
+                canvasWidth: null,
+                canvasHeight: null,
+                dbReadableCanvasObjects: [
+                    // {
+                    //     x: 10,
+                    //     y: 10,
+                    //     w: 10,
+                    //     h: 10,
+                    //     fill: "#C4C4C4",
+                    //     stroke: "#000000",
+                    //     strokeWeight: 1,
+                    //     frequency: "bass",
+                    //     audioSensitivity: 1,
+                    //     transparent: false
+                    // }
                 ]
             }
             
@@ -73,10 +78,10 @@ import { asyncFetchTrackData } from "./modules/apiCalls.js";
     const objectToolbarView = {
         init() {
             document.getElementById("rectangle").addEventListener("click", () => {
-                controller.pushObject(canvasView.sketch.createObject("rectangle"));
+                controller.storeCanvasObject(canvasView.sketch.createObject("rectangle"));
             });
             document.getElementById("ellipse").addEventListener("click", () => {
-                controller.pushObject(canvasView.sketch.createObject("ellipse"));
+                controller.storeCanvasObject(canvasView.sketch.createObject("ellipse"));
             });
         }
         
@@ -129,6 +134,9 @@ import { asyncFetchTrackData } from "./modules/apiCalls.js";
             this.projectSettingsDOMElem = document.querySelector("#project-settings");
             this.objectSettingsDOMElem = document.querySelector("#object-settings");
 
+            document.querySelector("#submit-viz").addEventListener("click", () => {
+                controller.submitVizToDB();
+            });
             // Event listeners
 
             // switch to design properties button
@@ -140,6 +148,8 @@ import { asyncFetchTrackData } from "./modules/apiCalls.js";
             this.audioButtonDOMElem.addEventListener("click", () => {
                 controller.updateContextMenuMode("audio");
             });
+
+
 
             // could we call render() instead to automatically perform these?
             this.render();
@@ -321,7 +331,7 @@ import { asyncFetchTrackData } from "./modules/apiCalls.js";
                     });
 
                     document.querySelector("#sensitivity").addEventListener("input", (e) => {
-                        controller.setSelectedCanvasObjectProperty("audioSensitivity", e.currentTarget.value);
+                        controller.setSelectedCanvasObjectProperty("audioSensitivity", Number(e.currentTarget.value));
                     });
                 } else {
                     this.objectSettingsDOMElem.innerHTML = `
@@ -432,10 +442,10 @@ import { asyncFetchTrackData } from "./modules/apiCalls.js";
             contextMenuView.init();
             chooseSongOverlayView.init();
             
-            const vizMetadata = Parse.Object.extend("vizMetadata");
-            const VizMetadata = new vizMetadata();
+            // const vizMetadata = Parse.Object.extend("vizMetadata");
+            // const VizMetadata = new vizMetadata();
 
-            VizMetadata.save(model.databaseObject);
+            // VizMetadata.save(model.databaseObject);
         },
 
         getContextMenuMode() {
@@ -472,6 +482,57 @@ import { asyncFetchTrackData } from "./modules/apiCalls.js";
             return model.selectedCanvasObject;
         },
 
+        // updateDBObjectProperty() {
+
+        // },
+
+        // runs when submit button is clicked
+        submitVizToDB() {
+            // {
+            //     x: 10,
+            //     y: 10,
+            //     w: 10,
+            //     h: 10,
+            //     fill: "#C4C4C4",
+            //     stroke: "#000000",
+            //     strokeWeight: 1,
+            //     frequency: "bass",
+            //     audioSensitivity: 1,
+            //     transparent: false
+            // }
+            // load all info into the database object
+            model.databaseObject.vizMetadata.songURL = model.selectedSongURL;
+            model.databaseObject.vizMetadata.canvasBackgroundColor = model.canvasBackgroundColor;
+            let parentWidth = document.getElementById("canvas").clientWidth;
+            let parentHeight = document.getElementById("canvas").clientHeight;
+            model.databaseObject.vizMetadata.canvasWidth = parentWidth;
+            model.databaseObject.vizMetadata.canvasHeight = parentHeight;
+            // clear the array, find more efficient method later
+            model.databaseObject.vizMetadata.dbReadableCanvasObjects = []
+            model.canvasObjects.forEach(obj => {
+                let dbReadableObject = {}
+                dbReadableObject.shapeType = obj.shapeType;
+                dbReadableObject.x = obj.x;
+                dbReadableObject.y = obj.y;
+                dbReadableObject.w = obj.w;
+                dbReadableObject.h = obj.h;
+                dbReadableObject.fill = obj.fill;
+                dbReadableObject.stroke = obj.stroke;
+                dbReadableObject.strokeWeight = obj.strokeWeight;
+                dbReadableObject.frequency = obj.frequency;
+                dbReadableObject.audioSensitivity = obj.audioSensitivity;
+                dbReadableObject.noFill = obj.noFill;
+                model.databaseObject.vizMetadata.dbReadableCanvasObjects.push(dbReadableObject);
+            });
+
+            console.log(model.databaseObject);
+            // send to DB
+            const vizMetadata = Parse.Object.extend("vizMetadata");
+            const VizMetadata = new vizMetadata();
+
+            VizMetadata.save(model.databaseObject);
+        },
+
         setSelectedCanvasObjectProperty(property, value) {
             // console.log(value);
             model.selectedCanvasObject[property] = value;
@@ -494,7 +555,7 @@ import { asyncFetchTrackData } from "./modules/apiCalls.js";
             this.setCanvasBackgroundColor(newColor);
         },
 
-        pushObject(object) {
+        storeCanvasObject(object) {
             model.canvasObjects.push(object);
             // console.log(model.canvasObjects);
         },

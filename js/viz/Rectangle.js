@@ -13,6 +13,7 @@
 */
 class Rectangle {
     constructor(sketch, x, y, w, h, controller) {
+        this.shapeType = "Rectangle";
         this.dragging = false; // Is the object being dragged?
         this.rollover = false; // Is the mouse over the ellipse?
 
