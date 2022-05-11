@@ -30,14 +30,17 @@ import { asyncFetchTrackData } from "./modules/apiCalls.js";
         // assigned to objects
         // nextAvailableObjectID: 1,
 
-        selectedSongURL: null,
+        // selectedSongURL: null,
+
 
         canvasBackgroundColor: "#E5E5E5",
 
         selectedCanvasObject: null,
 
         audio: {
-
+            selectedSongURL: null,
+            trackName: null,
+            artistName: null
         },
 
         chooseSongOverlayActive: false,
@@ -403,7 +406,7 @@ import { asyncFetchTrackData } from "./modules/apiCalls.js";
                                 song.addEventListener("click", () => {
                                     document.querySelector("#current-song span").innerHTML = `${track.artistName} - ${track.name}`;
                                     // update model current selected song
-                                    controller.setSelectedSongURL(track.previewURL);
+                                    controller.setSelectedSongURL(track.previewURL, track.artistName, track.name);
                                 });
                                 
                                 
@@ -465,8 +468,10 @@ import { asyncFetchTrackData } from "./modules/apiCalls.js";
             return model.proxyURL;
         },
 
-        setSelectedSongURL(songURL) {
-            model.selectedSongURL = songURL;
+        setSelectedSongURL(songURL, artistName, trackName) {
+            model.audio.selectedSongURL = songURL;
+            model.audio.artistName = artistName;
+            model.audio.trackName = trackName;
             audioPlayerView.audioPlayer.loadAudio(this.getProxyURL() + songURL);
         },
 
@@ -501,7 +506,9 @@ import { asyncFetchTrackData } from "./modules/apiCalls.js";
             //     transparent: false
             // }
             // load all info into the database object
-            model.databaseObject.vizMetadata.songURL = model.selectedSongURL;
+            model.databaseObject.vizMetadata.songURL = model.audio.selectedSongURL;
+            model.databaseObject.vizMetadata.artistName = model.audio.artistName;
+            model.databaseObject.vizMetadata.trackName = model.audio.trackName;
             model.databaseObject.vizMetadata.canvasBackgroundColor = model.canvasBackgroundColor;
             let parentWidth = document.getElementById("canvas").clientWidth;
             let parentHeight = document.getElementById("canvas").clientHeight;

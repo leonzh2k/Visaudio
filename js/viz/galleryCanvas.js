@@ -33,22 +33,31 @@ function galleryCanvas(vizData, vizIndex, vizNavigator, proxyUrl) {
             sketch.rectMode(sketch.CENTER);
             cnv.mousePressed(canvasPressed); // mouse events will only apply to canvas area
 
+            let songDetails = sketch.createP(`${vizData.artistName} - ${vizData.trackName} `);
+            songDetails.position(100, sketch.windowHeight - 115);
+            songDetails.elt.style.backgroundColor = "black";
+            songDetails.elt.style.fontSize = "20px";
+
             sketch.playButton = sketch.createImg('../../assets/img/play_button.svg');
+            sketch.song.onended(() => {
+                console.log("ended");
+                sketch.playButton.elt.src = '../../assets/img/play_button.svg';
+            });
             // p.parent("view-viz");
             sketch.playButton.style('font-size', '25px');
-            sketch.playButton.position(vizData.canvasWidth / 2 + 50, vizData.canvasHeight);
+            sketch.playButton.position(sketch.windowWidth / 2 - 100, sketch.windowHeight - 100);
             sketch.playButton.mousePressed(toggleAudio);
 
             if (vizIndex != vizNavigator.vizzes.length - 1) {
                 sketch.nextVizButton = sketch.createImg('../../assets/img/nextVizButton.svg');
-                sketch.nextVizButton.position(vizData.canvasWidth + 100, vizData.canvasHeight / 2);
+                sketch.nextVizButton.position(sketch.windowWidth - 180, vizData.canvasHeight / 2);
                 sketch.nextVizButton.mousePressed(() => {
                     vizNavigator.displayViz(vizIndex + 1);
                 });
             }
             if (vizIndex != 0) {
                 sketch.previousVizButton = sketch.createImg('../../assets/img/previousVizButton.svg');
-                sketch.previousVizButton.position(-25, vizData.canvasHeight / 2);
+                sketch.previousVizButton.position(-50, vizData.canvasHeight / 2);
                 sketch.previousVizButton.mousePressed(() => {
                     vizNavigator.displayViz(vizIndex - 1);
                 });

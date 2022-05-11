@@ -54,6 +54,7 @@ import galleryCanvas from "./viz/galleryCanvas.js";
     function showVizInGallery(vizMetadata) {
         for (let i = 0; i < vizMetadata.length; i++) {
             let vizThumbnail = document.createElement("div");
+            // do the canvas thumbnail creation here
             vizThumbnail.addEventListener("click", () => {
                 console.log("switching to view viz")
         
@@ -61,15 +62,15 @@ import galleryCanvas from "./viz/galleryCanvas.js";
                 // console.log(vizMetadata[i].get("vizParams"));
                 state = "view";
             });
-            let thumbnail = document.createElement("img");
-            // console.log(vizMetadata[i].attributes.vizThumbnail);
-            // error checking if thumbnail doesn't exist?
-            if (!vizMetadata[i].attributes.vizThumbnail) {
-                console.log("thumbnail no exist");
-            } else {
-                thumbnail.src = vizMetadata[i].get("vizThumbnail").url();
-            }
-            vizThumbnail.appendChild(thumbnail);
+            // let thumbnail = document.createElement("img");
+            // // console.log(vizMetadata[i].attributes.vizThumbnail);
+            // // error checking if thumbnail doesn't exist?
+            // if (!vizMetadata[i].attributes.vizThumbnail) {
+            //     console.log("thumbnail no exist");
+            // } else {
+            //     thumbnail.src = vizMetadata[i].get("vizThumbnail").url();
+            // }
+            // vizThumbnail.appendChild(thumbnail);
             gallery.appendChild(vizThumbnail);
         }
 
