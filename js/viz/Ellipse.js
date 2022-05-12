@@ -49,8 +49,9 @@ class Ellipse {
     // }
 
     // https://www.geeksforgeeks.org/check-if-a-point-is-inside-outside-or-on-the-ellipse/
-    centerEllipseModeHitDetection() {
-        let p = (this.sketch.pow((this.sketch.mouseX - this.x), 2) / this.sketch.pow(this.w / 2, 2)) + (this.sketch.pow((this.sketch.mouseY - this.y), 2) / this.sketch.pow(this.h / 2, 2));
+    centerEllipseModeHitDetection(fft) {
+        let dimensionModifier = fft.getEnergy(this.frequency) * this.audioSensitivity;
+        let p = (this.sketch.pow((this.sketch.mouseX - this.x), 2) / this.sketch.pow((this.w + this.strokeWeight + dimensionModifier) / 2, 2)) + (this.sketch.pow((this.sketch.mouseY - this.y), 2) / this.sketch.pow((this.h + this.strokeWeight + dimensionModifier) / 2, 2));
         if (p < 1) {
             return true;
         } else {
@@ -58,10 +59,10 @@ class Ellipse {
         }
     }
 
-    over() {
+    over(fft) {
         // Is mouse over object
         
-        if (this.centerEllipseModeHitDetection()) {
+        if (this.centerEllipseModeHitDetection(fft)) {
             this.rollover = true;
         } else {
             this.rollover = false;
@@ -117,9 +118,9 @@ class Ellipse {
     }
 
 
-    pressed() {
+    pressed(fft) {
         // Did I click on the rectangle?
-        if (this.centerEllipseModeHitDetection()) {
+        if (this.centerEllipseModeHitDetection(fft)) {
             this.dragging = true;
             // If so, keep track of relative location of click to corner of rectangle
             this.offsetX = this.x - this.sketch.mouseX;

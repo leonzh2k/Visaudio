@@ -76,7 +76,7 @@ header nav ul li {
 #gallery div {
     height: 250px;
     width: 325px;
-    border: 2px orange dotted;
+    border: 1px white solid;
     /* margin-bottom: 1.5em; */
     text-align: center;
     vertical-align: bottom;

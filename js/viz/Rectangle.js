@@ -49,18 +49,20 @@ class Rectangle {
         }
     }
 
-    centerRectModeHitDetection() {
-        if (this.sketch.mouseX > this.x - (this.w / 2) && this.sketch.mouseX < this.x + (this.w / 2) && this.sketch.mouseY > this.y - (this.h / 2) && this.sketch.mouseY < this.y + (this.h / 2)) {
+    centerRectModeHitDetection(fft) {
+        console.log(fft.getEnergy("bass"))
+        let dimensionModifier = fft.getEnergy(this.frequency) * this.audioSensitivity;
+        if (this.sketch.mouseX > this.x - ((this.w + this.strokeWeight + dimensionModifier) / 2) && this.sketch.mouseX < this.x + ((this.w + this.strokeWeight + dimensionModifier) / 2) && this.sketch.mouseY > this.y - ((this.h + this.strokeWeight + dimensionModifier) / 2) && this.sketch.mouseY < this.y + ((this.h + this.strokeWeight + dimensionModifier) / 2)) {
             return true;
         } else {
             return false;
         }
     }
 
-    over() {
+    over(fft) {
         // Is mouse over object
         
-        if (this.centerRectModeHitDetection()) {
+        if (this.centerRectModeHitDetection(fft)) {
             this.rollover = true;
         } else {
             this.rollover = false;
@@ -116,9 +118,9 @@ class Rectangle {
         this.sketch.pop();
     }
 
-    pressed() {
+    pressed(fft) {
         // Did I click on the rectangle?
-        if (this.centerRectModeHitDetection()) {
+        if (this.centerRectModeHitDetection(fft)) {
             this.dragging = true;
             // If so, keep track of relative location of click to corner of rectangle
             this.offsetX = this.x - this.sketch.mouseX;

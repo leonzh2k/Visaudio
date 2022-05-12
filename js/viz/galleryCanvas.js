@@ -35,6 +35,7 @@ function galleryCanvas(vizData, vizIndex, vizNavigator, proxyUrl) {
 
             let songDetails = sketch.createP(`${vizData.artistName} - ${vizData.trackName} `);
             songDetails.position(100, sketch.windowHeight - 115);
+            songDetails.elt.style.color = "white";
             songDetails.elt.style.backgroundColor = "black";
             songDetails.elt.style.fontSize = "20px";
 
@@ -51,6 +52,7 @@ function galleryCanvas(vizData, vizIndex, vizNavigator, proxyUrl) {
             if (vizIndex != vizNavigator.vizzes.length - 1) {
                 sketch.nextVizButton = sketch.createImg('../../assets/img/nextVizButton.svg');
                 sketch.nextVizButton.position(sketch.windowWidth - 180, vizData.canvasHeight / 2);
+                sketch.nextVizButton.elt.style.cursor = "pointer";
                 sketch.nextVizButton.mousePressed(() => {
                     vizNavigator.displayViz(vizIndex + 1);
                 });
@@ -58,6 +60,7 @@ function galleryCanvas(vizData, vizIndex, vizNavigator, proxyUrl) {
             if (vizIndex != 0) {
                 sketch.previousVizButton = sketch.createImg('../../assets/img/previousVizButton.svg');
                 sketch.previousVizButton.position(-50, vizData.canvasHeight / 2);
+                sketch.previousVizButton.elt.style.cursor = "pointer";
                 sketch.previousVizButton.mousePressed(() => {
                     vizNavigator.displayViz(vizIndex - 1);
                 });

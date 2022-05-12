@@ -43,7 +43,7 @@ import { asyncFetchTrackData } from "./modules/apiCalls.js";
             artistName: null
         },
 
-        chooseSongOverlayActive: false,
+        chooseSongOverlayActive: true,
 
         // object that will be sent to database upon submission containing all info needed to display the viz
         databaseObject: {
@@ -52,24 +52,8 @@ import { asyncFetchTrackData } from "./modules/apiCalls.js";
                 canvasBackgroundColor: "#E5E5E5",
                 canvasWidth: null,
                 canvasHeight: null,
-                dbReadableCanvasObjects: [
-                    // {
-                    //     x: 10,
-                    //     y: 10,
-                    //     w: 10,
-                    //     h: 10,
-                    //     fill: "#C4C4C4",
-                    //     stroke: "#000000",
-                    //     strokeWeight: 1,
-                    //     frequency: "bass",
-                    //     audioSensitivity: 1,
-                    //     transparent: false
-                    // }
-                ]
+                dbReadableCanvasObjects: []
             }
-            
-            
-            
         },
 
         contextMenu: {
@@ -138,7 +122,13 @@ import { asyncFetchTrackData } from "./modules/apiCalls.js";
             this.objectSettingsDOMElem = document.querySelector("#object-settings");
 
             document.querySelector("#submit-viz").addEventListener("click", () => {
-                controller.submitVizToDB();
+                if (controller.checkIfVizIsSubmittable()) {
+                    console.log("submit viz");
+                    controller.submitVizToDB();
+                } else {
+                    console.log("viz not submittable")
+                }
+                
             });
             // Event listeners
 
@@ -424,6 +414,7 @@ import { asyncFetchTrackData } from "./modules/apiCalls.js";
                     }
                 }
             });
+            this.render();
         },
 
         render() {
@@ -594,6 +585,13 @@ import { asyncFetchTrackData } from "./modules/apiCalls.js";
 
         getChooseSongOverlayActive() {
             return model.chooseSongOverlayActive;
+        },
+
+        checkIfVizIsSubmittable() {
+            if (model.audio.selectedSongURL != null && model.canvasObjects.length != 0) {
+                return true;
+            }
+            return false;
         }
     }
 

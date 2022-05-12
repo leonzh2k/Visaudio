@@ -1,4 +1,5 @@
 import galleryCanvas from "./viz/galleryCanvas.js";
+import thumbnailCanvas from "./viz/thumbnailCanvas.js";
 (() => {
 
     Parse.initialize("01t8qb2FLCXC70NIrlplthJEfFpLVhvx6RCK2S2Z", "MfK5pEk5haJ95TcyTeIkYQdodIQJ2sk1Pn3jZCXX"); //PASTE HERE YOUR Back4App APPLICATION ID AND YOUR JavaScript KEY
@@ -52,8 +53,13 @@ import galleryCanvas from "./viz/galleryCanvas.js";
     
     
     function showVizInGallery(vizMetadata) {
+        main.append(gallery);
         for (let i = 0; i < vizMetadata.length; i++) {
             let vizThumbnail = document.createElement("div");
+            vizThumbnail.id = `viz-thumbnail-${i}`;
+            gallery.appendChild(vizThumbnail);
+            let thumbnailWidth = document.getElementById(vizThumbnail.id).clientWidth;
+            let thumbnailHeight = document.getElementById(vizThumbnail.id).clientHeight;
             // do the canvas thumbnail creation here
             vizThumbnail.addEventListener("click", () => {
                 console.log("switching to view viz")
@@ -62,6 +68,7 @@ import galleryCanvas from "./viz/galleryCanvas.js";
                 // console.log(vizMetadata[i].get("vizParams"));
                 state = "view";
             });
+            new p5(thumbnailCanvas(vizMetadata[i].get("vizMetadata"), thumbnailWidth, thumbnailHeight), vizThumbnail.id);
             // let thumbnail = document.createElement("img");
             // // console.log(vizMetadata[i].attributes.vizThumbnail);
             // // error checking if thumbnail doesn't exist?
@@ -71,10 +78,10 @@ import galleryCanvas from "./viz/galleryCanvas.js";
             //     thumbnail.src = vizMetadata[i].get("vizThumbnail").url();
             // }
             // vizThumbnail.appendChild(thumbnail);
-            gallery.appendChild(vizThumbnail);
+            
         }
 
-        main.append(gallery);
+        
     }
 
     function removeViz() {

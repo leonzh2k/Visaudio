@@ -84,7 +84,7 @@ function canvas(proxyUrl, canvasWidth, canvasHeight, initialCanvasBackgroundColo
                     controller.updateSelectedCanvasObject(sketch.selectedObject);
 
                 } 
-                obj.over();   // checks if mouse is over object
+                obj.over(fft);   // checks if mouse is over object
                 if (objectsToOutline.includes(obj)) {
                     // console.log("highlight something")
                     if (obj === sketch.selectedObject) {
@@ -118,7 +118,7 @@ function canvas(proxyUrl, canvasWidth, canvasHeight, initialCanvasBackgroundColo
             */
             if (hoveredObjects.length > 0) {
                 sketch.selectedObject = hoveredObjects[hoveredObjects.length - 1];
-                sketch.selectedObject.pressed();
+                sketch.selectedObject.pressed(fft);
 
                 // Change context menu to object properties
                 controller.updateSelectedCanvasObject(sketch.selectedObject); 
