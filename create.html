@@ -127,9 +127,32 @@
                 <div id="choose-song-modal">
                     <img id="close-modal-button" src="assets/img/close_button.svg">
                     <h2>Choose Song</h2>
-                    <p id="current-song">Currently selected song: <span></span></p>
+                    <p id="current-song">Currently selected song: <span>No song selected</span></p>
                     <input type="text" placeholder="Search for a song...">
                     <div id="search-results"></div>
+                </div>
+            </div>
+
+            <div id="viz-submitted-overlay">
+                <div id="viz-submitted-modal">
+                    <img id="close-viz-submitted-modal-button" src="assets/img/close_button.svg">
+                    <h2>Viz Submitted!</h2>
+                    <p>What would you like to do next?</p>
+                    <button><a href="./index.html">View Gallery</a></button>
+                    <button id="continue-working-button">Continue Working</button>
+                    <button><a href="./create.html">Create New Viz</a></button>
+                </div>
+            </div>
+
+            <div id="viz-submission-denied-overlay">
+                <div id="viz-submission-denied-modal">
+                    <!-- <img id="close-viz-submission-denied-modal-button" src="assets/img/close_button.svg"> -->
+                    <h2>Uh oh!</h2>
+                    <p>You need to choose a song before submitting your viz.</p>
+                    <div id="got-it-button-wrapper">
+                        <button id="got-it-button">Got it</button>
+                    </div>
+                    
                 </div>
             </div>
         </main>

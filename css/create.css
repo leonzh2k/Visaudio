@@ -331,7 +331,7 @@ main section:nth-child(4) {
 
 /* CHOOSE SONG OVERLAY AND MODAL */
 
-#choose-song-overlay {
+#choose-song-overlay, #viz-submitted-overlay, #viz-submission-denied-overlay {
     position: static;
     display: none;
     justify-content: center;
@@ -343,7 +343,69 @@ main section:nth-child(4) {
     grid-column-end: 4;
     grid-row-start: 1;
     grid-row-end: 3;
+    color: black;
 } 
+
+#viz-submitted-overlay a {
+    color: black;
+}
+
+#viz-submitted-modal {
+    position: relative;
+    margin-bottom: 25px;
+    background-color: white;
+    height: 180px;
+    width: 500px;
+    cursor: default;
+    z-index: 3;
+    padding-top: 10px;
+    padding-left: 35px;
+    border-radius: 10px;
+    font-size: 17px;
+}
+
+#viz-submission-denied-modal {
+    position: relative;
+    margin-bottom: 25px;
+    background-color: white;
+    height: 170px;
+    width: 500px;
+    cursor: default;
+    z-index: 3;
+    padding-top: 10px;
+    border-radius: 10px;
+    font-size: 17px;
+}
+
+#viz-submission-denied-modal h2, #viz-submission-denied-modal p  {
+    padding-left: 30px;
+}
+
+#got-it-button-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding-left: 0;
+    /* border: 2px red solid; */
+}
+
+#close-viz-submission-denied-modal-button {
+    position: absolute;
+    right: 25px; 
+    top: 25px;
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+}
+
+#close-viz-submitted-modal-button {
+    position: absolute;
+    right: 25px; 
+    top: 25px;
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+}
 
 #choose-song-modal {
     position: relative;

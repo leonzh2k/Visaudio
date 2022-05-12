@@ -43,7 +43,9 @@ import { asyncFetchTrackData } from "./modules/apiCalls.js";
             artistName: null
         },
 
-        chooseSongOverlayActive: true,
+        chooseSongOverlayActive: !true,
+        vizSubmitOverlayActive: false,
+        vizSubmissionDeniedOverlayActive: !true,
 
         // object that will be sent to database upon submission containing all info needed to display the viz
         databaseObject: {
@@ -122,11 +124,12 @@ import { asyncFetchTrackData } from "./modules/apiCalls.js";
             this.objectSettingsDOMElem = document.querySelector("#object-settings");
 
             document.querySelector("#submit-viz").addEventListener("click", () => {
+                
                 if (controller.checkIfVizIsSubmittable()) {
-                    console.log("submit viz");
                     controller.submitVizToDB();
+                    controller.setSubmitVizOverlayActive(true);
                 } else {
-                    console.log("viz not submittable")
+                    controller.setVizSubmissionDeniedOverlayActive(true);
                 }
                 
             });
@@ -141,8 +144,6 @@ import { asyncFetchTrackData } from "./modules/apiCalls.js";
             this.audioButtonDOMElem.addEventListener("click", () => {
                 controller.updateContextMenuMode("audio");
             });
-
-
 
             // could we call render() instead to automatically perform these?
             this.render();
@@ -290,7 +291,7 @@ import { asyncFetchTrackData } from "./modules/apiCalls.js";
                     <h2>PROJECT</h2>
                     <div id="project-song-settings">
                         <h3>Song</h3>
-                        <button>Change Viz Song</button>
+                        <button>Choose Viz Song</button>
                     </div>
                 `;
 
@@ -349,6 +350,73 @@ import { asyncFetchTrackData } from "./modules/apiCalls.js";
         }
     };
 
+    const vizSubmissionDeniedOverlayView = {
+        init() {
+            this.overlayDOMElem = document.querySelector("#viz-submission-denied-overlay");
+            // this.closeModalButtonDOMElem = document.querySelector("#close-viz-submission-denied-modal-button");
+            this.vizSubmittedModalDOMElem = document.querySelector("#viz-submission-denied-modal");
+            this.gotItButtonDOMElem = document.querySelector("#got-it-button");
+
+            this.gotItButtonDOMElem.addEventListener("click", () => {
+                controller.setVizSubmissionDeniedOverlayActive(false);
+            });
+
+            this.overlayDOMElem.addEventListener("mousedown", (e) => {
+                // prevents overlay from disappearing when the modal is clicked
+                if (this.overlayDOMElem === e.target) {
+                    // put your code here
+                    controller.setVizSubmissionDeniedOverlayActive(false);
+                }
+            });
+
+
+
+            this.render();
+        },
+
+        render() {
+            if (controller.getVizSubmissionDeniedOverlayActive()) {
+                this.overlayDOMElem.style.display = "flex";
+            } else {
+                this.overlayDOMElem.style.display = "none";
+            }
+        }
+        
+    };
+
+    const vizSubmittedOverlayView = {
+        init() {
+            this.overlayDOMElem = document.querySelector("#viz-submitted-overlay");
+            this.closeModalButtonDOMElem = document.querySelector("#close-viz-submitted-modal-button");
+            this.vizSubmittedModalDOMElem = document.querySelector("#viz-submitted-modal");
+            this.continueWorkingButtonDOMElem = document.querySelector("#continue-working-button");
+            console.log("hello world");
+            this.overlayDOMElem.addEventListener("mousedown", (e) => {
+                // prevents overlay from disappearing when the modal is clicked
+                if (this.overlayDOMElem === e.target) {
+                    // put your code here
+                    controller.setSubmitVizOverlayActive(false);
+                }
+            });
+
+            this.closeModalButtonDOMElem.addEventListener("click", () => {
+                controller.setSubmitVizOverlayActive(false);
+            });
+
+            this.continueWorkingButtonDOMElem.addEventListener("click", () => {
+                controller.setSubmitVizOverlayActive(false);
+            });
+
+            this.render();
+        },
+        render() {
+            if (controller.getSubmitVizOverlayActive()) {
+                this.overlayDOMElem.style.display = "flex";
+            } else {
+                this.overlayDOMElem.style.display = "none";
+            }
+        }
+    }
 
     const chooseSongOverlayView = {
         init() {
@@ -359,7 +427,7 @@ import { asyncFetchTrackData } from "./modules/apiCalls.js";
             this.searchResultsDOMElem = document.querySelector("#search-results");
             this.overlayDOMElem.addEventListener("mousedown", (e) => {
                 // prevents overlay from disappearing when the modal is clicked
-                if(this.overlayDOMElem === e.target) {
+                if (this.overlayDOMElem === e.target) {
                     // put your code here
                     controller.setChooseSongOverlayActive(false);
                 }
@@ -435,7 +503,8 @@ import { asyncFetchTrackData } from "./modules/apiCalls.js";
             canvasView.init(audioPlayerView.audioPlayer.audioObject);
             contextMenuView.init();
             chooseSongOverlayView.init();
-            
+            vizSubmittedOverlayView.init();
+            vizSubmissionDeniedOverlayView.init();
             // const vizMetadata = Parse.Object.extend("vizMetadata");
             // const VizMetadata = new vizMetadata();
 
@@ -587,8 +656,27 @@ import { asyncFetchTrackData } from "./modules/apiCalls.js";
             return model.chooseSongOverlayActive;
         },
 
+        setSubmitVizOverlayActive(active) {
+            model.vizSubmitOverlayActive = active;
+            vizSubmittedOverlayView.render();
+        }, 
+
+        getSubmitVizOverlayActive() {
+            return model.vizSubmitOverlayActive;
+        },
+
+        setVizSubmissionDeniedOverlayActive(active) {
+            model.vizSubmissionDeniedOverlayActive = active;
+            vizSubmissionDeniedOverlayView.render();
+        },
+
+        getVizSubmissionDeniedOverlayActive() {
+            return model.vizSubmissionDeniedOverlayActive;
+        },
+
         checkIfVizIsSubmittable() {
-            if (model.audio.selectedSongURL != null && model.canvasObjects.length != 0) {
+            // maybe if no objects it canvas?
+            if (model.audio.selectedSongURL != null) {
                 return true;
             }
             return false;
@@ -601,6 +689,7 @@ import { asyncFetchTrackData } from "./modules/apiCalls.js";
     
 
     
-    
+    // need like a welcome to the project screen
+    // maybe welcome page on navbar 
 
 })();
