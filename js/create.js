@@ -21,7 +21,7 @@ import { asyncFetchTrackData } from "./modules/apiCalls.js";
         
         napsterAPIKey: "ZDIxMDM1NTEtYjk3OS00YTI1LWIyYjItYjBjOWVmMWYyN2I3",
 
-        proxyURL: "https://cors-anywhere.herokuapp.com/",
+        proxyURL: "https://mighty-stream-75885.herokuapp.com",
 
         canvasObjects: [
 
@@ -81,7 +81,7 @@ import { asyncFetchTrackData } from "./modules/apiCalls.js";
             let parentWidth = document.getElementById("canvas").clientWidth;
             let parentHeight = document.getElementById("canvas").clientHeight;
             // the sketch constantly draws itself, thus, changing any member will automatically be rendered
-            this.sketch = new p5(canvas("https://mighty-stream-75885.herokuapp.com", parentWidth, parentHeight, controller.getCanvasBackgroundColor(), audioObject, controller), "canvas");
+            this.sketch = new p5(canvas(parentWidth, parentHeight, controller.getCanvasBackgroundColor(), audioObject, controller), "canvas");
             // debug
             // canvasView.sketch.createObject()
         }

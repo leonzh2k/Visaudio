@@ -16,7 +16,7 @@ import Ellipse from "./Ellipse.js";
 
 */
 // We need to pass in a reference to the controller because we need to update other views when interacting with the canvas
-function canvas(proxyUrl, canvasWidth, canvasHeight, initialCanvasBackgroundColor, audioObject, controller) {
+function canvas(canvasWidth, canvasHeight, initialCanvasBackgroundColor, audioObject, controller) {
     // console.log(canvasHeight);
     const canvas = ( sketch ) => {
         // variables bound to the sketch are accessible whereever the object is in scope
