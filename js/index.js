@@ -118,7 +118,7 @@ import thumbnailCanvas from "./viz/thumbnailCanvas.js";
         // https://mighty-stream-75885.herokuapp.com
         // https://cors-anywhere.herokuapp.com
 
-        currentViz = new p5(galleryCanvas(vizMetadata.get("vizMetadata"), vizIndex, vizNavigator, "https://cors-anywhere.herokuapp.com"), "view-viz");
+        currentViz = new p5(galleryCanvas(vizMetadata.get("vizMetadata"), vizIndex, vizNavigator, "https://mighty-stream-75885.herokuapp.com"), "view-viz");
     }
 
     
