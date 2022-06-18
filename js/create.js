@@ -532,7 +532,7 @@ import { asyncFetchTrackData } from "./modules/apiCalls.js";
             model.audio.selectedSongURL = songURL;
             model.audio.artistName = artistName;
             model.audio.trackName = trackName;
-            audioPlayerView.audioPlayer.loadAudio(this.getProxyURL() + songURL);
+            audioPlayerView.audioPlayer.loadAudio(`${this.getProxyURL()}/${songURL}`);
         },
 
         // getAudioPlayerStatus() {
