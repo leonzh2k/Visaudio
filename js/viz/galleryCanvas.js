@@ -39,10 +39,10 @@ function galleryCanvas(vizData, vizIndex, vizNavigator, proxyUrl) {
             songDetails.elt.style.backgroundColor = "black";
             songDetails.elt.style.fontSize = "20px";
 
-            sketch.playButton = sketch.createImg('../../assets/img/play_button.svg');
+            sketch.playButton = sketch.createImg('./assets/img/play_button.svg');
             sketch.song.onended(() => {
                 console.log("ended");
-                sketch.playButton.elt.src = '../../assets/img/play_button.svg';
+                sketch.playButton.elt.src = './assets/img/play_button.svg';
             });
             // p.parent("view-viz");
             sketch.playButton.style('font-size', '25px');
@@ -50,7 +50,7 @@ function galleryCanvas(vizData, vizIndex, vizNavigator, proxyUrl) {
             sketch.playButton.mousePressed(toggleAudio);
 
             if (vizIndex != vizNavigator.vizzes.length - 1) {
-                sketch.nextVizButton = sketch.createImg('../../assets/img/nextVizButton.svg');
+                sketch.nextVizButton = sketch.createImg('./assets/img/nextVizButton.svg');
                 sketch.nextVizButton.position(sketch.windowWidth - 180, vizData.canvasHeight / 2);
                 sketch.nextVizButton.elt.style.cursor = "pointer";
                 sketch.nextVizButton.mousePressed(() => {
@@ -58,7 +58,7 @@ function galleryCanvas(vizData, vizIndex, vizNavigator, proxyUrl) {
                 });
             }
             if (vizIndex != 0) {
-                sketch.previousVizButton = sketch.createImg('../../assets/img/previousVizButton.svg');
+                sketch.previousVizButton = sketch.createImg('./assets/img/previousVizButton.svg');
                 sketch.previousVizButton.position(-50, vizData.canvasHeight / 2);
                 sketch.previousVizButton.elt.style.cursor = "pointer";
                 sketch.previousVizButton.mousePressed(() => {
@@ -123,12 +123,12 @@ function galleryCanvas(vizData, vizIndex, vizNavigator, proxyUrl) {
             if (sketch.song != null) {
                 if (sketch.song.isPlaying()) {
                     sketch.song.pause();
-                    sketch.playButton.elt.src = '../../assets/img/play_button.svg';
+                    sketch.playButton.elt.src = './assets/img/play_button.svg';
                     // p.html('play');
                     // sketch.noLoop();
                 } else {
                     sketch.song.play();
-                    sketch.playButton.elt.src = '../../assets/img/pause_button.svg';
+                    sketch.playButton.elt.src = './assets/img/pause_button.svg';
                     // p.html('pause');
                     // sketch.loop();
                 }

@@ -96,10 +96,10 @@ import { asyncFetchTrackData } from "./modules/apiCalls.js";
             this.playAudioButtonDomElem.addEventListener("click", () => {
                 switch (this.audioPlayer.playAudio()) {
                     case ("playing"):
-                        this.playAudioButtonDomElem.src = "../assets/img/pause_button.svg";
+                        this.playAudioButtonDomElem.src = "./assets/img/pause_button.svg";
                         break;
                     case ("paused"):
-                        this.playAudioButtonDomElem.src = "../assets/img/play_button.svg";
+                        this.playAudioButtonDomElem.src = "./assets/img/play_button.svg";
                         break;
                     case ("not ready"):
                         break;

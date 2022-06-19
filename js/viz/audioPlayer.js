@@ -12,7 +12,7 @@ function audioPlayer(controller) {
             sketch.audioObject = new p5.SoundFile();
             sketch.audioObject.onended(() => {
                 console.log("ended");
-                document.querySelector("#audio-player img").src = "../assets/img/play_button.svg";
+                document.querySelector("#audio-player img").src = "./assets/img/play_button.svg";
             });
             sketch.audioPlayerStatus = "not ready";
             sketch.noLoop();
