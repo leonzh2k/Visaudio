@@ -8,9 +8,9 @@ jobs:
       - run: |  
           python ./.github/workflows/updateProxyURL.py
           git config --local user.email "leonzh2k@github.com"
-          git config --local user.name "GitHub Action test"
+          git config --local user.name "leonzh2k"
           git add .
-          git commit -m "add changes"
+          git commit -m "auto update proxy URL"
           git push
 
       
