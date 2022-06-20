@@ -9,4 +9,5 @@ Wireframes <a href="https://www.figma.com/file/Do7grHLNvjXHS0Z8w42YLX/Interactiv
 - optimize canvasView renders
 - polymorphism of shape types to eliminate duplicate code
 - add ability to delete objects
+- info page
 - figure out how to save image of the canvas to the server

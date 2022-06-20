@@ -50,7 +50,7 @@ class Rectangle {
     }
 
     centerRectModeHitDetection(fft) {
-        console.log(fft.getEnergy("bass"))
+        // console.log(fft.getEnergy("bass"))
         let dimensionModifier = fft.getEnergy(this.frequency) * this.audioSensitivity;
         if (this.sketch.mouseX > this.x - ((this.w + this.strokeWeight + dimensionModifier) / 2) && this.sketch.mouseX < this.x + ((this.w + this.strokeWeight + dimensionModifier) / 2) && this.sketch.mouseY > this.y - ((this.h + this.strokeWeight + dimensionModifier) / 2) && this.sketch.mouseY < this.y + ((this.h + this.strokeWeight + dimensionModifier) / 2)) {
             return true;
