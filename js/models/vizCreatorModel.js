@@ -8,8 +8,8 @@ const vizCreatorModel = {
     napsterAPIKey: "ZDIxMDM1NTEtYjk3OS00YTI1LWIyYjItYjBjOWVmMWYyN2I3",
     // for local dev, use the demo server, for production, use my own server
     // https://mighty-stream-75885.herokuapp.com
-    // https://cors-anywhere.herokuapp.com
-    proxyURL: "https://cors-anywhere.herokuapp.com",
+    // https://mighty-stream-75885.herokuapp.com
+    proxyURL: "https://mighty-stream-75885.herokuapp.com",
 
     canvasObjects: [
 
