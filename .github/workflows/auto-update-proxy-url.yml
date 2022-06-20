@@ -7,7 +7,9 @@ jobs:
       - uses: actions/checkout@v3
       - run: |  
           echo 'Hello World!' >> testfile.txt
+          git config --local user.email "test@github.com"
+          git config --local user.name "GitHub Action test"
           git add .
           git commit -m "add changes"
-          
+
       
