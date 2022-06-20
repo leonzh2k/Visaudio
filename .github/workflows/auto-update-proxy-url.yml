@@ -5,4 +5,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run:  echo 'Hello World!' >> testfile.txt
+      - run: |  
+          echo 'Hello World!' >> testfile.txt
+          git add .
+          git commit -m "add changes"
+          
+      
