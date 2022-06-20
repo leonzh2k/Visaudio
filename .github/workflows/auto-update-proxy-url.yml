@@ -6,7 +6,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: |  
-          echo 'Hello World!' >> testfile.txt
+          python ./.github/workflows/updateProxyURL.py
           git config --local user.email "test@github.com"
           git config --local user.name "GitHub Action test"
           git add .
