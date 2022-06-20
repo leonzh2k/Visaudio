@@ -1,0 +1,8 @@
+name: auto-update-proxy-url
+on: [push]
+jobs: 
+  update-proxy-url:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run:  echo 'Hello World!' >> testfile.txt
