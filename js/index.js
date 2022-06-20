@@ -114,10 +114,7 @@ import thumbnailCanvas from "./viz/thumbnailCanvas.js";
         let section = document.createElement("section");
         section.id = "view-viz";
         main.appendChild(section);
-        // for local dev, use the demo server, for production, use my own server
-        // https://mighty-stream-75885.herokuapp.com
-        // https://cors-anywhere.herokuapp.com
-
+        // for dev, use the demo server, for production, use my own server
         currentViz = new p5(galleryCanvas(vizMetadata.get("vizMetadata"), vizIndex, vizNavigator, "https://cors-anywhere.herokuapp.com"), "view-viz");
     }
 
