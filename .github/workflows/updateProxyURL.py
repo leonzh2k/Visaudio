@@ -1,2 +1,4 @@
-with open("testfile.txt", "a") as file:
-    file.write("hello world!")
+with open("./js/index.js", "r+") as file:
+    fileContents = file.read()
+    modifiedFile = fileContents.replace("https://cors-anywhere.herokuapp.com", "https://mighty-stream-75885.herokuapp.com")
+    file.write(modifiedFile)
