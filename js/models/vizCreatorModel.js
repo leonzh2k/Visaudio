@@ -9,7 +9,7 @@ const vizCreatorModel = {
     // for local dev, use the demo server, for production, use my own server
     // https://mighty-stream-75885.herokuapp.com
     // https://mighty-stream-75885.herokuapp.com
-    proxyURL: "https://mighty-stream-75885.herokuapp.com",
+    proxyURL: "https://cors-anywhere.herokuapp.com",
 
     canvasObjects: [
 
