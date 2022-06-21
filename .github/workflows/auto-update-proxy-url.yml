@@ -1,5 +1,7 @@
 name: auto-update-proxy-url
-on: [push]
+on: 
+  push:
+    - main
 jobs: 
   update-proxy-url:
     runs-on: ubuntu-latest
