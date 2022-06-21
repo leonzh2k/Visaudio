@@ -1,3 +1,4 @@
+import appConfig from "../appConfig.js";
 const vizCreatorModel = {
     /*
         Holds info that must be passed between views,
@@ -5,21 +6,12 @@ const vizCreatorModel = {
         to any view
     */
     
-    napsterAPIKey: "ZDIxMDM1NTEtYjk3OS00YTI1LWIyYjItYjBjOWVmMWYyN2I3",
-    // for local dev, use the demo server, for production, use my own server
-    // https://mighty-stream-75885.herokuapp.com
-    // https://mighty-stream-75885.herokuapp.com
-    proxyURL: "https://mighty-stream-75885.herokuapp.com",
+    napsterAPIKey: appConfig.NAPSTER_API_KEY,
+    proxyURL: appConfig.CORS_PROXY_SERVER_URL,
 
     canvasObjects: [
 
     ],
-
-    // assigned to objects
-    // nextAvailableObjectID: 1,
-
-    // selectedSongURL: null,
-
 
     canvasBackgroundColor: "#E5E5E5",
 
@@ -38,7 +30,7 @@ const vizCreatorModel = {
     // object that will be sent to database upon submission containing all info needed to display the viz
     databaseObject: {
         vizMetadata: {
-            songURL: "die",
+            songURL: null,
             canvasBackgroundColor: "#E5E5E5",
             canvasWidth: null,
             canvasHeight: null,

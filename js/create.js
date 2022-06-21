@@ -1,4 +1,5 @@
 
+import appConfig from "./appConfig.js";
 import vizCreatorModel from "./models/vizCreatorModel.js";
 import vizCreatorController from "./controllers/vizCreatorController.js";
 import objectToolbarView from "./views/objectToolbarView.js";
@@ -10,8 +11,8 @@ import vizSubmittedOverlayView from "./views/vizSubmittedOverlayView.js";
 import chooseSongOverlayView from "./views/chooseSongOverlayView.js";
 (() => {
     console.log("ready");
-    Parse.initialize("01t8qb2FLCXC70NIrlplthJEfFpLVhvx6RCK2S2Z", "MfK5pEk5haJ95TcyTeIkYQdodIQJ2sk1Pn3jZCXX"); //PASTE HERE YOUR Back4App APPLICATION ID AND YOUR JavaScript KEY
-    Parse.serverURL = "https://parseapi.back4app.com/";
+    Parse.initialize(appConfig.BACK4APP_APP_ID, appConfig.BACK4APP_JS_KEY); //PASTE HERE YOUR Back4App APPLICATION ID AND YOUR JavaScript KEY
+    Parse.serverURL = appConfig.BACK4APP_SERVER_URL;
 
     // https://www.freecodecamp.org/news/the-model-view-controller-pattern-mvc-architecture-and-frameworks-explained/
 

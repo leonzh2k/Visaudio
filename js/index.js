@@ -1,9 +1,10 @@
+import appConfig from "./appConfig.js";
 import galleryCanvas from "./viz/galleryCanvas.js";
 import thumbnailCanvas from "./viz/thumbnailCanvas.js";
 (() => {
 
-    Parse.initialize("01t8qb2FLCXC70NIrlplthJEfFpLVhvx6RCK2S2Z", "MfK5pEk5haJ95TcyTeIkYQdodIQJ2sk1Pn3jZCXX"); //PASTE HERE YOUR Back4App APPLICATION ID AND YOUR JavaScript KEY
-    Parse.serverURL = "https://parseapi.back4app.com/";
+    Parse.initialize(appConfig.BACK4APP_APP_ID, appConfig.BACK4APP_JS_KEY); //PASTE HERE YOUR Back4App APPLICATION ID AND YOUR JavaScript KEY
+    Parse.serverURL = appConfig.BACK4APP_SERVER_URL;
     
     let main = document.querySelector('main');
     let gallery = document.querySelector('#gallery');
@@ -115,7 +116,7 @@ import thumbnailCanvas from "./viz/thumbnailCanvas.js";
         section.id = "view-viz";
         main.appendChild(section);
         // for dev, use the demo server, for production, use my own server
-        currentViz = new p5(galleryCanvas(vizMetadata.get("vizMetadata"), vizIndex, vizNavigator, "https://mighty-stream-75885.herokuapp.com"), "view-viz");
+        currentViz = new p5(galleryCanvas(vizMetadata.get("vizMetadata"), vizIndex, vizNavigator, "https://cors-anywhere.herokuapp.com"), "view-viz");
     }
 
     

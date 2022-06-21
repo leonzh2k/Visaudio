@@ -9,7 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: |  
-          python ./.github/workflows/updateProxyURL.py
+          python ./.github/workflows/switchToProdProxyURL.py
           git config --local user.email "leonzh2k@github.com"
           git config --local user.name "leonzh2k"
           git add .
