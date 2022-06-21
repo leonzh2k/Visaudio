@@ -1,7 +1,8 @@
 name: auto-update-proxy-url
 on: 
   push:
-    - main
+    branches:
+      - main
 jobs: 
   update-proxy-url:
     runs-on: ubuntu-latest
