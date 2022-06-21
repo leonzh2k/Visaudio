@@ -13,7 +13,7 @@ jobs:
           git config --local user.email "leonzh2k@github.com"
           git config --local user.name "leonzh2k"
           git add .
-          git commit -m "auto update proxy URL"
+          git commit -m "update proxy URL used for loading audio"
           git push
 
       
