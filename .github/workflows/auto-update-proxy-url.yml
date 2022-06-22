@@ -2,7 +2,7 @@ name: auto-update-proxy-url
 on: 
   push:
     branches:
-      - autoSwitchDevToProdCode
+      - main
 jobs: 
   update-proxy-url:
     runs-on: ubuntu-latest
