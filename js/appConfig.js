@@ -6,4 +6,4 @@ const appConfig = {
     NAPSTER_API_KEY: "ZDIxMDM1NTEtYjk3OS00YTI1LWIyYjItYjBjOWVmMWYyN2I3"
 }
 
-export default appConfig;onfig;
+export default appConfig;
