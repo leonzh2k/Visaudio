@@ -2,18 +2,18 @@ name: auto-update-proxy-url
 on: 
   push:
     branches:
-      - main
+      - autoSwitchDevToProdCode
 jobs: 
   update-proxy-url:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - run: |  
-          python ./.github/workflows/switchToProdProxyURL.py
+          python ./.github/workflows/switchToProdCode.py
           git config --local user.email "leonzh2k@github.com"
           git config --local user.name "leonzh2k"
           git add .
-          git commit -m "update proxy URL used for loading audio"
+          git commit -m "switch to prod code"
           git push
 
       
