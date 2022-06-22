@@ -9,6 +9,7 @@
     Automates the process nicely, but exposes API keys. Will find
     a more secure way later.
 """
+fileContents = ""
 with open("./js/appConfig.js", "r+") as file:
     fileContents = file.read()
     # switch Dev DB to Prod DB
@@ -18,6 +19,9 @@ with open("./js/appConfig.js", "r+") as file:
     fileContents = fileContents.replace("ROb615yRAwDTRdIn1vLgpmSYn4o8NBibJUgGShTn", "MfK5pEk5haJ95TcyTeIkYQdodIQJ2sk1Pn3jZCXX")
     # switch dev CORS proxy url to prod proxy url
     fileContents = fileContents.replace("https://cors-anywhere.herokuapp.com", "https://mighty-stream-75885.herokuapp.com")
-    file.seek(0)
+
+open("./js/appConfig.js", "w").close()
+    
+with open("./js/appConfig.js", "w") as file:
     file.write(fileContents)
 
