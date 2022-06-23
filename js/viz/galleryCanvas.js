@@ -4,7 +4,7 @@
 
 */
 // We need to pass in a reference to the controller because we need to update other views when interacting with the canvas
-function galleryCanvas(vizData, vizIndex, vizNavigator, proxyUrl) {
+function galleryCanvas(vizData, vizIndex, controller, proxyUrl) {
     const galleryCanvas = ( sketch ) => {
         // variables bound to the sketch are accessible whereever the object is in scope
         // ex. we can modify them in the main JS file
@@ -12,7 +12,7 @@ function galleryCanvas(vizData, vizIndex, vizNavigator, proxyUrl) {
         sketch.canvasDOMElement = document.getElementById("canvas");
 
         sketch.objects = vizData.dbReadableCanvasObjects;
-        console.log("OBJECTS: ", sketch.objects)
+        // console.log("OBJECTS: ", sketch.objects)
         sketch.song = null;
         // let audioLoading = true;
 
@@ -49,22 +49,25 @@ function galleryCanvas(vizData, vizIndex, vizNavigator, proxyUrl) {
             sketch.playButton.position(sketch.windowWidth / 2 - 100, sketch.windowHeight - 100);
             sketch.playButton.mousePressed(toggleAudio);
 
-            if (vizIndex != vizNavigator.vizzes.length - 1) {
-                sketch.nextVizButton = sketch.createImg('./assets/img/nextVizButton.svg');
-                sketch.nextVizButton.position(sketch.windowWidth - 180, vizData.canvasHeight / 2);
-                sketch.nextVizButton.elt.style.cursor = "pointer";
-                sketch.nextVizButton.mousePressed(() => {
-                    vizNavigator.displayViz(vizIndex + 1);
-                });
-            }
-            if (vizIndex != 0) {
-                sketch.previousVizButton = sketch.createImg('./assets/img/previousVizButton.svg');
-                sketch.previousVizButton.position(-50, vizData.canvasHeight / 2);
-                sketch.previousVizButton.elt.style.cursor = "pointer";
-                sketch.previousVizButton.mousePressed(() => {
-                    vizNavigator.displayViz(vizIndex - 1);
-                });
-            }
+            // if (controller.getNextViz() != null) {
+            //     sketch.nextVizButton = sketch.createImg('./assets/img/nextVizButton.svg');
+            //     sketch.nextVizButton.position(sketch.windowWidth - 180, vizData.canvasHeight / 2);
+            //     sketch.nextVizButton.elt.style.cursor = "pointer";
+            //     sketch.nextVizButton.mousePressed(() => {
+            //         sketch.stopAudio();
+            //         controller.setCurrentViz
+            //     });
+            // }
+
+            // if (controller.getPreviousViz() != null) {
+            //     sketch.previousVizButton = sketch.createImg('./assets/img/previousVizButton.svg');
+            //     sketch.previousVizButton.position(-50, vizData.canvasHeight / 2);
+            //     sketch.previousVizButton.elt.style.cursor = "pointer";
+            //     sketch.previousVizButton.mousePressed(() => {
+            //         sketch.stopAudio();
+            //         controller.displayViz(vizIndex - 1);
+            //     });
+            // }
             
             
         };
