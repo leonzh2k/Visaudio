@@ -4,7 +4,7 @@
 
 */
 // We need to pass in a reference to the controller because we need to update other views when interacting with the canvas
-function galleryCanvas(vizData, vizIndex, controller, proxyUrl) {
+function galleryCanvas(vizData, controller, proxyUrl) {
     const galleryCanvas = ( sketch ) => {
         // variables bound to the sketch are accessible whereever the object is in scope
         // ex. we can modify them in the main JS file
@@ -12,19 +12,17 @@ function galleryCanvas(vizData, vizIndex, controller, proxyUrl) {
         sketch.canvasDOMElement = document.getElementById("canvas");
 
         sketch.objects = vizData.dbReadableCanvasObjects;
-        // console.log("OBJECTS: ", sketch.objects)
         sketch.song = null;
-        // let audioLoading = true;
 
         let fft = new p5.FFT();
         sketch.backgroundColor = vizData.canvasBackgroundColor;
         // emulate full screen
-        document.querySelector("body").style.backgroundColor = vizData.canvasBackgroundColor;
+        // document.querySelector("body").style.backgroundColor = vizData.canvasBackgroundColor;
         
         sketch.preload = () => {
             sketch.soundFormats('mp3');
             if (vizData.songURL != null) {
-                sketch.song = sketch.loadSound(`${proxyUrl}/${vizData.songURL}`)
+                sketch.song = sketch.loadSound(`${proxyUrl}/${vizData.songURL}`);
             }
         }
 
@@ -49,25 +47,25 @@ function galleryCanvas(vizData, vizIndex, controller, proxyUrl) {
             sketch.playButton.position(sketch.windowWidth / 2 - 100, sketch.windowHeight - 100);
             sketch.playButton.mousePressed(toggleAudio);
 
-            // if (controller.getNextViz() != null) {
-            //     sketch.nextVizButton = sketch.createImg('./assets/img/nextVizButton.svg');
-            //     sketch.nextVizButton.position(sketch.windowWidth - 180, vizData.canvasHeight / 2);
-            //     sketch.nextVizButton.elt.style.cursor = "pointer";
-            //     sketch.nextVizButton.mousePressed(() => {
-            //         sketch.stopAudio();
-            //         controller.setCurrentViz
-            //     });
-            // }
+            // conditionally display buttons to go to prev and next viz
+            if (controller.getCurrentVizIndex() != controller.getVizDataSize() - 1) {
+                console.log(controller.getCurrentVizIndex(), controller.getVizDataSize());
+                sketch.nextVizButton = sketch.createImg('./assets/img/nextVizButton.svg');
+                sketch.nextVizButton.position(sketch.windowWidth - 180, vizData.canvasHeight / 2);
+                sketch.nextVizButton.elt.style.cursor = "pointer";
+                sketch.nextVizButton.mousePressed(() => {
+                    controller.setCurrentVizIndex(controller.getCurrentVizIndex() + 1);
+                });
+            }
 
-            // if (controller.getPreviousViz() != null) {
-            //     sketch.previousVizButton = sketch.createImg('./assets/img/previousVizButton.svg');
-            //     sketch.previousVizButton.position(-50, vizData.canvasHeight / 2);
-            //     sketch.previousVizButton.elt.style.cursor = "pointer";
-            //     sketch.previousVizButton.mousePressed(() => {
-            //         sketch.stopAudio();
-            //         controller.displayViz(vizIndex - 1);
-            //     });
-            // }
+            if (controller.getCurrentVizIndex() != 0) {
+                sketch.previousVizButton = sketch.createImg('./assets/img/previousVizButton.svg');
+                sketch.previousVizButton.position(-50, vizData.canvasHeight / 2);
+                sketch.previousVizButton.elt.style.cursor = "pointer";
+                sketch.previousVizButton.mousePressed(() => {
+                    controller.setCurrentVizIndex(controller.getCurrentVizIndex() - 1);
+                });
+            }
             
             
         };
@@ -106,20 +104,17 @@ function galleryCanvas(vizData, vizIndex, controller, proxyUrl) {
             toggleAudio();
         }
 
-        sketch.windowResized = () => {
-            // sketch.resizeCanvas(sketch.canvasDOMElement.clientWidth,sketch.canvasDOMElement.clientHeight);
-            console.log("resize");
-        };
+        // sketch.windowResized = () => {
+        //     // sketch.resizeCanvas(sketch.canvasDOMElement.clientWidth,sketch.canvasDOMElement.clientHeight);
+        //     console.log("resize");
+        // };
 
         // Force stop audio, since audio occasionally keeps on playing even when the sketch is removed.
         // Is called in removeViz() in main script.
         sketch.stopAudio = () => {
             if (sketch.song != null) {
                 sketch.song.pause();
-            } else {
-                console.log("song removed before assigned")
-            }
-            
+            } 
         }
 
         function toggleAudio() {
@@ -127,13 +122,9 @@ function galleryCanvas(vizData, vizIndex, controller, proxyUrl) {
                 if (sketch.song.isPlaying()) {
                     sketch.song.pause();
                     sketch.playButton.elt.src = './assets/img/play_button.svg';
-                    // p.html('play');
-                    // sketch.noLoop();
                 } else {
                     sketch.song.play();
                     sketch.playButton.elt.src = './assets/img/pause_button.svg';
-                    // p.html('pause');
-                    // sketch.loop();
                 }
             } else {
                 console.log("song not ready")

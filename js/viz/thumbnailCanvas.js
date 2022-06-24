@@ -11,7 +11,6 @@ function thumbnailCanvas(vizData, containerWidth, containerHeight) {
         sketch.canvasDOMElement = document.getElementById("canvas");
 
         sketch.objects = vizData.dbReadableCanvasObjects;
-        console.log("OBJECTS: ", sketch.objects)
 
         sketch.backgroundColor = vizData.canvasBackgroundColor;
         
@@ -24,7 +23,6 @@ function thumbnailCanvas(vizData, containerWidth, containerHeight) {
             sketch.rectMode(sketch.CENTER);
             sketch.widthRatio = containerWidth / vizData.canvasWidth;
             sketch.heightRatio = containerHeight / vizData.canvasHeight;
-            console.log(sketch.widthRatio, sketch.heightRatio);
             sketch.noLoop();
         };
 
