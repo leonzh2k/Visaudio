@@ -4,6 +4,7 @@
 
 body {
     background-color: rgb(0, 0, 0);
+    font-family: Roboto;
 }
 
 /* main section {
@@ -16,29 +17,28 @@ a {
 }
 
 #container {
-    position: relative;
+    display: flex;
+    flex-direction: column;
     width: 100%;
-    max-width: 1366px;
-    /* make sure the columns don't get too small and text stays readable */
     min-width: 900px;
-    margin: 1em auto;
-    /* padding-top: 2em; */
-    /* border: 2px red solid; */
 }
 
 header {
     /* margin: 0 auto 2em auto; */
-    background-color: black;
-    width: 350px;
-    border-radius: 10px;
+    background-color: rgb(56, 56, 56);
+    height: 7vh;
+    display: flex;
+    align-items: center;
+    /* width: 350px; */
+    /* border-radius: 10px; */
     /* padding-top: 5px; */
     /* padding-bottom:  */
 }
 
 header nav ul {
     
-    font-size: 1.5em;
-    color: rgb(0, 255, 0);
+    font-size: 1.4em;
+    color: white;
     list-style-type: none;
     display: flex;
     /* border: 2px green solid; */
