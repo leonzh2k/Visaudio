@@ -11,6 +11,13 @@ body {
     height: 80vh;
 } */
 
+main {
+    display: flex;
+    border: 2px red solid;
+    flex-direction: row;
+    justify-content: center;
+}
+
 a {
     text-decoration: none;
     color: inherit;
@@ -29,6 +36,7 @@ header {
     height: 7vh;
     display: flex;
     align-items: center;
+    margin-bottom: 25px;
     /* width: 350px; */
     /* border-radius: 10px; */
     /* padding-top: 5px; */
@@ -62,13 +70,13 @@ header nav ul li {
 } */
 
 #gallery {
-    /* display: flex; */
-    /* flex-wrap: wrap; */
-    /* justify-content: flex-start; */
-    /* border: 2px blue solid; */
-
+    border: 2px blue solid;
+    min-width: 650px;
+    max-width: 1366px;
+    width: 89%;
     display: grid;
-    grid-template-columns: repeat(auto-fill, 325px);
+    justify-content: center;
+    grid-template-columns: repeat(auto-fit, 325px);
     column-gap: 10px;
     row-gap: 10px;
 }
