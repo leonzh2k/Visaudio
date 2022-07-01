@@ -10,18 +10,97 @@ body {
 /* main section {
     height: 80vh;
 } */
-
-main {
-    display: flex;
-    border: 2px red solid;
-    flex-direction: row;
-    justify-content: center;
-}
-
 a {
     text-decoration: none;
     color: inherit;
 }
+
+/* https://stackoverflow.com/questions/2460100/remove-the-complete-styling-of-an-html-button-submit */
+button {
+    background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+}
+
+main {
+    /* border: 2px red solid; */
+}
+
+.main-overview-mode {
+    /* border: 2px green solid; */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+.main-individual-mode {
+    /* border: 2px yellow solid; */
+    display: grid;
+    grid-template-columns: 6% 88% 6%;
+    grid-template-rows: 93% 7%;
+    height: 93vh;
+}
+
+#prev-viz-navigation-panel {
+    /* border: 2px blue solid; */
+    grid-column-start: 1;
+    grid-column-end: 1;
+    grid-row-start: 1;
+    grid-row-end: 1;
+    border-right: 1px rgb(185, 185, 185) solid;
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Canvas */
+#view-viz-area {
+    /* border: 2px green solid; */
+    grid-column-start: 2;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 1;
+    overflow: hidden; 
+    
+}
+
+#next-viz-navigation-panel {
+    /* border: 2px orange solid; */
+    background-color: white;
+    grid-column-start: 3;
+    grid-column-end: 3;
+    grid-row-start: 1;
+    grid-row-end: 1;
+    border-left: 1px rgb(185, 185, 185) solid;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Audio Controls */
+#audio-controls {
+    /* border: 2px purple solid; */
+    background-color: white;
+    grid-column-start: 1;
+    grid-column-end: 4;
+    grid-row-start: 2;
+    grid-row-end: 2;
+    border-top: 1px rgb(185, 185, 185) solid;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+
 
 #container {
     display: flex;
@@ -31,20 +110,14 @@ a {
 }
 
 header {
-    /* margin: 0 auto 2em auto; */
     background-color: rgb(56, 56, 56);
     height: 7vh;
     display: flex;
     align-items: center;
-    margin-bottom: 25px;
-    /* width: 350px; */
-    /* border-radius: 10px; */
-    /* padding-top: 5px; */
-    /* padding-bottom:  */
+    
 }
 
 header nav ul {
-    
     font-size: 1.4em;
     color: white;
     list-style-type: none;
@@ -70,7 +143,7 @@ header nav ul li {
 } */
 
 #gallery {
-    border: 2px blue solid;
+    /* border: 2px blue solid; */
     min-width: 650px;
     max-width: 1366px;
     width: 89%;

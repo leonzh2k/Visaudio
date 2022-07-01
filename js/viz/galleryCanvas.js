@@ -31,43 +31,13 @@ function galleryCanvas(vizData, controller, proxyUrl) {
             sketch.rectMode(sketch.CENTER);
             cnv.mousePressed(canvasPressed); // mouse events will only apply to canvas area
 
-            let songDetails = sketch.createP(`${vizData.artistName} - ${vizData.trackName} `);
-            songDetails.position(100, sketch.windowHeight - 115);
-            songDetails.elt.style.color = "white";
-            songDetails.elt.style.backgroundColor = "black";
-            songDetails.elt.style.fontSize = "20px";
+            // let songDetails = sketch.createP(`${vizData.artistName} - ${vizData.trackName} `);
+            // songDetails.position(100, sketch.windowHeight - 115);
+            // songDetails.elt.style.color = "white";
+            // songDetails.elt.style.backgroundColor = "black";
+            // songDetails.elt.style.fontSize = "20px";
 
-            sketch.playButton = sketch.createImg('./assets/img/play_button.svg');
-            sketch.song.onended(() => {
-                console.log("ended");
-                sketch.playButton.elt.src = './assets/img/play_button.svg';
-            });
-            // p.parent("view-viz");
-            sketch.playButton.style('font-size', '25px');
-            sketch.playButton.position(sketch.windowWidth / 2 - 100, sketch.windowHeight - 100);
-            sketch.playButton.mousePressed(toggleAudio);
-
-            // conditionally display buttons to go to prev and next viz
-            if (controller.getCurrentVizIndex() != controller.getVizDataSize() - 1) {
-                console.log(controller.getCurrentVizIndex(), controller.getVizDataSize());
-                sketch.nextVizButton = sketch.createImg('./assets/img/nextVizButton.svg');
-                sketch.nextVizButton.position(sketch.windowWidth - 180, vizData.canvasHeight / 2);
-                sketch.nextVizButton.elt.style.cursor = "pointer";
-                sketch.nextVizButton.mousePressed(() => {
-                    controller.setCurrentVizIndex(controller.getCurrentVizIndex() + 1);
-                });
-            }
-
-            if (controller.getCurrentVizIndex() != 0) {
-                sketch.previousVizButton = sketch.createImg('./assets/img/previousVizButton.svg');
-                sketch.previousVizButton.position(-50, vizData.canvasHeight / 2);
-                sketch.previousVizButton.elt.style.cursor = "pointer";
-                sketch.previousVizButton.mousePressed(() => {
-                    controller.setCurrentVizIndex(controller.getCurrentVizIndex() - 1);
-                });
-            }
-            
-            
+                    
         };
 
         // p5 will constantly call this draw function, so re-rendering of canvas is automatically handled.
@@ -101,7 +71,7 @@ function galleryCanvas(vizData, controller, proxyUrl) {
         };
 
         function canvasPressed() {
-            toggleAudio();
+            sketch.toggleAudio();
         }
 
         // sketch.windowResized = () => {
@@ -110,21 +80,20 @@ function galleryCanvas(vizData, controller, proxyUrl) {
         // };
 
         // Force stop audio, since audio occasionally keeps on playing even when the sketch is removed.
-        // Is called in removeViz() in main script.
         sketch.stopAudio = () => {
             if (sketch.song != null) {
                 sketch.song.pause();
             } 
         }
 
-        function toggleAudio() {
+        sketch.toggleAudio = () => {
             if (sketch.song != null) {
                 if (sketch.song.isPlaying()) {
                     sketch.song.pause();
-                    sketch.playButton.elt.src = './assets/img/play_button.svg';
+                    return "paused";
                 } else {
                     sketch.song.play();
-                    sketch.playButton.elt.src = './assets/img/pause_button.svg';
+                    return "playing";
                 }
             } else {
                 console.log("song not ready")

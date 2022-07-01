@@ -46,9 +46,13 @@ import thumbnailCanvas from "./viz/thumbnailCanvas.js";
             switch (galleryViewMode.curr) {
                 case ("overview"):
                     console.log("overview");
+                    this.mainDOMEle.classList.remove("main-individual-mode");
+                    this.mainDOMEle.classList.add("main-overview-mode");
                     galleryOverviewView.render();
                     break;
                 case ("individual"):
+                    this.mainDOMEle.classList.remove("main-overview-mode");
+                    this.mainDOMEle.classList.add("main-individual-mode");
                     galleryIndividualView.render();
                     break;
             }
@@ -91,18 +95,74 @@ import thumbnailCanvas from "./viz/thumbnailCanvas.js";
         },
 
         cleanup() {
-            this.vizP5Ref.stopAudio();
-            this.vizP5Ref.remove();
+            if (this.vizP5Ref != null) {
+                this.vizP5Ref.stopAudio();
+                this.vizP5Ref.remove();
+            }
         },
 
         render() {
             let section = document.createElement("section");
             section.id = "view-viz";
-            this.mainDOMEle.appendChild(section);
+            this.mainDOMEle.innerHTML = `
+                <section id="prev-viz-navigation-panel">
+                </section>
+                <section id="view-viz-area">
+                
+                </section>
+                <section id="next-viz-navigation-panel">
+                </section>
+                <section id="audio-controls">
+
+                </section>
+            
+            `
+            
+            // conditionally display buttons to go to prev and next viz
+            if (controller.getCurrentVizIndex() != controller.getVizDataSize() - 1) {
+                let nextVizButton = document.createElement("button");
+                let rightArrow =  document.createElement("img");
+                rightArrow.src = "./assets/img/nextVizButton.svg";
+                nextVizButton.appendChild(rightArrow);
+                
+                nextVizButton.addEventListener("click", () => {
+                    controller.setCurrentVizIndex(controller.getCurrentVizIndex() + 1);
+                });
+                document.querySelector("#next-viz-navigation-panel").appendChild(nextVizButton);
+            }
+
+            if (controller.getCurrentVizIndex() != 0) {
+                let prevVizButton = document.createElement("button");
+                let leftArrow =  document.createElement("img");
+                leftArrow.src = "./assets/img/previousVizButton.svg";
+                prevVizButton.appendChild(leftArrow);
+                document.querySelector("#prev-viz-navigation-panel").appendChild(prevVizButton);
+                prevVizButton.addEventListener("click", () => {
+                    controller.setCurrentVizIndex(controller.getCurrentVizIndex() - 1);
+                });
+            }
+
             const currentViz = controller.getCurrentViz();
             // emulate full screen
-            document.querySelector("body").style.backgroundColor = currentViz.canvasBackgroundColor;
-            this.vizP5Ref = new p5(galleryCanvas(currentViz, controller, appConfig.CORS_PROXY_SERVER_URL), "view-viz");
+            // document.querySelector("body").style.backgroundColor = currentViz.canvasBackgroundColor;
+            this.vizP5Ref = new p5(galleryCanvas(currentViz, controller, appConfig.CORS_PROXY_SERVER_URL), "view-viz-area");
+
+            let playButton = document.createElement("button");
+            let playButtonImg = document.createElement("img");
+            playButtonImg.src = "./assets/img/play_button.svg";
+            playButton.appendChild(playButtonImg);
+            playButton.addEventListener("click", () => {
+                const audioStatus = this.vizP5Ref.toggleAudio();
+                switch(audioStatus) {
+                    case("playing"):
+                        playButtonImg.src = "./assets/img/pause_button.svg";
+                        break;
+                    case("paused"):
+                        playButtonImg.src = "./assets/img/play_button.svg";
+                        break;
+                }
+            });
+            document.querySelector("#audio-controls").appendChild(playButton);
         }
     };
 
