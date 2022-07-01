@@ -10,7 +10,6 @@ import vizSubmissionDeniedOverlayView from "./views/vizSubmissionDeniedOverlayVi
 import vizSubmittedOverlayView from "./views/vizSubmittedOverlayView.js";
 import chooseSongOverlayView from "./views/chooseSongOverlayView.js";
 (() => {
-    console.log("ready");
     Parse.initialize(appConfig.BACK4APP_APP_ID, appConfig.BACK4APP_JS_KEY); //PASTE HERE YOUR Back4App APPLICATION ID AND YOUR JavaScript KEY
     Parse.serverURL = appConfig.BACK4APP_SERVER_URL;
 

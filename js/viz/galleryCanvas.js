@@ -16,9 +16,15 @@ function galleryCanvas(vizData, controller, proxyUrl) {
 
         let fft = new p5.FFT();
         sketch.backgroundColor = vizData.canvasBackgroundColor;
+        
         // emulate full screen
         // document.querySelector("body").style.backgroundColor = vizData.canvasBackgroundColor;
         
+        let loadingText = document.createElement("div");
+        loadingText.id = "viz-loading-text";
+        loadingText.textContent = "Loading visualization...";
+        document.querySelector("#view-viz-area").appendChild(loadingText);
+
         sketch.preload = () => {
             sketch.soundFormats('mp3');
             if (vizData.songURL != null) {
@@ -42,6 +48,10 @@ function galleryCanvas(vizData, controller, proxyUrl) {
 
         // p5 will constantly call this draw function, so re-rendering of canvas is automatically handled.
         sketch.draw = () => {
+            if (loadingText != null) {
+                loadingText.classList.add("hidden");
+                loadingText = null;
+            }
             fft.analyze();
             sketch.background(sketch.backgroundColor);
             sketch.fill(255);
@@ -75,7 +85,7 @@ function galleryCanvas(vizData, controller, proxyUrl) {
         }
 
         // sketch.windowResized = () => {
-        //     // sketch.resizeCanvas(sketch.canvasDOMElement.clientWidth,sketch.canvasDOMElement.clientHeight);
+        //     sketch.resizeCanvas(sketch.canvasDOMElement.clientWidth,sketch.canvasDOMElement.clientHeight);
         //     console.log("resize");
         // };
 
@@ -90,9 +100,11 @@ function galleryCanvas(vizData, controller, proxyUrl) {
             if (sketch.song != null) {
                 if (sketch.song.isPlaying()) {
                     sketch.song.pause();
+                    document.querySelector("#audio-controls button img").src = "./assets/img/play_button.svg";
                     return "paused";
                 } else {
                     sketch.song.play();
+                    document.querySelector("#audio-controls button img").src = "./assets/img/pause_button.svg";
                     return "playing";
                 }
             } else {

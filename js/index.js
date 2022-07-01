@@ -146,6 +146,13 @@ import thumbnailCanvas from "./viz/thumbnailCanvas.js";
             // emulate full screen
             // document.querySelector("body").style.backgroundColor = currentViz.canvasBackgroundColor;
             this.vizP5Ref = new p5(galleryCanvas(currentViz, controller, appConfig.CORS_PROXY_SERVER_URL), "view-viz-area");
+            
+            document.querySelector("#view-viz-area").style.backgroundColor = currentViz.canvasBackgroundColor;
+
+            let artistInfo = document.createElement("span");
+            artistInfo.id = "artist-info";
+            artistInfo.textContent = `${currentViz.artistName} - ${currentViz.trackName}`;
+            document.querySelector("#audio-controls").append(artistInfo);
 
             let playButton = document.createElement("button");
             let playButtonImg = document.createElement("img");
