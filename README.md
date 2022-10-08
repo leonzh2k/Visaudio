@@ -2,7 +2,7 @@
 My capstone project done for the University Honors Program at UC Davis. 
 You can read the paper <a href="https://leonzh2k.github.io/academic_papers/Visaudio_Project_Book.pdf" target="_blank">here</a>
 
-Live website link: <a href="https://leonzh2k.github.io/Visaudio/" target="_blank">https://leonzh2k.github.io/Visaudio/</a>
+Live DEPLOYMENT LINK: <a href="https://leonzh2k.github.io/Visaudio/" target="_blank">https://leonzh2k.github.io/Visaudio/</a>
 <br>
 Wireframes <a href="https://www.figma.com/file/Do7grHLNvjXHS0Z8w42YLX/Interactive-Design-Comp-(Copy)?node-id=0%3A1">here</a>
 
