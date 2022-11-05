@@ -1,19 +1,40 @@
+LIVE DEPLOYMENT LINK: <a href="https://leonzh2k.github.io/Visaudio/" target="_blank">https://leonzh2k.github.io/Visaudio/</a>
+
 ### Introduction
-My capstone project done for the University Honors Program at UC Davis. 
+Audio visualizer originally built as my capstone project for the University Honors Program at UC Davis. However, I intend to continue my work and make this prototype into a audio visualization platform unlike any other on the Internet. Stay tuned...
+
 You can read the paper <a href="https://leonzh2k.github.io/academic_papers/Visaudio_Project_Book.pdf" target="_blank">here</a>
 
-Live DEPLOYMENT LINK: <a href="https://leonzh2k.github.io/Visaudio/" target="_blank">https://leonzh2k.github.io/Visaudio/</a>
-<br>
 Wireframes <a href="https://www.figma.com/file/Do7grHLNvjXHS0Z8w42YLX/Interactive-Design-Comp-(Copy)?node-id=0%3A1">here</a>
 
-### Future goals:
-- Moving to a "proper" back-end (Node, Express, PostgreSQL) hosted somewhere. Currently the front-end of the app is hosted on Github Pages. The back-end is simply a MongoDB database hosted by Back4App and the front-end interacts with the database through their API. This means I don't have to write any database queries, or pretty much any server side code at all. If I stick with this low-code solution, I would be missing out on a great opportunity to learn what really goes on in the back-end of a web app. Besides that, low code solutions can really restrict the amount of things you can do (see: website builders). 
+### Guiding Principles
+* Ease of use
+* User freedom
+
+### Application Architecture
+App is structured as model-view-controller. Front-end of the app is hosted on Github Pages. The back-end is a MongoDB database hosted by Back4App and the front-end interacts with the database through their API.
+
+### Technologies / APIs
+* HTML
+* CSS
+* Vanilla Javascript
+* p5.js
+* Napster API
+* Back4App backend service
+
+### Features 
+* Create visualizations in the visualization builder
+* Browse and experience visualizations from other users in the gallery
 
 ### TODO
-- User accounts
-- Move to a front-end framework (React, Vue, etc.)
-- refactor CSS
-- polymorphism of shape types to eliminate duplicate code
-- add ability to delete objects
-- proper tutorial/onboarding
-- Saving image preview of the visualizations
+- General
+    - Move to a front-end framework (React, Vue, etc.)
+    - Move to proper back-end hosted somewhere (Node, Express, SQL/NoSQL)
+    - Implement user accounts
+    - clean up CSS
+- Visualization editor
+    - polymorphism of shape types to eliminate duplicate code
+    - add ability to delete objects
+    - proper tutorial/onboarding
+- Gallery
+    - Saving image preview of the visualizations
