@@ -16,5 +16,10 @@
   "bugs": {
     "url": "https://github.com/leonzh2k/Visaudio/issues"
   },
-  "homepage": "https://github.com/leonzh2k/Visaudio#readme"
+  "homepage": "https://github.com/leonzh2k/Visaudio#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "parse": "^3.5.0"
+  }
 }
