@@ -1,4 +1,4 @@
-import { asyncFetchTrackData } from "../modules/apiCalls.js";
+import appConfig from "../appConfig.js";
 const chooseSongOverlayView = {
     init(controller) {
         this.controller = controller;
@@ -19,8 +19,6 @@ const chooseSongOverlayView = {
             this.controller.setChooseSongOverlayActive(false);
         });
 
-        
-
         this.searchSongInputDOMElem.addEventListener("keypress", async (e) => {
             if (e.key === "Enter") {
                 const songToSearch = e.currentTarget.value;
@@ -30,27 +28,28 @@ const chooseSongOverlayView = {
                     // clear previous results
                     this.searchResultsDOMElem.innerHTML = "";
                     
-                    asyncFetchTrackData(this.controller.getNapsterAPIKey(), songToSearch).then(searchResults => {
-                        console.log(searchResults);
-                        // figure out which tracks are playable and which aren't 
-                        searchResults.search.data.tracks.forEach(track => {
-                            let song = document.createElement("div");
-                            song.innerHTML = `${track.artistName} - ${track.name}`;
-                            this.searchResultsDOMElem.appendChild(song);
+                    const response = await fetch(`${appConfig.BACKEND_URL}/track/?song=${songToSearch}`);
 
-                            let audioObj = new Audio(track.previewURL);
-                            audioObj.addEventListener("error", () => {
-                                song.remove();
-                            });
+                    const results = await response.json();
+                    console.log(results);
+                    // figure out which tracks are playable and which aren't 
+                    results.search.data.tracks.forEach(track => {
+                        let song = document.createElement("div");
+                        song.innerHTML = `${track.artistName} - ${track.name}`;
+                        this.searchResultsDOMElem.appendChild(song);
 
-                            song.addEventListener("click", () => {
-                                document.querySelector("#current-song span").innerHTML = `${track.artistName} - ${track.name}`;
-                                // update model current selected song
-                                this.controller.setSelectedSongURL(track.previewURL, track.artistName, track.name);
-                            });
-                            
-                            
+                        let audioObj = new Audio(track.previewURL);
+                        audioObj.addEventListener("error", () => {
+                            song.remove();
                         });
+
+                        song.addEventListener("click", () => {
+                            document.querySelector("#current-song span").innerHTML = `${track.artistName} - ${track.name}`;
+                            // update model current selected song
+                            this.controller.setSelectedSongURL(track.previewURL, track.artistName, track.name);
+                        });
+                        
+                        
                     });
                     /*
                         Show results after all the unplayable songs are filtered out.

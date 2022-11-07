@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require("cors");
 const parse = require("parse/node");
+const fetch = require("node-fetch");
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -22,6 +23,12 @@ app.get("/gallery", cors(corsOptions), async (req, res) => {
     const results = await query.descending('createdAt').find();
     res.send(results);
 });
+
+app.get("/track", cors(corsOptions), async (req, res) => {
+    const response = await fetch(`https://api.napster.com/v2.2/search?apikey=${process.env.NAPSTER_API_KEY}&query=${req.query.song}&type=track`);
+    const trackData = await response.json();
+    res.send(trackData);
+})
 
 app.listen(8080, () => {
     console.log("server started!");

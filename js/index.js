@@ -178,11 +178,6 @@ import thumbnailCanvas from "./viz/thumbnailCanvas.js";
             const response = await fetch(`${appConfig.BACKEND_URL}/gallery`);
             const results = await response.json();
             console.log("fetching visualizations...")
-            console.log(results);
-            // const vizMetadata = Parse.Object.extend('vizMetadata');
-            // const query = new Parse.Query(vizMetadata);
-            // // results shown by most recent order
-            // const results = await query.descending('createdAt').find();
             this.setVizData(results);
             this.setVizDataSize(results.length);
         },
