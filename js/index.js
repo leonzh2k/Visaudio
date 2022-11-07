@@ -175,7 +175,7 @@ import thumbnailCanvas from "./viz/thumbnailCanvas.js";
 
     const controller = {
         async fetchVizData() {
-            const response = await fetch("http://localhost:8080/gallery");
+            const response = await fetch(`${appConfig.BACKEND_URL}/gallery`);
             const results = await response.json();
             console.log("fetching visualizations...")
             console.log(results);
