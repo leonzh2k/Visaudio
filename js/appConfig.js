@@ -4,7 +4,7 @@ const appConfig = {
     BACK4APP_SERVER_URL: "https://parseapi.back4app.com/",
     CORS_PROXY_SERVER_URL: "https://cors-anywhere-rzaw.onrender.com",
     NAPSTER_API_KEY: "ZDIxMDM1NTEtYjk3OS00YTI1LWIyYjItYjBjOWVmMWYyN2I3",
-    BACKEND_URL: "http://localhost:8080"
+    BACKEND_URL: "https://visaudio.onrender.com"
 }
 
 export default appConfig;
