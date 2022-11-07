@@ -82,7 +82,7 @@ import thumbnailCanvas from "./viz/thumbnailCanvas.js";
                     controller.setCurrentVizIndex(i);
                     
                 });
-                new p5(thumbnailCanvas(vizData[i].get("vizMetadata"), thumbnailWidth, thumbnailHeight), vizThumbnail.id);
+                new p5(thumbnailCanvas(vizData[i]["vizMetadata"], thumbnailWidth, thumbnailHeight), vizThumbnail.id);
                 
             }
         }
@@ -175,11 +175,14 @@ import thumbnailCanvas from "./viz/thumbnailCanvas.js";
 
     const controller = {
         async fetchVizData() {
+            const response = await fetch("http://localhost:8080/gallery");
+            const results = await response.json();
             console.log("fetching visualizations...")
-            const vizMetadata = Parse.Object.extend('vizMetadata');
-            const query = new Parse.Query(vizMetadata);
-            // results shown by most recent order
-            const results = await query.descending('createdAt').find();
+            console.log(results);
+            // const vizMetadata = Parse.Object.extend('vizMetadata');
+            // const query = new Parse.Query(vizMetadata);
+            // // results shown by most recent order
+            // const results = await query.descending('createdAt').find();
             this.setVizData(results);
             this.setVizDataSize(results.length);
         },
@@ -219,7 +222,7 @@ import thumbnailCanvas from "./viz/thumbnailCanvas.js";
         },
 
         getCurrentViz() {
-            return model.vizData[this.getCurrentVizIndex()].get("vizMetadata");
+            return model.vizData[this.getCurrentVizIndex()]["vizMetadata"];
         },
 
         setCurrentVizIndex(index) {

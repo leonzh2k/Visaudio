@@ -1,3 +1,7 @@
+import appConfig from "../appConfig.js";
+Parse.initialize(appConfig.BACK4APP_APP_ID, appConfig.BACK4APP_JS_KEY); //PASTE HERE YOUR Back4App APPLICATION ID AND YOUR JavaScript KEY
+Parse.serverURL = appConfig.BACK4APP_SERVER_URL;
+
 const vizCreatorController = {
     init(
             vizCreatorModel,
@@ -108,13 +112,15 @@ const vizCreatorController = {
             dbReadableObject.noFill = obj.noFill;
             this.vizCreatorModel.databaseObject.vizMetadata.dbReadableCanvasObjects.push(dbReadableObject);
         });
-
-        // console.log(this.vizCreatorModel.databaseObject);
+        
         // send to DB
         const vizMetadata = Parse.Object.extend("vizMetadata");
         const VizMetadata = new vizMetadata();
-
-        VizMetadata.save(this.vizCreatorModel.databaseObject);
+        VizMetadata.save(this.vizCreatorModel.databaseObject).then((result) =>{
+            console.log("visualization submitted successfully!");
+        }).catch(function(error){
+            console.log('Error: ' + error.message);
+        });
     },
 
     setSelectedCanvasObjectProperty(property, value) {

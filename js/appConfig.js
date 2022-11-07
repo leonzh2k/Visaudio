@@ -1,9 +1,10 @@
 const appConfig = {
-    BACK4APP_APP_ID: "01t8qb2FLCXC70NIrlplthJEfFpLVhvx6RCK2S2Z",
-    BACK4APP_JS_KEY: "MfK5pEk5haJ95TcyTeIkYQdodIQJ2sk1Pn3jZCXX",
+    BACK4APP_APP_ID: "oa4Y3OIsjK2iHCWY8iirFCK1tdt8QflVtyVJNzZ5",
+    BACK4APP_JS_KEY: "ROb615yRAwDTRdIn1vLgpmSYn4o8NBibJUgGShTn",
     BACK4APP_SERVER_URL: "https://parseapi.back4app.com/",
-    CORS_PROXY_SERVER_URL: "https://cors-anywhere-rzaw.onrender.com",
-    NAPSTER_API_KEY: "ZDIxMDM1NTEtYjk3OS00YTI1LWIyYjItYjBjOWVmMWYyN2I3"
+    CORS_PROXY_SERVER_URL: "https://cors-anywhere.herokuapp.com",
+    NAPSTER_API_KEY: "ZDIxMDM1NTEtYjk3OS00YTI1LWIyYjItYjBjOWVmMWYyN2I3",
+    BACKEND_URL: "localhost:8080"
 }
 
 export default appConfig;
