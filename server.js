@@ -28,7 +28,19 @@ app.get("/track", cors(corsOptions), async (req, res) => {
     const response = await fetch(`https://api.napster.com/v2.2/search?apikey=${process.env.NAPSTER_API_KEY}&query=${req.query.song}&type=track`);
     const trackData = await response.json();
     res.send(trackData);
-})
+});
+
+app.post("/submit", cors(corsOptions), async (req, res) => {
+    // send to DB
+    // console.log(req.body.dbEntry);
+    const vizMetadata = parse.Object.extend("vizMetadata");
+    const VizMetadata = new vizMetadata();
+    VizMetadata.save(req.body.dbEntry).then((result) =>{
+        console.log("visualization submitted successfully!");
+    }).catch(function(error){
+        console.log('Error: ' + error.message);
+    });
+});
 
 app.listen(8080, () => {
     console.log("server started!");

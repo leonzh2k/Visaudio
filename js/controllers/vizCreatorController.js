@@ -1,6 +1,4 @@
 import appConfig from "../appConfig.js";
-Parse.initialize(appConfig.BACK4APP_APP_ID, appConfig.BACK4APP_JS_KEY); //PASTE HERE YOUR Back4App APPLICATION ID AND YOUR JavaScript KEY
-Parse.serverURL = appConfig.BACK4APP_SERVER_URL;
 
 const vizCreatorController = {
     init(
@@ -73,7 +71,7 @@ const vizCreatorController = {
     // },
 
     // runs when submit button is clicked
-    submitVizToDB() {
+    async submitVizToDB() {
         // {
         //     x: 10,
         //     y: 10,
@@ -112,15 +110,19 @@ const vizCreatorController = {
             dbReadableObject.noFill = obj.noFill;
             this.vizCreatorModel.databaseObject.vizMetadata.dbReadableCanvasObjects.push(dbReadableObject);
         });
-        
+        console.log(this.vizCreatorModel.databaseObject);
         // send to DB
-        const vizMetadata = Parse.Object.extend("vizMetadata");
-        const VizMetadata = new vizMetadata();
-        VizMetadata.save(this.vizCreatorModel.databaseObject).then((result) =>{
-            console.log("visualization submitted successfully!");
-        }).catch(function(error){
-            console.log('Error: ' + error.message);
-        });
+        const params = {
+            dbEntry: this.vizCreatorModel.databaseObject,
+        };
+        const options = {
+            method: 'POST',
+            headers: {"Content-type": "application/json"},
+            body: JSON.stringify(params)  
+        };
+        console.log(options);
+        // should probably add some error handling here
+        await fetch(`${appConfig.BACKEND_URL}/submit`, options);
     },
 
     setSelectedCanvasObjectProperty(property, value) {
