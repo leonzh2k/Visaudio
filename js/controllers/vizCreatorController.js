@@ -39,10 +39,6 @@ const vizCreatorController = {
         this.vizCreatorModel.contextMenu.currentMode = mode;
     },
 
-    getNapsterAPIKey() {
-        return this.vizCreatorModel.napsterAPIKey;
-    },
-
     getProxyURL() {
         return this.vizCreatorModel.proxyURL;
     },

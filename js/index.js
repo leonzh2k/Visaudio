@@ -2,9 +2,6 @@ import appConfig from "./appConfig.js";
 import galleryCanvas from "./viz/galleryCanvas.js";
 import thumbnailCanvas from "./viz/thumbnailCanvas.js";
 (() => {
-
-    Parse.initialize(appConfig.BACK4APP_APP_ID, appConfig.BACK4APP_JS_KEY); //PASTE HERE YOUR Back4App APPLICATION ID AND YOUR JavaScript KEY
-    Parse.serverURL = appConfig.BACK4APP_SERVER_URL;
     
     const model = {
         galleryViewMode: {

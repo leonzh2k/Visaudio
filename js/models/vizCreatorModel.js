@@ -6,7 +6,6 @@ const vizCreatorModel = {
         to any view
     */
     
-    napsterAPIKey: appConfig.NAPSTER_API_KEY,
     proxyURL: appConfig.CORS_PROXY_SERVER_URL,
 
     canvasObjects: [

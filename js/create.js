@@ -1,5 +1,4 @@
 
-import appConfig from "./appConfig.js";
 import vizCreatorModel from "./models/vizCreatorModel.js";
 import vizCreatorController from "./controllers/vizCreatorController.js";
 import objectToolbarView from "./views/objectToolbarView.js";
