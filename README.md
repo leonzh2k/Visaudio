@@ -12,15 +12,21 @@ Wireframes <a href="https://www.figma.com/file/Do7grHLNvjXHS0Z8w42YLX/Interactiv
 * User freedom
 
 ### Application Architecture
-App is structured as model-view-controller. Front-end of the app is hosted on Github Pages. The back-end is a MongoDB database hosted by Back4App and the front-end interacts with the database through their API.
+The frontend is just vanilla HTML/CSS/JS model-view-controller app hosted on Github Pages. The back-end technically consists of 3 servers: 
+* S1: Node/Express server written by me, hosted on Render 
+* S2: Node CORS proxy server NOT written by me, I just hosted my own instance (<a href="https://github.com/Rob--W/cors-anywhere" target="_blank">source code</a>)
+    * I need this because Napster's server doesn't provide necessary headers in the response when I request the audio data for visualizations triggering CORS errors. The proxy makes the request on behalf of my frontend, adds the necessary headers to the response, and sends it back, all good.
+* S3: MongoDB database hosted on Back4App
+
 
 ### Technologies / APIs
-* HTML
-* CSS
+* HTML/CSS
 * Vanilla Javascript
 * p5.js
 * Napster API
-* Back4App backend service
+* Node.js
+* Express.js
+* Back4App database solution
 
 ### Features 
 * Create visualizations in the visualization builder
