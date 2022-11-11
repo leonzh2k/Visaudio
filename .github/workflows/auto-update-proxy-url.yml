@@ -1,4 +1,4 @@
-name: auto-update-proxy-url
+name: Update backend URL referenced in frontend code
 on: 
   push:
     branches:

@@ -2,3 +2,4 @@
 .env
 *_gitignore.py
 node_modules
+notes

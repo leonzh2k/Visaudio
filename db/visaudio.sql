@@ -1,0 +1,1 @@
+CREATE TABLE visualizations (viz_name integer);
