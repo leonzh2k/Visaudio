@@ -12,12 +12,17 @@ module.exports = {
                 ssl: buildMode ? false : {rejectUnauthorized: false}
             });
         }
-        return pool;
     }),
 
     closeConnection: () => {
         if (pool) {
             pool.end();
         }
-    }
+    },
+
+    // queryTransactionSafe?
+
+    query: async (text, params, callback) => {
+        return await pool.query(text, params, callback);
+    },
 };

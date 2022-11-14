@@ -3,11 +3,12 @@ const express = require('express');
 const cors = require("cors");
 const parse = require("parse/node");
 const fetch = require("node-fetch");
+const db = require("./db");
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-const db = require("./db");
+db.createConnection();
 
 var corsOptions = {
     origin: process.env.FRONTEND_ORIGIN,
