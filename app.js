@@ -7,7 +7,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// const db = require("./db");
+const db = require("./db");
 
 var corsOptions = {
     origin: process.env.FRONTEND_ORIGIN,
