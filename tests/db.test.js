@@ -26,7 +26,7 @@ afterEach(async () => {
 
 afterAll(async () => {
     await pool.query("DROP TABLE IF EXISTS visualizations;")
-    pool.end();
+    db.closeConnection();
 });
 
 describe("test singleton db connection", () => {
