@@ -20,11 +20,25 @@ parse.serverURL = process.env.BACK4APP_SERVER_URL;
 
 app.get("/gallery", cors(corsOptions), async (req, res) => {
     console.log("fetching visualizations...")
-    const vizMetadata = parse.Object.extend('vizMetadata');
-    const query = new parse.Query(vizMetadata);
-    // // results shown by most recent order
-    const results = await query.descending('createdAt').find();
-    res.send(results);
+    const results = await db.query("SELECT * FROM visualizations;");
+    // format into the structure that the frontend expects
+    let formattedResults = [];
+    results.rows.forEach(row => {
+        formattedResults.push({
+            vizMetadata: {
+                id: row.id,
+                updatedAt: row.updated_at,
+                artistName: row.song_artist,
+                trackName: row.song_name,
+                songURL: row.song_url,
+                canvasBackgroundColor: row.graphics.canvasBackgroundColor,
+                canvasWidth: row.graphics.canvasWidth,
+                canvasHeight: row.graphics.canvasHeight, 
+                dbReadableCanvasObjects: row.graphics.canvasObjects
+            }
+        })
+    });
+    res.send(formattedResults);
 });
 
 app.get("/track", cors(corsOptions), async (req, res) => {
@@ -35,14 +49,20 @@ app.get("/track", cors(corsOptions), async (req, res) => {
 
 app.post("/submit", cors(corsOptions), async (req, res) => {
     // send to DB
-    // console.log(req.body.dbEntry);
-    const vizMetadata = parse.Object.extend("vizMetadata");
-    const VizMetadata = new vizMetadata();
-    VizMetadata.save(req.body.dbEntry).then((result) =>{
-        console.log("visualization submitted successfully!");
-    }).catch(function(error){
-        console.log('Error: ' + error.message);
-    });
+    const data = req.body.dbEntry.vizMetadata;
+    console.log(req.body.dbEntry.vizMetadata);
+    const text = `INSERT INTO visualizations (song_name, song_artist, song_url, graphics) VALUES($1, $2, $3, $4) RETURNING *`;
+    const graphics = {
+        canvasBackgroundColor: data.canvasBackgroundColor,
+        canvasWidth: data.canvasWidth,
+        canvasHeight: data.canvasHeight,
+        canvasObjects: data.dbReadableCanvasObjects
+    }
+    const values = [data.trackName, data.artistName, data.songURL, graphics];
+    const result = await db.query(text, values);
+    console.log(result)
+    res.send(result);
 });
 
 module.exports = app;
+
