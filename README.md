@@ -23,7 +23,7 @@ Wireframes <a href="https://www.figma.com/file/Do7grHLNvjXHS0Z8w42YLX/Interactiv
 The frontend is just vanilla HTML/CSS/JS model-view-controller app hosted on Github Pages. The back-end technically consists of 5 servers: 
 * S1: Node/Express server written by me, hosted on Render 
     * DB operations / API requests needed by the frontend go here first because I want to keep DB and API keys a secret from the client.
-* S2: PostgreSQL database server written by me, hosted on Render
+* S2: PostgreSQL database server (queries/schema written by me), hosted on Render
 * S3: Napster API server
 * S4: Server hosting audio files
     * Origin is different from Napster's API server, so my guess is they're separate servers
