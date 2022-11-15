@@ -8,6 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      # https://stackoverflow.com/questions/8123674/how-to-git-commit-nothing-without-an-error
       - run: |  
           python ./.github/workflows/switchToProdCode.py
           git config --local user.email "leonzh2k@gmail.com"
