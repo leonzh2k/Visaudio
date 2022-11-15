@@ -1,7 +1,6 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require("cors");
-const parse = require("parse/node");
 const fetch = require("node-fetch");
 const db = require("./db");
 const app = express();
@@ -14,9 +13,6 @@ var corsOptions = {
     origin: process.env.FRONTEND_ORIGIN,
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }
-
-parse.initialize(process.env.BACK4APP_APP_ID, process.env.BACK4APP_JS_KEY); //PASTE HERE YOUR Back4App APPLICATION ID AND YOUR JavaScript KEY
-parse.serverURL = process.env.BACK4APP_SERVER_URL;
 
 app.get("/", cors(corsOptions), async (req, res) => {
     res.status(200).send("Hello, World!");
