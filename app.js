@@ -18,6 +18,10 @@ var corsOptions = {
 parse.initialize(process.env.BACK4APP_APP_ID, process.env.BACK4APP_JS_KEY); //PASTE HERE YOUR Back4App APPLICATION ID AND YOUR JavaScript KEY
 parse.serverURL = process.env.BACK4APP_SERVER_URL;
 
+app.get("/", cors(corsOptions), async (req, res) => {
+    res.status(200).send("Hello, World!");
+});
+
 app.get("/gallery", cors(corsOptions), async (req, res) => {
     console.log("fetching visualizations...")
     const results = await db.query("SELECT * FROM visualizations;");
