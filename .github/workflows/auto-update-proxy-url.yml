@@ -15,5 +15,5 @@ jobs:
           git add .
           git commit -m "switch to prod code"
           git push
-
+          exit 0
       
