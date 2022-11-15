@@ -13,7 +13,6 @@ jobs:
           git config --local user.email "leonzh2k@gmail.com"
           git config --local user.name "leonzh2k"
           git add .
-          git commit -m "switch to prod code"
-          git push
-          exit 0
+          git diff-index --quiet HEAD || git commit -m 'switch to prod env vars' && git push
+
       
