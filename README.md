@@ -21,7 +21,7 @@ Wireframes <a href="https://www.figma.com/file/Do7grHLNvjXHS0Z8w42YLX/Interactiv
 
 ### Application Architecture
 The frontend is just vanilla HTML/CSS/JS model-view-controller app hosted on Github Pages. The back-end technically consists of 5 servers: 
-* S1: Node/Express server written by me, hosted on Render 
+* S1: Node/Express server written by me, hosted on Cyclic 
     * DB operations / API requests needed by the frontend go here first because I want to keep DB and API keys a secret from the client.
 * S2: PostgreSQL database server (queries/schema written by me), hosted on Render
 * S3: Napster API server
