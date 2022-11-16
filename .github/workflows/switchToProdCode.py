@@ -10,8 +10,8 @@ fileContents = ""
 with open("./js/appConfig.js", "r+") as file:
     fileContents = file.read()
     # switch dev CORS proxy url to prod proxy url
-    fileContents = fileContents.replace("https://cors-anywhere.herokuapp.com", "https://easy-red-chicken-hem.cyclic.app")
-    fileContents = fileContents.replace("http://localhost:8080", "https://visaudio.onrender.com")
+    fileContents = fileContents.replace("https://cors-anywhere.herokuapp.com", "https://cors-anywhere-rzaw.onrender.com")
+    fileContents = fileContents.replace("http://localhost:8080", "https://frail-capris-ant.cyclic.app")
 
 open("./js/appConfig.js", "w").close()
     
