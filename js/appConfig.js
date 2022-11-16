@@ -1,5 +1,5 @@
 const appConfig = {
-    CORS_PROXY_SERVER_URL: "https://cors-anywhere-rzaw.onrender.com",
+    CORS_PROXY_SERVER_URL: "https://cors-anywhere-lz.onrender.com",
     BACKEND_URL: "https://frail-capris-ant.cyclic.app"
 }
 
