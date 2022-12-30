@@ -42,6 +42,13 @@ main {
     margin-top: 25px;
 }
 
+#gallery-loading-text {
+    color: white;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
 .main-individual-mode {
     /* border: 2px yellow solid; */
     display: grid;
