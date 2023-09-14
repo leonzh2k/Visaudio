@@ -47,7 +47,7 @@ const vizCreatorController = {
         this.vizCreatorModel.audio.selectedSongURL = songURL;
         this.vizCreatorModel.audio.artistName = artistName;
         this.vizCreatorModel.audio.trackName = trackName;
-        this.audioPlayerView.audioPlayer.loadAudio(`${this.getProxyURL()}/${songURL}`);
+        this.audioPlayerView.audioPlayer.loadAudio(`${songURL}`);
     },
 
     // getAudioPlayerStatus() {
