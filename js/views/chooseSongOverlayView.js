@@ -28,7 +28,7 @@ const chooseSongOverlayView = {
                     // clear previous results
                     this.searchResultsDOMElem.innerHTML = "";
                     
-                    const response = await fetch(`${appConfig.BACKEND_URL}/track/?song=${songToSearch}`);
+                    const response = await fetch(`https://api.napster.com/v2.2/search?apikey=ZDIxMDM1NTEtYjk3OS00YTI1LWIyYjItYjBjOWVmMWYyN2I3&query=${songToSearch}&type=track`);
 
                     const results = await response.json();
                     console.log(results);

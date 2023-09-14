@@ -28,7 +28,7 @@ function galleryCanvas(vizData, controller, proxyUrl) {
         sketch.preload = () => {
             sketch.soundFormats('mp3');
             if (vizData.songURL != null) {
-                sketch.song = sketch.loadSound(`${proxyUrl}/${vizData.songURL}`);
+                sketch.song = sketch.loadSound(`${vizData.songURL}`);
             }
         }
 
