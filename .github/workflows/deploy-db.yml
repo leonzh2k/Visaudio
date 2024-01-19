@@ -36,4 +36,4 @@ jobs:
       - run: |  
           apt-get update
           apt-get install --yes --no-install-recommends postgresql-client
-          PGPASSWORD=${{secrets.PROD_DB_PASSWORD}} psql -h ${{secrets.PROD_DB_URL}} -U ${{secrets.PROD_DB_USER}} ${{secrets.PROD_DB_NAME}} < ./db/visaudio.sql
+          psql ${{secrets.PROD_DB_CONNECTION_STRING}} < ./db/visaudio.sql
