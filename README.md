@@ -8,7 +8,7 @@ choose your song, and make it dance to the beat!
 
 ## Usage
 
-Visit https://leonzh2k.github.io/Visaudio/ to get started. From there, you can:
+Visit https://visaudio.fly.dev to get started. From there, you can:
 
 - View visualizations from other users:
 
