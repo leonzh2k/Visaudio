@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require("cors");
 const fetch = require("node-fetch");
+const path = require("path");
 const db = require("./db");
 const app = express();
 app.use(cors());
@@ -13,10 +14,6 @@ var corsOptions = {
     origin: process.env.FRONTEND_ORIGIN,
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }
-
-app.get("/", cors(corsOptions), async (req, res) => {
-    res.status(200).send("Hello, World!");
-});
 
 app.get("/gallery", cors(corsOptions), async (req, res) => {
     console.log("fetching visualizations...")
@@ -63,6 +60,8 @@ app.post("/submit", cors(corsOptions), async (req, res) => {
     console.log(result)
     res.send(result);
 });
+
+app.use("/", express.static(path.join(__dirname, "public")));
 
 module.exports = app;
 

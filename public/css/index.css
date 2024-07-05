@@ -1,0 +1,206 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: rgb(0, 0, 0);
+    font-family: Roboto;
+}
+
+/* main section {
+    height: 80vh;
+} */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.hidden {
+    display: none;
+}
+
+/* https://stackoverflow.com/questions/2460100/remove-the-complete-styling-of-an-html-button-submit */
+button {
+    background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+}
+
+main {
+    /* border: 2px red solid; */
+}
+
+.main-overview-mode {
+    /* border: 2px green solid; */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+#gallery-loading-text {
+    color: white;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+.main-individual-mode {
+    /* border: 2px yellow solid; */
+    display: grid;
+    grid-template-columns: 6% 88% 6%;
+    grid-template-rows: 93% 7%;
+    height: 93vh;
+}
+
+#prev-viz-navigation-panel {
+    /* border: 2px blue solid; */
+    grid-column-start: 1;
+    grid-column-end: 1;
+    grid-row-start: 1;
+    grid-row-end: 1;
+    border-right: 1px rgb(185, 185, 185) solid;
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+/* wrapper containing p5 canvas */
+#view-viz-area {
+    /* border: 2px green solid; */
+    grid-column-start: 2;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 1;
+    overflow: hidden; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#viz-loading-text {
+    position: absolute;
+    background-color: black;
+    color: white;
+    z-index: 1; /* To make it show on top of built in p5 loading text */
+}
+
+#next-viz-navigation-panel {
+    /* border: 2px orange solid; */
+    background-color: white;
+    grid-column-start: 3;
+    grid-column-end: 3;
+    grid-row-start: 1;
+    grid-row-end: 1;
+    border-left: 1px rgb(185, 185, 185) solid;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Audio Controls */
+#audio-controls {
+    /* border: 2px purple solid; */
+    position: relative;
+    background-color: white;
+    grid-column-start: 1;
+    grid-column-end: 4;
+    grid-row-start: 2;
+    grid-row-end: 2;
+    border-top: 1px rgb(185, 185, 185) solid;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+#artist-info {
+    font-weight: bold;
+    font-size: 18px;
+    position: absolute;
+    left: 30px;
+    /* flex-grow: 1; */
+}
+
+
+#container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-width: 900px;
+}
+
+header {
+    background-color: rgb(56, 56, 56);
+    height: 7vh;
+    display: flex;
+    align-items: center;
+    
+}
+
+header nav ul {
+    font-size: 1.4em;
+    color: white;
+    list-style-type: none;
+    display: flex;
+    /* border: 2px green solid; */
+}
+
+header nav ul li {
+    cursor: pointer;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-right: 1em;
+}
+
+/* div {
+    border-radius: 2px white solid;
+    /* font-size: 20px; 
+*/
+
+/* #view-viz {
+    height: 20vh;
+    width: 20vw;
+} */
+
+#gallery {
+    /* border: 2px blue solid; */
+    min-width: 650px;
+    max-width: 1366px;
+    width: 89%;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(auto-fit, 325px);
+    column-gap: 10px;
+    row-gap: 10px;
+}
+
+#gallery div {
+    height: 250px;
+    width: 325px;
+    border: 1px white solid;
+    /* margin-bottom: 1.5em; */
+    text-align: center;
+    vertical-align: bottom;
+    cursor: pointer;
+}
+
+#gallery div img {
+    height: inherit;
+    width: inherit;
+    border: 1px rgb(102, 102, 102) solid;
+}
+
+#view-viz {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
