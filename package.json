@@ -25,5 +25,8 @@
     "node-fetch": "^2.6.7",
     "nodemon": "^2.0.20",
     "pg": "^8.8.0"
+  },
+  "devDependencies": {
+    "@flydotio/dockerfile": "^0.5.7"
   }
 }

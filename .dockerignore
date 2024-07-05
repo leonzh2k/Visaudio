@@ -1,0 +1,6 @@
+.mp3
+.env
+*_gitignore.py
+node_modules
+notes
+migration
